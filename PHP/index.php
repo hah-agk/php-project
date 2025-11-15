@@ -1,6 +1,6 @@
 <?php
     session_start();
-    
+    echo " main uodate";
     if (!isset($_SESSION["allusers"])) {
         $_SESSION["allusers"] = array();
     }
@@ -28,6 +28,10 @@
 </head>
 <body>
     <?php  
+        echo "Hello, World!";
+        echo "<br>";
+        echo "Hello, World!";
+        echo "<br>";
         echo "Hello, World!";
     ?>
 <form method="post" action="">
