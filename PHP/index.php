@@ -27,6 +27,7 @@ echo " third update";
     <title>Document</title>
 </head>
 <body>
+    <h1>king</h1>
     <?php  
         echo "stop editing!";
 
@@ -47,10 +48,13 @@ echo " third update";
             }
         ?>
     </ul>
+<<<<<<< HEAD
     
 <form action="index.php" method="post">
     <input type="text" name="name" placeholder="Enter your name">
     <input type="submit" value="Submit">
 </form>
+=======
+>>>>>>> 2ec510e07b9d97753f4668738dd56c9bb8a892f8
 </body>
 </html>
