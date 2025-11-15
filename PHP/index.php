@@ -4,7 +4,7 @@
     if (!isset($_SESSION["allusers"])) {
         $_SESSION["allusers"] = array();
     }
-
+echo " second update";
     $error = '';
     $message = '';
 
