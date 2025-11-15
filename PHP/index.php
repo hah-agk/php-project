@@ -28,8 +28,13 @@ echo " third update";
 </head>
 <body>
     <?php  
+<<<<<<< HEAD
         echo "stop editing";
         
+=======
+        echo "stop editing!";
+
+>>>>>>> 69c14add5b18df0b840d397b1eeb03468c43815a
     ?>
 <form method="post" action="">
     Username:<input type="text" name="username">
