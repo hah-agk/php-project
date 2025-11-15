@@ -1,13 +1,13 @@
 <?php
     session_start();
-    
+    echo " main uodate";
     if (!isset($_SESSION["allusers"])) {
         $_SESSION["allusers"] = array();
     }
-
+echo " second update";
     $error = '';
     $message = '';
-
+echo " third update";
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = trim($_POST['username'] ?? '');
 
@@ -36,6 +36,7 @@
     <button type="submit">Submit</button>
 </form>
     <h2>All Users:</h2>
+    <h1>hsuada</h1>
     <ul>
         <?php
             if ($error) {
