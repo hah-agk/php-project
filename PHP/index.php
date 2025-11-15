@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
     session_start();
     echo " main uodate";
@@ -21,7 +19,6 @@ echo " third update";
         }
     }
 ?>
->>>>>>> 45912a78cc9842ecc1fb0ca686205f2064b9d52a
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,18 +27,8 @@ echo " third update";
     <title>Document</title>
 </head>
 <body>
+    <h1>king</h1>
     <?php  
-<<<<<<< HEAD
-        echo "Hello, World!";
-        echo "<br>";
-        echo "Hello, World!";
-        echo "<br>";
-        echo "Hello, World!";
-        echo"te3dil";
-        echo"<br>";
-        echo "Hello,2 !";
-    ?>
-=======
         echo "stop editing!";
 
     ?>
@@ -65,6 +52,5 @@ echo " third update";
             }
         ?>
     </ul>
->>>>>>> 45912a78cc9842ecc1fb0ca686205f2064b9d52a
 </body>
 </html>
