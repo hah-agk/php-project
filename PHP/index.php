@@ -1,6 +1,6 @@
 <?php
     session_start();
-    
+    echo " main uodate";
     if (!isset($_SESSION["allusers"])) {
         $_SESSION["allusers"] = array();
     }
