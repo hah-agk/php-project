@@ -184,7 +184,7 @@ if (!$is_logged_in) {
     <div class="sidebar" style="width: 250px;">
         <div class="p-3">
             <h4 class="text-center mb-4">
-                <i class="fas fa-tachometer-alt me-2"></i>Admin Panel
+                <i class="fas fa-tachometer-alt me-2"></i>Maneger Panel
             </h4>
         </div>
         <ul class="nav flex-column">
@@ -358,6 +358,9 @@ if (!$is_logged_in) {
                         <div class="d-grid gap-2">
                             <button class="btn btn-outline-primary">
                                 <i class="fas fa-plus me-2"></i>Add New User
+                            </button>
+                                 <button class="btn btn-outline-primary">
+                                <i class="fas fa-plus me-2"></i>Add New 
                             </button>
                             <button class="btn btn-outline-success">
                                 <i class="fas fa-download me-2"></i>Export Data

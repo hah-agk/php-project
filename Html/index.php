@@ -11,14 +11,15 @@
 <body>
     <div class="container">
         <div class="form-box login">
-            <form action="../Html/mapage.php" method="post">
+            <form action="mapage.php" method="post">
+                <input type="hidden" name="login" value="1">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="username" name="username" required>
                     <i class="bx bxs-user" id="aa" ></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="password"  name="password" required name="">
+                    <input type="password" placeholder="password" name="password" required>
                     <i class="bx bxs-lock-alt" id="aa"></i>
                 </div>
                 <div class="forget-link">
@@ -27,10 +28,10 @@
                 <button type="submit" class="btn" name="button">Login</button>
                 <p>or login with social platforms</p>
                 <div class="social-icons">
-                    <a href="#"><i class="bx bxl-google" ></i></a>
-                    <a href="#"><i class="bx bxl-facebook" ></i></a>
-                    <a href="#"><i class="bx bxl-github" ></i></a>
-                    <a href="#"><i class="bx bxl-linkedin" ></i></a>
+                    <a href="https://www.google.com/"><i class="bx bxl-google" ></i></a>
+                    <a href="https://www.facebook.com/"><i class="bx bxl-facebook" ></i></a>
+                    <a href="https://github.com/"><i class="bx bxl-github" ></i></a>
+                    <a href="https://www.linkedin.com/"><i class="bx bxl-linkedin" ></i></a>
                 </div>
             </form>
 
