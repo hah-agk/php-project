@@ -37,6 +37,38 @@ try {
 
     echo "✔ Table 'users' created successfully.";
 
+    $sql = "
+    CREATE TABLE IF NOT EXISTS manager (
+        id INT(11) NOT NULL AUTO_INCREMENT,
+        name VARCHAR(50) NOT NULL,
+        phone INT(11) NOT NULL,
+        addres VARCHAR(100) NOT NULL,
+        salary INT(11) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        password VARCHAR(120) NOT NULL,
+        PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ";
+
+    // 5) Run SQL
+    $pdo->exec($sql);
+
+    echo "✔ Table 'manager' created successfully.";
+
+   $sql = "
+   CREATE TABLE IF NOT EXISTS  task (
+    idm INT AUTO_INCREMENT PRIMARY KEY,
+    namem VARCHAR(255) NOT NULL,
+    status VARCHAR(100),
+    deadline DATE,
+    description TEXT,
+    bounty DECIMAL(10,2)
+)";;
+
+    // 5) Run SQL
+    $pdo->exec($sql);
+
+    echo "✔ Table 'task' created successfully.";
 } catch (PDOException $exception) {
     echo "❌ Error: " . $exception->getMessage();
 }
