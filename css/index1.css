@@ -9,11 +9,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-<<<<<<< HEAD
-    background:hsla(hue, saturation, lightness, alpha) ;
-=======
    background: beige;
->>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
 }
 .container{
     position: relative;
@@ -23,11 +19,7 @@ body{
     border-radius: 100px;
     overflow: hidden;
     box-shadow: 0 0px 30px rgba(0,0,0,0.2);
-<<<<<<< HEAD
-    border-radius: 50px;
-=======
    
->>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
     
 }
 .form-box {
@@ -90,11 +82,8 @@ button{
     align-items: center;
     margin: 10px 0;
     padding: 10px 0;
-<<<<<<< HEAD
-=======
     font-size: 30px;
-   
->>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
+ 
 }
 #aa {
     font-size: 30px;
@@ -104,8 +93,4 @@ button{
     position: relative;
     right: 150px;
     bottom: 35px;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
