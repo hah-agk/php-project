@@ -177,7 +177,7 @@ if (!$is_logged_in) {
             background: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-    </style>*/
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
