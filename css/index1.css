@@ -9,16 +9,25 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+<<<<<<< HEAD
     background:hsla(hue, saturation, lightness, alpha) ;
+=======
+   background: beige;
+>>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
 }
 .container{
     position: relative;
     width: 850px;
     height: 550px;
     background: #fff;
-    border-radius: 30px;
+    border-radius: 100px;
+    overflow: hidden;
     box-shadow: 0 0px 30px rgba(0,0,0,0.2);
+<<<<<<< HEAD
     border-radius: 50px;
+=======
+   
+>>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
     
 }
 .form-box {
@@ -28,6 +37,7 @@ body{
         height: 100%;
         padding: 40px;
         overflow: hidden;
+                border-radius: inherit;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -53,7 +63,7 @@ input:focus {
 }
 .forget-link{
   margin: 10px 0;
-  
+
 }
 
 .forget-link a {
@@ -80,6 +90,11 @@ button{
     align-items: center;
     margin: 10px 0;
     padding: 10px 0;
+<<<<<<< HEAD
+=======
+    font-size: 30px;
+   
+>>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
 }
 #aa {
     font-size: 30px;
@@ -89,4 +104,8 @@ button{
     position: relative;
     right: 150px;
     bottom: 35px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4a86061fe6300fd8ba1260750ab8db260238a446
