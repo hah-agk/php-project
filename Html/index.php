@@ -1,3 +1,19 @@
+<?php
+
+if (isset($_POST['button'])) {
+    $name = $_POST['username'];
+    $password = $_POST['password'];
+    if ($name == "admin" && $password == "admin123") {
+       header("Location: ../Html/mapage.php");
+       
+    } else {
+        
+      $msfgg="Invalid username or password.";
+     header("Location: ../Html/index.php");
+       
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +27,7 @@
 <body>
     <div class="container">
         <div class="form-box login">
-            <form action="php.phppage" method="post">
+            <form action="../html/index.php" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="username" name="username" required>
