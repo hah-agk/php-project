@@ -9,15 +9,17 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background:linear-gradient(90deg,#e2e2e2,#c9d6ff);
+   background: beige;
 }
 .container{
     position: relative;
     width: 850px;
     height: 550px;
     background: #fff;
-    border-radius: 30px;
+    border-radius: 100px;
+    overflow: hidden;
     box-shadow: 0 0px 30px rgba(0,0,0,0.2);
+   
     
 }
 .form-box {
@@ -27,6 +29,7 @@ body{
         height: 100%;
         padding: 40px;
         overflow: hidden;
+                border-radius: inherit;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,7 +55,7 @@ input:focus {
 }
 .forget-link{
   margin: 10px 0;
-  
+
 }
 
 .forget-link a {
@@ -79,4 +82,15 @@ button{
     align-items: center;
     margin: 10px 0;
     padding: 10px 0;
+    font-size: 30px;
+ 
+}
+#aa {
+    font-size: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+    right: 150px;
+    bottom: 35px;
 }
