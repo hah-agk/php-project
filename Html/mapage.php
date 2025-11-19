@@ -29,6 +29,13 @@ if (isset($_GET['logout'])) {
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
+
+// Check if user is logged in
+$is_logged_in = isset($_SESSION['user']);
+$current_user = $_SESSION['user'] ?? '';
+$user_role = $_SESSION['role'] ?? '';
+
+
 ?>
 
 <!DOCTYPE html>
