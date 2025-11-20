@@ -1,4 +1,6 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    # code...
 
 if (isset($_POST['button'])) {
     $name = $_POST['username'];
@@ -12,6 +14,7 @@ if (isset($_POST['button'])) {
      header("Location: ../Html/index.php");
        
     }
+}
 }
 ?>
 <!DOCTYPE html>
