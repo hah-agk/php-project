@@ -26,7 +26,7 @@ $stats = [
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    header("Location: ../Html/index.php ");
     exit;
 }
 
