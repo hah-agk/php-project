@@ -26,7 +26,7 @@ $stats = [
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    header("Location: ../Html/index.php ");
     exit;
 }
 
@@ -35,90 +35,7 @@ $is_logged_in = isset($_SESSION['user']);
 $current_user = $_SESSION['user'] ?? '';
 $user_role = $_SESSION['role'] ?? '';
 
-// If not logged in, show login form
-if (!$is_logged_in) {
-    ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Login</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-        <style>
-            body {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                height: 100vh;
-                display: flex;
-                align-items: center;
-            }
-            .login-container {
-                background: white;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            }
-            .login-header {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border-radius: 10px 10px 0 0;
-                padding: 2rem;
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <div class="login-container">
-                        <div class="login-header">
-                            <h3><i class="fas fa-lock me-2"></i>Admin Dashboard</h3>
-                            <p class="mb-0">Sign in to your account</p>
-                        </div>
-                        <div class="p-4">
-                            <?php if (isset($error)): ?>
-                                <div class="alert alert-danger"><?= $error ?></div>
-                            <?php endif; ?>
-                            
-                            <form method="POST">
-                                <input type="hidden" name="login" value="1">
-                                <div class="mb-3">
-                                    <label class="form-label">Username</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <input type="text" class="form-control" name="username" value="admin" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Password</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                        <input type="password" class="form-control" name="password" value="admin123" required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="fas fa-sign-in-alt me-2"></i>Login
-                                </button>
-                            </form>
-                            
-                            <div class="text-center mt-3">
-                                <small class="text-muted">
-                                    Demo credentials:<br>
-                                    <strong>admin / admin123</strong><br>
-                                    <strong>user / user123</strong>
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-    </html>
-    <?php
-    exit;
-}
+
 ?>
 
 <!DOCTYPE html>

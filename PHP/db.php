@@ -15,4 +15,4 @@ try {
     echo "Connection to database faild! Error : ". $exception->getMessage();
     die();
 }
-
+?>
