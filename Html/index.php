@@ -1,20 +1,22 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    # code...
+session_start();
 
-if (isset($_POST['button'])) {
-    $name = $_POST['username'];
-    $password = $_POST['password'];
-    if ($name == "admin" && $password == "admin123") {
-       header("Location: ../Html/mapage.php");
-       
-    } else {
-        
-      $msfgg="Invalid username or password.";
-     header("Location: ../Html/index.php");
-       
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if (isset($_POST['button'])) {
+        $name = $_POST['username'];
+        $password = $_POST['password'];
+        if ($name == "admin" && $password == "admin123") {
+            // set session so other pages recognize the logged in user
+            $_SESSION['user'] = $name;
+            $_SESSION['role'] = 'admin';
+            header("Location: ../Html/mapage.php");
+            exit;
+        } else {
+            // failed login - redirect back (could show message)
+            header("Location: ../Html/index.php");
+            exit;
+        }
     }
-}
 }
 ?>
 <!DOCTYPE html>
