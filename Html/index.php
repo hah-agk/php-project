@@ -1,18 +1,32 @@
+<?php
+
+if (isset($_POST['button'])) {
+    $name = $_POST['username'];
+    $password = $_POST['password'];
+    if ($name == "admin" && $password == "admin123") {
+       header("Location: ../Html/mapage.php");
+       
+    } else {
+        
+      $msfgg="Invalid username or password.";
+     header("Location: ../Html/index.php");
+       
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <link rel="stylesheet" href="../css/index1.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <div class="container">
         <div class="form-box login">
-            <form action="mapage.php" method="post">
-                <input type="hidden" name="login" value="1">
+            <form action="../html/index.php" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="username" name="username" required>

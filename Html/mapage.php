@@ -22,20 +22,6 @@ $stats = [
     'revenue' => '$12,847'
 ];
 
-// Handle login
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if (isset($users[$username]) && password_verify($password, $users[$username])) {
-        $_SESSION['user'] = $username;
-        $_SESSION['role'] = ($username === 'admin') ? 'admin' : 'user';
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        $error = "Invalid username or password!";
-    }
-}
 
 // Handle logout
 if (isset($_GET['logout'])) {
