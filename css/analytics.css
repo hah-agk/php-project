@@ -1,0 +1,78 @@
+/* Analytics page styles - professional theme */
+:root{
+  --bg: #f7fafc;
+  --panel: #ffffff;
+  --muted: #64748b;
+  --accent: #06b6d4;
+  --accent-2: #10b981;
+  --shadow: 0 10px 30px rgba(2,6,23,0.06);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+html,body{height:100%;}
+body{
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  margin:0; background:var(--bg); color:#0f172a;
+}
+
+.sidebar{
+  background: linear-gradient(180deg,#07112a,#081428);
+  color:#e6eef6; position:fixed; height:100vh; width:250px; padding-top:18px; box-shadow:2px 0 18px rgba(2,6,23,0.08);
+}
+.sidebar .p-3 h4{ font-weight:700; }
+.sidebar .nav-link{ color:#cbd5e1; margin:8px 12px; padding:10px 16px; border-radius:8px; display:flex; gap:10px; align-items:center; }
+.sidebar .nav-link.active{ background: rgba(6,182,212,0.08); color:var(--accent); font-weight:600; box-shadow: inset 4px 0 0 rgba(6,182,212,0.12);} 
+
+.main-content{ margin-left:250px; padding:28px; }
+
+.card{ background:var(--panel); border-radius:12px; border:none; box-shadow:var(--shadow);} 
+.card-header{ border-bottom:none; background:transparent; padding:16px 20px; }
+.card-body{ padding:18px 20px; }
+
+.chart-wrap{ max-height:360px; }
+
+/* Hover grow effect for featured cards (row.mb-4) */
+.row.mb-4 { overflow: visible; }
+.row.mb-4 .card{
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease, z-index .01s;
+  transform-origin: center top;
+  will-change: transform, box-shadow;
+  position: relative;
+  z-index: 1;
+}
+.row.mb-4 .card:hover{
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 28px 60px rgba(2,6,23,0.14);
+  z-index: 30;
+}
+
+.kpi{ border-radius:10px; padding:18px; color:#fff; }
+.kpi h5{ margin:0; font-weight:600; }
+.kpi p{ margin:6px 0 0; font-size:1.4rem; font-weight:700; }
+.kpi.small{ padding:14px; }
+
+.kpi.bg-primary{
+     background: linear-gradient(90deg,#06b6d4,#0ea5a4);
+ }
+.kpi.bg-success{
+     background: linear-gradient(90deg,#10b981,#34d399);
+     }
+.kpi.bg-warning{
+     background: linear-gradient(90deg,#f59e0b,#f97316);
+     }
+.kpi.bg-info{
+     background: linear-gradient(90deg,#60a5fa,#3b82f6);
+     }
+
+.table thead th{ 
+    border-bottom:2px solid #eef2f7; color:#334155; font-weight:600;
+ }
+.table tbody td{
+     vertical-align:middle;
+     }
+
+.btn-export{ border-radius:8px; }
+
+@media (max-width:991px){ .sidebar{ position:relative; width:100%; height:auto; } .main-content{ margin-left:0; padding:16px; } }
+@media (max-width:576px){ .card-header, .card-body{ padding:12px; } }

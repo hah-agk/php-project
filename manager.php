@@ -26,7 +26,7 @@ $stats = [
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: ../Html/index.php ");
+    header("Location: login.php ");
     exit;
 }
 
@@ -46,34 +46,34 @@ $user_role = $_SESSION['role'] ?? '';
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/man.css">
+<link rel="stylesheet"  href="../css/man.css">
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar" style="width: 250px;">
-        <div class="p-3">
+        <div class="mp">
             <h4 class="text-center mb-4">
                 <i class="fas fa-tachometer-alt me-2"></i>Maneger Panel
             </h4>
         </div>
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="mapage.php">
+            <li>
+                <a class="nav-link active" href="manager.php">
                     <i class="fas fa-home me-2"></i>Dashboard
                 </a>
             </li>
             
-            <li class="nav-item">
+            <li >
                 <a class="nav-link" href="analyticspage.php">
                     <i class="fas fa-chart-bar me-2"></i>Analytics
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="#">
                     <i class="fas fa-cog me-2"></i>Settings
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="?logout=1">
                     <i class="fas fa-sign-out-alt me-2"></i>Logout
                 </a>
@@ -84,17 +84,17 @@ $user_role = $_SESSION['role'] ?? '';
     <!-- Main Content -->
     <div class="main-content">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light mb-4">
+        <nav class="navbar ">
             <div class="container-fluid">
-                <span class="navbar-brand">Dashboard</span>
-                <div class="d-flex">
-                    <span class="navbar-text me-3">
+                <span >Dashboard</span>
+                <div >
+                    <span >
                         Welcome, <strong><?= htmlspecialchars($current_user) ?></strong>
                         <span class="badge bg-<?= $user_role === 'admin' ? 'danger' : 'primary' ?> ms-1">
                             <?= ucfirst($user_role) ?>
                         </span>
                     </span>
-                    <a href="?logout=1" class="btn btn-outline-danger btn-sm">
+                    <a href="?logout=1">
                         <i class="fas fa-sign-out-alt me-1"></i>Logout
                     </a>
                 </div>
@@ -109,7 +109,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['total_users'] ?></h2>
-                                <p>Total Users</p>
+                                <p style="color: black;">Total Users</p>
                             </div>
                             <i class="fas fa-users fa-3x opacity-50"></i>
                         </div>
@@ -122,7 +122,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['active_users'] ?></h2>
-                                <p>Active Users</p>
+                                <p style="color: black;">Active Users</p>
                             </div>
                             <i class="fas fa-user-check fa-3x opacity-50"></i>
                         </div>
@@ -135,7 +135,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['new_today'] ?></h2>
-                                <p>New Today</p>
+                                <p style="color: black;">New Today</p>
                             </div>
                             <i class="fas fa-user-plus fa-3x opacity-50"></i>
                         </div>
@@ -148,7 +148,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['revenue'] ?></h2>
-                                <p>Revenue</p>
+                                <p style="color: black;">Revenue</p>
                             </div>
                             <i class="fas fa-dollar-sign fa-3x opacity-50"></i>
                         </div>

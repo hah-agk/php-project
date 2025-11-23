@@ -1,33 +1,118 @@
-  .sidebar {
-            background: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-        }
-        .sidebar .nav-link {
-            color: #bdc3c7;
-            padding: 12px 20px;
-            margin: 5px 0;
-            border-radius: 5px;
-        }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background: #34495e;
-            color: white;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .stat-card {
-            transition: transform 0.2s;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+/* Professional manager/dashboard styles */
+:root{
+    --bg: #f5f7fb;
+    --sidebar-bg: #07112a;
+    --accent: #2dd4bf;
+    --muted: #6b7280;
+    --card-bg: #ffffff;
+    --shadow: 0 8px 24px rgba(16,24,40,0.06);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+body{
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: var(--bg);
+    color: #0f172a;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    margin: 0;
+}
+
+.sidebar{
+    background: linear-gradient(180deg, var(--sidebar-bg), #0b1b33);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    padding-top: 18px;
+    box-shadow: 2px 0 12px rgba(2,6,23,0.12);
+}
+
+.sidebar .mp h4{ font-weight:700;
+                  letter-spacing:0.2px; }
+
+.sidebar .nav-link{
+    color: #cbd5e1;
+    padding: 12px 20px;
+    margin: 6px 12px;
+    border-radius: 8px;
+    display:flex; align-items:center;
+    gap:10px;
+    transition: all .14s ease;
+}
+
+.sidebar .nav-link i{ width:18px; text-align:center; }
+
+.sidebar .nav-link:hover{ transform: translateX(6px); background: rgba(255,255,255,0.03); color: #fff; }
+
+.sidebar .nav-link.active{
+    background: rgba(45,212,191,0.12);
+    color: var(--accent);
+    box-shadow: inset 4px 0 0 rgba(45,212,191,0.18);
+    font-weight:600;
+}
+
+.main-content{ 
+    margin-left: 250px;
+     padding: 28px;
+      min-height:100vh; }
+
+.navbar{  background: transparent;
+          padding:0;
+          margin-bottom: 18px;
+     }
+
+.card{ background: var(--card-bg);
+       border: none;
+       border-radius: 12px;
+       box-shadow: var(--shadow);
+     }
+
+.card .card-header{ background:transparent;
+                    border-bottom: none;
+                    padding: 18px 20px;
+     }
+
+.stat-card .card-body{ padding: 20px; }
+
+.stat-card p{ margin:0;
+              color:var(--muted);
+             }
+
+.table thead th{ border-bottom: 2px solid #eef2f7;
+                 color: #334155;
+                 font-weight:600; }
+.table tbody tr td{ vertical-align: middle; }
+
+.btn-primary{
+    background: linear-gradient(90deg,#0ea5a4,#06b6d4);
+    border: none;
+     box-shadow: 0 6px 18px rgba(6,182,212,0.12);
+}
+
+.btn-outline-primary{ border-radius:8px; }
+
+/* Responsive adjustments */
+@media (max-width: 991px){
+    .sidebar{ position: relative; width:100%; height:auto; box-shadow:none; }
+    .main-content{ margin-left:0; padding:16px; }
+}
+
+@media (max-width: 576px){
+    .card .card-header, .card .card-body{ padding:12px; }
+}
+
+/* Hover grow effect for manager/dashboard cards (same as analytics) */
+.row.mb-4 { overflow: visible; }
+.row.mb-4 .card{
+    transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease, z-index .01s;
+    transform-origin: center top;
+    will-change: transform, box-shadow;
+    position: relative;
+    z-index: 1;
+}
+.row.mb-4 .card:hover{
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 28px 60px rgba(2,6,23,0.14);
+    z-index: 30;
+}
