@@ -92,17 +92,13 @@ $user_role = $_SESSION['role'] ?? '';
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="mapage.php">
                     <i class="fas fa-home me-2"></i>Dashboard
                 </a>
             </li>
+            
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-users me-2"></i>Users
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="analyticspage.php">
                     <i class="fas fa-chart-bar me-2"></i>Analytics
                 </a>
             </li>
@@ -249,6 +245,7 @@ $user_role = $_SESSION['role'] ?? '';
                 </div>
             </div>
         </div>
+        </div>
 
         <!-- Quick Actions -->
         <div class="row mt-4">
@@ -263,7 +260,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary">
-                                <i class="fas fa-plus me-2"></i>Add New 
+                                <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">
                                 <i class="fas fa-download me-2"></i>Export Data
@@ -297,6 +294,6 @@ $user_role = $_SESSION['role'] ?? '';
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
