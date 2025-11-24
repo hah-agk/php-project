@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'component/opendb.php';
+require 'component/opendb.php';
 
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Wrong Method");
@@ -20,7 +20,7 @@ try {
            FROM manager 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
-           $stmt->blindParam(":email", $email);
+           $stmt->blindParam("email", $email);
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
