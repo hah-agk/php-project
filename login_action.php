@@ -40,6 +40,8 @@ try {
              header("location:login.php?err=2");
         exit();
     }   
+    $_SESSION['UorM']= "user";
+    $_SESSION['email']= $email;
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];
@@ -50,6 +52,8 @@ try {
              header("location:login.php?err=2");
         exit();
         }   
+    $_SESSION['UorM']= "manager";
+    $_SESSION['email']= $email;
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];

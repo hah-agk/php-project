@@ -1,6 +1,14 @@
 <?php
 session_start();
-      
+      if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM'] == "manager") {
+          header("Location: manager.php");
+          exit();
+      }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="user") {
+          header("Location: user.php");
+          exit();
+      }
 ?>
 <!DOCTYPE html>
 <html lang="en">
