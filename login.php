@@ -25,7 +25,7 @@ session_start();
             <form action="login_action.php" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="email" name="email" value= <?php $_SESSION['email']; ?> required>
+                    <input type="text"  value= "<?php echo $_SESSION['email'];?>"  name="email"  placeholder="email" required> 
                     <i class="bx bxs-user" id="aa" ></i>
                 </div>
                 <div class="input-box">
