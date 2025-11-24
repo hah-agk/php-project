@@ -3,7 +3,7 @@ session_start();
 
 // Require login
 if (!isset($_SESSION['user'])) {
-		header('Location: Html/index.php');
+		header('Location: login.php');
 		exit;
 }
 
