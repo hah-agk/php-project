@@ -14,25 +14,25 @@ if (!isset($email) || empty(trim($email))
     header("location: login.php?err=1");
     exit();
 }
-
+$_SESSION['email']=$email;
 try {
     $sql ="SELECT id ,name , password
            FROM manager 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
-           $stmt->blindParam("email", $email);
+           $stmt->bindParam(":email", $email);
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 
-    if (!user) {
+    if (!$user) {
          $sql ="SELECT id  , name , password
            FROM users 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
-           $stmt->blindParam(":email", $email);
+           $stmt->bindParam(":email", $email);
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-   if (!user) {
+   if (!$user) {
         header("location:login.php?err=2");
         exit();
     }
@@ -40,26 +40,24 @@ try {
              header("location:login.php?err=2");
         exit();
     }   
-    $_SESSION['UorM']= "user";
-    $_SESSION['email']= $email;
+    $_SESSION['UorM']= "users";
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];
     header("Location:user.php");
     exit();
-        }
+    }else{
      if (!password_verify($password , $user['password'])) {
              header("location:login.php?err=2");
         exit();
         }   
     $_SESSION['UorM']= "manager";
-    $_SESSION['email']= $email;
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];
     header("Location:manager.php");
     exit();
-
+    }
 } catch (PDOException $ex) {
     header("location:login.php?err=3");
 }
