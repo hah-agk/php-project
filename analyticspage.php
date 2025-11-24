@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-// Require login
-if (!isset($_SESSION['user'])) {
-		header('Location: login.php');
-		exit;
-}
 
 $current_user = $_SESSION['user'] ?? '';
 $user_role = $_SESSION['role'] ?? '';
