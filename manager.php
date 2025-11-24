@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Add session check and redirect to login.php if user not logged in
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit;
+}
+
 // Simple file-based authentication (no database required)
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
@@ -46,7 +52,7 @@ $user_role = $_SESSION['role'] ?? '';
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet"  href="../css/man.css">
+<link rel="stylesheet"  href="css/man.css">
 </head>
 <body>
     <!-- Sidebar -->
