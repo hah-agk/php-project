@@ -5,7 +5,7 @@ session_start();
           header("Location: manager.php");
           exit();
       }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
-      &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="user") {
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="users") {
           header("Location: user.php");
           exit();
       }
@@ -25,7 +25,7 @@ session_start();
             <form action="login_action.php" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text"  value= "<?php echo $_SESSION['email'];?>"  name="email"  placeholder="email" required> 
+                    <input type="text"  value= "<?php echo $_SESSION['email'] ?? '';?>"  name="email"  placeholder="email" required> 
                     <i class="bx bxs-user" id="aa" ></i>
                 </div>
                 <div class="input-box">

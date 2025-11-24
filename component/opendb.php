@@ -16,3 +16,15 @@ try {
     die();
 }
 ?>
+ 
+ <!-- eza fih meshkle b db
+ 
+
+
+echo "<pre>";
+echo "CHECKING USERS...\n";
+var_dump($email);
+var_dump($password);
+var_dump($user);
+echo "</pre>";
+exit(); -->

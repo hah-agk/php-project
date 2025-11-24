@@ -2,10 +2,7 @@
 session_start();
 
 // Add session check and redirect to login.php if user not logged in
-if (!isset($_SESSION['user'])) {
-    header('Location: login.php');
-    exit;
-}
+
 
 // Simple file-based authentication (no database required)
 $users = [

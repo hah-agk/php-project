@@ -69,6 +69,14 @@ try {
     $pdo->exec($sql);
 
     echo "✔ Table 'task' created successfully.";
+    "<br>";
+    $passwordHash = password_hash("123456", PASSWORD_BCRYPT);
+    $sql = "insert into manager ( name, phone, addres, salary, email, password) values 
+    ('m1', '81825465', 'beirut', 5000,' m1@gmail.com' ,'$passwordHash')"; 
+    $pdo->exec($sql);       
+    echo "✔ m1 user inserted successfully.";
+
+
 } catch (PDOException $exception) {
     echo "❌ Error: " . $exception->getMessage();
 }
