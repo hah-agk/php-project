@@ -3,7 +3,7 @@ session_start();
 
 // Require login
 if (!isset($_SESSION['user'])) {
-		header('Location: Html/index.php');
+		header('Location: login.php');
 		exit;
 }
 
@@ -68,7 +68,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'recent_users') {
 					<span class="navbar-text me-3">Welcome, <strong><?= htmlspecialchars($current_user) ?></strong>
 						<span class="badge bg-<?= $user_role === 'admin' ? 'danger' : 'primary' ?> ms-1"><?= ucfirst($user_role) ?></span>
 					</span>
-					<a href="Html/mapage.php?logout=1" class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
+			<a href="?logout=1" class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
 				</div>
 			</div>
 		</nav>
