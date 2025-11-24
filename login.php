@@ -1,23 +1,6 @@
 <?php
 session_start();
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['button'])) {
-        $name = $_POST['username'];
-        $password = $_POST['password'];
-        if ($name == "admin" && $password == "admin123") {
-            // set session so other pages recognize the logged in user
-            $_SESSION['user'] = $name;
-            $_SESSION['role'] = 'admin';
-            header("Location: manager.php");
-            exit;
-        } else {
-            // failed login - redirect back (could show message)
-            header("Location: login.php");
-            exit;
-        }
-    }
-}
+      
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
     <div class="container">
         <div class="form-box login">
-            <form action="login.php" method="post">
+            <form action="login_action.php" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="username" name="username" required>
+                    <input type="text" placeholder="email" name="email" value= <?php $_SESSION['email']; ?> required>
                     <i class="bx bxs-user" id="aa" ></i>
                 </div>
                 <div class="input-box">
@@ -53,8 +36,24 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <a href="https://www.linkedin.com/"><i class="bx bxl-linkedin" ></i></a>
                 </div>
             </form>
-
+        <p style="color: red;">
+            <?php
+                if (isset($_GET['err'])) {
+                    switch ($_GET['err']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "Wrong email or password";
+                            break;
+                        case 3:
+                            echo " Failed to login , Contact admin";
+                    }
+                }
+                $_SESSION['email']="";
+                ?>
         </div>
     </div>
+
 </body>
 </html>
