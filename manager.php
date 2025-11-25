@@ -72,7 +72,7 @@ $user_role = $_SESSION['role'] ?? '';
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="settings.php">
                     <i class="fas fa-cog me-2"></i>Settings
                 </a>
             </li>
