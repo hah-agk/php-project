@@ -3,6 +3,7 @@ session_start();
       if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
       &&  isset($_SESSION['UorM']) && $_SESSION['UorM'] == "manager") {
           header("Location: manager.php");
+          session_destroy();
           exit();
       }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
       &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="users") {
