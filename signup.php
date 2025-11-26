@@ -45,8 +45,9 @@
                 <button>Sign Up</button>
             </form>
         </div>
+
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form action="login_action.php" method="post">
                 <h1>Sign in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -55,7 +56,7 @@
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="text" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -63,9 +64,10 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <button>Sign In</button>
+               <button type="submit" class="btn" name="button">Login</button>
             </form>
         </div>
+        
         <div class="overlay-container" id="overlayCon">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
@@ -83,7 +85,22 @@
         </div>
     </div>
 
-   
+    <p style="color: red;">
+            <?php
+                if (isset($_GET['err'])) {
+                    switch ($_GET['err']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "Wrong email or password";
+                            break;
+                        case 3:
+                            echo " Failed to login , Contact admin";
+                    }
+                }
+                $_SESSION['email']="";
+                ?>
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');
