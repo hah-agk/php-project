@@ -27,7 +27,7 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="text" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -42,7 +42,12 @@
                     <input type="text" placeholder="address"  name="address"/>
                     <label></label>
                 </div>
-                <button>Sign Up</button>
+                <input type="submit" value="signUn" />  
+                <input type="radio" id="user" name="user_type" value="user" checked>
+                <label for="user">User</label>  
+                <input type="radio" id="manager" name="user_type" value="manager">
+                <label for="manager">Manager</label>    
+                
             </form>
         </div>
 
@@ -64,7 +69,7 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn">
+                <input type="submit" value="signIn" />  
             </form>
                         <?php
                 if (isset($_GET['err'])) {
