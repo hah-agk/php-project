@@ -249,11 +249,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>Menu</h2>
         <ul class="nav-links">
             <!-- Change hrefs to your real pages -->
-            <li><a href="index.php">Home</a></li>
-            <li><a href="users.php">Users</a></li>
-            <li><a href="reports.php">Reports</a></li>
+            <li><a href="manager.php">Home</a></li>
             <li><a href="settings.php" class="active">Settings</a></li>
-            <li><a href="logout.php">Logout</a></li>
         </ul>
     </aside>
 

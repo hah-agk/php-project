@@ -11,7 +11,7 @@ $password = $_POST['password'];
 
 if (!isset($email) || empty(trim($email))
 ||  !isset($password) || empty(trim($password)) ) {
-    header("location: login.php?err=1");
+    header("location: signup.php?err=1");
     exit();
 }
 $_SESSION['email']=$email;
@@ -33,11 +33,11 @@ try {
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
    if (!$user) {
-        header("location:login.php?err=2");
+        header("location:signup.php?err=2");
         exit();
     }
     if (!password_verify($password , $user['password'])) {
-             header("location:login.php?err=2");
+             header("location:signup.php?err=2");
         exit();
     }   
     $_SESSION['UorM']= "users";
@@ -48,7 +48,7 @@ try {
     exit();
     }else{
      if (!password_verify($password , $user['password'])) {
-             header("location:login.php?err=2");
+             header("location:signup.php?err=2");
         exit();
         }   
     $_SESSION['UorM']= "manager";
@@ -59,5 +59,5 @@ try {
     exit();
     }
 } catch (PDOException $ex) {
-    header("location:login.php?err=3");
+    header("location:signup.php?err=3");
 }
