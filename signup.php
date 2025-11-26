@@ -60,12 +60,27 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" name="password" />
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-               <button type="submit" class="btn" name="button">Login</button>
+                <input type="submit" value="signIn">
             </form>
+                        <?php
+                if (isset($_GET['err'])) {
+                    switch ($_GET['err']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "Wrong email or password";
+                            break;
+                        case 3:
+                            echo " Failed to login , Contact admin";
+                    }
+                }
+                $_SESSION['email']="";
+                ?>
         </div>
         
         <div class="overlay-container" id="overlayCon">
@@ -81,7 +96,7 @@
                     <button type="button" class="overlay-signup">Sign Up</button>
                 </div>
             </div>
-            <button id="overlayBtn" type="button"></button>
+            <input type="submit" id="overlayBtn">
         </div>
     </div>
 
