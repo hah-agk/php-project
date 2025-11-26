@@ -70,13 +70,26 @@ try {
 
     echo "✔ Table 'task' created successfully.";
     "<br>";
+    $a=1;
+    if($a==1){
+        $a++;
     $passwordHash = password_hash("123456", PASSWORD_BCRYPT);
     $sql = "insert into manager ( name, phone, addres, salary, email, password) values 
     ('m1', '81825465', 'beirut', 5000,' m1@gmail.com' ,'$passwordHash')"; 
     $pdo->exec($sql);       
     echo "✔ m1 user inserted successfully.";
+    }
+    $c=3;
+    if($c==3){
+    $sql="Alter table manager drop column salary";
+    $pdo->exec($sql);
+    echo "✔ salary column dropped successfully from manager.";
 
-
+  $sql="Alter table manager drop column salary";
+    $pdo->exec($sql);
+    echo "✔ salary column dropped successfully from manager.";
+$c++;
+    }
 } catch (PDOException $exception) {
     echo "❌ Error: " . $exception->getMessage();
 }

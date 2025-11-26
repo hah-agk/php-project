@@ -223,12 +223,14 @@ $user_role = $_SESSION['role'] ?? '';
                     <div class="card-header">
                         <h6 class="card-title mb-0">Quick Actions</h6>
                     </div>
+                    
                     <div class="card-body">
+                        
                         <div class="d-grid gap-2">
                             <button class="btn btn-outline-primary">
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
-                                 <button class="btn btn-outline-primary">
+                                 <button class="btn btn-outline-primary" >
                                 <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">
