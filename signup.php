@@ -105,22 +105,7 @@
         </div>
     </div>
 
-    <p style="color: red;">
-            <?php
-                if (isset($_GET['err'])) {
-                    switch ($_GET['err']) {
-                        case 1:
-                            echo "Missing Parameters";
-                            break;
-                        case 2:
-                            echo "Wrong email or password";
-                            break;
-                        case 3:
-                            echo " Failed to login , Contact admin";
-                    }
-                }
-                $_SESSION['email']="";
-                ?>
+   
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');
