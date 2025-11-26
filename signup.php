@@ -55,16 +55,35 @@
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="text" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" name="password" />
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <button>Sign In</button>
+                <input type="submit" value="signIn" class="btn" >
             </form>
+
+            <div style="color: red;" class="error">
+                        <?php
+                        
+                if (isset($_GET['err'])) {
+                    switch ($_GET['err']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "Wrong email or password";
+                            break;
+                        case 3:
+                            echo " Failed to login , Contact admin";
+                    }
+                }
+                $_SESSION['email']="";
+                ?>
+            </div>
         </div>
         <div class="overlay-container" id="overlayCon">
             <div class="overlay">
@@ -79,7 +98,7 @@
                     <button type="button" class="overlay-signup">Sign Up</button>
                 </div>
             </div>
-            <button id="overlayBtn" type="button"></button>
+            <input type="submit" id="overlayBtn">
         </div>
     </div>
 
