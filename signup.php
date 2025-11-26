@@ -49,7 +49,22 @@
                 <label for="manager">Manager</label>    
                 
             </form>
+                     <?php
+                if (isset($_GET['errr'])) {
+                    switch ($_GET['errr']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "talk to admin";
+                            break;
+                       
+                    }
+                }
+                $_SESSION['email']="";
+                ?>
         </div>
+
 
         <div class="form-container sign-in-container">
             <form action="login_action.php" method="post">

@@ -18,7 +18,7 @@ if (!isset($name) || empty(trim($name))
     || !isset($email) || empty(trim($email))
     || !isset($password) || empty(trim($password))
 ) {
-    header("location: signup.php?err=1");
+    header("location: signup.php?errr=1");
     exit();
 }
 try {
@@ -54,7 +54,7 @@ try {
     exit();
     }
 } catch (PDOException $e) {
-    header("location: signup.php?err=2");
+    header("location: signup.php?rrr=2");
     exit();
 }
 
