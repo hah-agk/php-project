@@ -2,27 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign in || Sign up form</title>
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- css stylesheet -->
+    <link rel="stylesheet" href="css/index1.css">
 </head>
 <body>
-    <form action="signup_action.php" method="post">
-        <h1>Sign Up</h1>
-        <div>
-            <input type="text" name="name" placeholder="Name" required>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="signup_action.php" method="post">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <div class="infield">
+                    <input type="text" placeholder="Name" name="name" />
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="email" placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" placeholder="Password"  name="password"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="text" placeholder="phone"  name="phone"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="text" placeholder="address"  name="address"/>
+                    <label></label>
+                </div>
+                <button>Sign Up</button>
+            </form>
         </div>
-        <div>
-            <input type="text" name="phone" placeholder="Phone" required>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <div class="infield">
+                    <input type="email" placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" placeholder="Password" />
+                    <label></label>
+                </div>
+                <a href="#" class="forgot">Forgot your password?</a>
+                <button>Sign In</button>
+            </form>
         </div>
-        <div>
-            <input type="text" name="address" placeholder="Address" required>       
+        <div class="overlay-container" id="overlayCon">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button type="button" class="overlay-signin">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button type="button" class="overlay-signup">Sign Up</button>
+                </div>
+            </div>
+            <button id="overlayBtn" type="button"></button>
         </div>
-          <div>
-            <input type="text" name="email" placeholder="Email" required>
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
-        <button type="submit" name="button">Sign Up</button>
+    </div>
+
+   
+    <script>
+        const container = document.getElementById('container');
+        const overlayBtn = document.getElementById('overlayBtn');
+        const overlaySignin = document.querySelector('.overlay-signin');
+        const overlaySignup = document.querySelector('.overlay-signup');
+        
+        // Function to toggle between panels
+        function togglePanel() {
+            container.classList.toggle('right-panel-active');
+            overlayBtn.classList.remove('btnScaled');
+            window.requestAnimationFrame(() => {
+                overlayBtn.classList.add('btnScaled');
+            });
+        }
+        
+        // Add click events
+        overlayBtn.addEventListener('click', togglePanel);
+        overlaySignin.addEventListener('click', togglePanel);
+        overlaySignup.addEventListener('click', togglePanel);
+    </script>
 </body>
 </html>
