@@ -22,30 +22,35 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <form method="post" action="signup_action.php">
-                    <div class="infield">
-                        <input type="text" placeholder="Name" name="name" />
-                        <label></label>
-                    </div>
-                    <div class="infield">
-                        <input type="email" placeholder="Email" name="email"/>
-                        <label></label>
-                    </div>
-                    <div class="infield">
-                        <input type="password" placeholder="Password"  name="password"/>
-                        <label></label>
-                    </div>
-                    <div class="infield">
-                        <input type="text" placeholder="phone"  name="phone"/>
-                        <label></label>
-                    </div>
-                    <div class="infield">
-                        <input type="text" placeholder="address"  name="address"/>
-                        <label></label>
-                    </div>
-                    <input type="submit" value="Sign Up">
+                <div class="infield">
+                    <input type="text" placeholder="Name" name="name" />
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="text" placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" placeholder="Password"  name="password"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="text" placeholder="phone"  name="phone"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="text" placeholder="address"  name="address"/>
+                    <label></label>
+                </div>
+                <input type="submit" value="signUn" />  
+                <input type="radio" id="user" name="user_type" value="user" checked>
+                <label for="user">User</label>  
+                <input type="radio" id="manager" name="user_type" value="manager">
+                <label for="manager">Manager</label>    
+                
             </form>
         </div>
+
         <div class="form-container sign-in-container">
             <form action="login_action.php" method="post">
                 <h1>Sign in</h1>
@@ -64,7 +69,7 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn">
+                <input type="submit" value="signIn" />  
             </form>
                 <?php
                     if (isset($_GET['err'])) {
@@ -82,6 +87,7 @@
                     $_SESSION['email']="";
                 ?>
         </div>
+        
         <div class="overlay-container" id="overlayCon">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
@@ -99,7 +105,6 @@
         </div>
     </div>
 
-   
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');

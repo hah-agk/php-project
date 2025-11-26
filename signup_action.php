@@ -1,6 +1,6 @@
 <?php
 session_start();
-require  "components/open_db.php";
+require  "component/opendb.php";
 
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Wrong Method");
