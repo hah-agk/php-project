@@ -43,9 +43,10 @@
                     <label></label>
                 </div>
                 <input type="submit" value="signUn" />  
-                <input type="radio" id="user" name="user_type" value="user" checked>
-                <label for="user">User</label>  
-                <input type="radio" id="manager" name="user_type" value="manager">
+                <input type="radio" class="radio" name="user_type" value="user" checked>
+                <label for="user">User</label> 
+            
+                <input type="radio" class="radio" name="user_type" value="manager">
                 <label for="manager">Manager</label>    
                 
             </form>
@@ -55,9 +56,9 @@
             <form action="login_action.php" method="post">
                 <h1>Sign in</h1>
                 <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.google.com/" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.linkedin.com/" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
@@ -69,9 +70,12 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn" />  
+                <input type="submit" value="signIn"  class="btn"/>  
             </form>
+
+            <div style="color: red;" class="error">
                         <?php
+                        
                 if (isset($_GET['err'])) {
                     switch ($_GET['err']) {
                         case 1:
@@ -86,6 +90,7 @@
                 }
                 $_SESSION['email']="";
                 ?>
+            </div>
         </div>
         
         <div class="overlay-container" id="overlayCon">
@@ -105,22 +110,7 @@
         </div>
     </div>
 
-    <p style="color: red;">
-            <?php
-                if (isset($_GET['err'])) {
-                    switch ($_GET['err']) {
-                        case 1:
-                            echo "Missing Parameters";
-                            break;
-                        case 2:
-                            echo "Wrong email or password";
-                            break;
-                        case 3:
-                            echo " Failed to login , Contact admin";
-                    }
-                }
-                $_SESSION['email']="";
-                ?>
+   
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');

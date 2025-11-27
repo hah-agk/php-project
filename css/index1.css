@@ -95,10 +95,19 @@ span {
     color: var(--grad-clr1);
     margin-top: 10px;
 }
+.error{
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    top:16px;
+    left:125px;
+}
 
 .infield {
     position: relative;
-    margin: 12px 0;
+    margin: 5px;
     width: 100%;
 }
 
@@ -151,6 +160,23 @@ a.forgot {
     border-bottom: 2px solid #eee;
 }
 
+
+
+
+.btn{
+        border-radius: 20px;
+    border: 1px solid var(--grad-clr1);
+    background: var(--grad-clr2);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 50px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+}
 button {
     border-radius: 20px;
     border: 1px solid var(--grad-clr1);
@@ -339,3 +365,4 @@ p {
     padding: 10px 35px;
     margin-top: 10px;
 }
+
