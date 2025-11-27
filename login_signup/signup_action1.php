@@ -35,7 +35,7 @@ try {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
-    header("Location: user.php");
+    header("Location: ../user.php");
     exit();
     }
     else{
@@ -50,7 +50,7 @@ try {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
-    header("Location: manager.php");
+    header("Location: ../manager.php");
     exit();
     }
 } catch (PDOException $e) {

@@ -44,7 +44,7 @@ try {
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];
-    header("Location:user.php");
+    header("Location:../user.php");
     exit();
     }else{
      if (!password_verify($password , $user['password'])) {
@@ -55,7 +55,7 @@ try {
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id'];
     $_SESSION['userName']= $user['name'];
-    header("Location:manager.php");
+    header("Location:../manager.php");
     exit();
     }
 } catch (PDOException $ex) {
