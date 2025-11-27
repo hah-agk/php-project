@@ -1,3 +1,16 @@
+<?php
+session_start();
+  if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM'] == "manager") {
+          header("Location: manager.php");
+          exit();
+      }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="users") {
+          header("Location: user.php");
+          exit();
+      }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +40,7 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="text" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -43,25 +56,35 @@
                     <label></label>
                 </div>
                 <input type="submit" value="signUn" />  
-                <input type="radio" id="user" name="user_type" value="user" checked>
-                <label for="user">User</label>  
-                <input type="radio" id="manager" name="user_type" value="manager">
+                <input type="radio" class="radio" name="user_type" value="user" checked>
+                <label for="user">User</label> 
+            
+                <input type="radio" class="radio" name="user_type" value="manager">
                 <label for="manager">Manager</label>    
                 
             </form>
                      <?php
-                if (isset($_GET['errr'])) {
-                    switch ($_GET['errr']) {
-                        case 1:
-                            echo "Missing Parameters";
-                            break;
-                        case 2:
-                            echo "talk to admin";
-                            break;
-                       
-                    }
-                }
-                $_SESSION['email']="";
+               
+if (isset($_GET['errr'])) {
+    switch ($_GET['errr']) {
+        case 1:
+            echo "Missing Parameters";
+            break;
+        case 2:
+            echo "Invalid Email Format";
+            break;
+        case 3:
+            echo "Password must be at least 8 characters long";
+            break;
+        case 4:
+            echo "talk to admin";
+            break;
+        case 5:
+            echo "Email already exists";    
+            break;
+    }
+}
+
                 ?>
         </div>
 
@@ -70,13 +93,13 @@
             <form action="login_action.php" method="post">
                 <h1>Sign in</h1>
                 <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.google.com/" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="https://www.linkedin.com/" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="text" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -84,9 +107,12 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn" />  
+                <input type="submit" value="signIn"  class="btn"/>  
             </form>
+
+            <div style="color: red;" class="error">
                         <?php
+                        
                 if (isset($_GET['err'])) {
                     switch ($_GET['err']) {
                         case 1:
@@ -101,6 +127,7 @@
                 }
                 $_SESSION['email']="";
                 ?>
+            </div>
         </div>
         
         <div class="overlay-container" id="overlayCon">
