@@ -72,20 +72,6 @@
                 <a href="#" class="forgot">Forgot your password?</a>
                 <input type="submit" value="signIn"  class="btn"/>  
             </form>
-<<<<<<< HEAD
-                <?php
-                    if (isset($_GET['err'])) {
-                        switch ($_GET['err']) {
-                            case 1:
-                                echo "Missing Parameters";
-                                break;
-                            case 2:
-                                echo "Wrong email or password";
-                                break;
-                            case 3:
-                                echo " Failed to login , Contact admin";
-                        }
-=======
 
             <div style="color: red;" class="error">
                         <?php
@@ -100,7 +86,6 @@
                             break;
                         case 3:
                             echo " Failed to login , Contact admin";
->>>>>>> f52f7522f61ba7632a995d8be5330d182ea5c5fb
                     }
                     $_SESSION['email']="";
                 ?>
@@ -123,11 +108,7 @@
             <input type="submit" id="overlayBtn">
         </div>
     </div>
-
-<<<<<<< HEAD
-=======
    
->>>>>>> f52f7522f61ba7632a995d8be5330d182ea5c5fb
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');
