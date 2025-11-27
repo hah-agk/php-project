@@ -74,21 +74,21 @@
             </form>
 
             <div style="color: red;" class="error">
-                <?php
+                        <?php
                         
-                    if (isset($_GET['err'])) {
-                        switch ($_GET['err']) {
-                            case 1:
-                                echo "Missing Parameters";
-                                break;
-                            case 2:
-                                echo "Wrong email or password";
-                                break;
-                            case 3:
-                                echo " Failed to login , Contact admin";
-                        }
+                if (isset($_GET['err'])) {
+                    switch ($_GET['err']) {
+                        case 1:
+                            echo "Missing Parameters";
+                            break;
+                        case 2:
+                            echo "Wrong email or password";
+                            break;
+                        case 3:
+                            echo " Failed to login , Contact admin";
                     }
-                        $_SESSION['email']="";
+                }
+                    $_SESSION['email']="";
                 ?>
             </div>
         </div>
