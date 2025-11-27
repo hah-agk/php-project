@@ -101,13 +101,13 @@ span {
     font-size: 14px;
     font-weight: 500;
     position: relative;
-    top:25px;
+    top:16px;
     left:125px;
 }
 
 .infield {
     position: relative;
-    margin: 12px 0;
+    margin: 5px;
     width: 100%;
 }
 
@@ -365,3 +365,4 @@ p {
     padding: 10px 35px;
     margin-top: 10px;
 }
+

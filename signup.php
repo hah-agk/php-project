@@ -27,7 +27,7 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="text" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -42,9 +42,16 @@
                     <input type="text" placeholder="address"  name="address"/>
                     <label></label>
                 </div>
-                <button>Sign Up</button>
+                <input type="submit" value="signUn" />  
+                <input type="radio" class="radio" name="user_type" value="user" checked>
+                <label for="user">User</label> 
+            
+                <input type="radio" class="radio" name="user_type" value="manager">
+                <label for="manager">Manager</label>    
+                
             </form>
         </div>
+
         <div class="form-container sign-in-container">
             <form action="login_action.php" method="post">
                 <h1>Sign in</h1>
@@ -63,7 +70,7 @@
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn" class="btn" >
+                <input type="submit" value="signIn"  class="btn"/>  
             </form>
 
             <div style="color: red;" class="error">
@@ -85,6 +92,7 @@
                 ?>
             </div>
         </div>
+        
         <div class="overlay-container" id="overlayCon">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
