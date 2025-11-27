@@ -110,10 +110,7 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-=======
    
->>>>>>> f52f7522f61ba7632a995d8be5330d182ea5c5fb
     <script>
         const container = document.getElementById('container');
         const overlayBtn = document.getElementById('overlayBtn');
