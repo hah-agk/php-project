@@ -45,7 +45,7 @@ session_start();
                     <input type="text" placeholder="address"  name="address"/>
                     <label></label>
                 </div>
-                <input type="submit" value="signUp" class="button" />  
+                <input type="submit" value="signUp" />  
                 <input type="radio" id="user" name="user_type" value="user" checked>
                 <label for="user">User</label>  
                 <input type="radio" id="manager" name="user_type" value="manager">
