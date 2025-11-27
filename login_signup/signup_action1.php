@@ -21,6 +21,20 @@ if (!isset($name) || empty(trim($name))
     header("location: form.php?errr=1");
     exit();
 }
+$_SESSION['email']=$email;
+$_SESSION['name']=$name;
+$_SESSION['phone']=$phone;
+$_SESSION['address']=$address;
+
+if (!filter_has_var($email, FILTER_VALIDATE_EMAIL)) {
+    header("location: form.php?errr=2");
+    exit();
+}
+if (strlen($password)<8) {
+    header("location: form.php?errr=3");
+    exit();
+}
+
 try {
     if(isset($_POST['user_type']) && $_POST['user_type'] === 'user'){
 
@@ -35,6 +49,12 @@ try {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
+
+    $_SESSION['UorM']= "users";
+    $_SESSION['LoggedIn']= true;
+    $_SESSION['userID']= $pdo->lastInsertId();
+    $_SESSION['userName']= $name;
+    
     header("Location: ../user.php");
     exit();
     }
@@ -50,11 +70,38 @@ try {
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
+    $_SESSION['UorM']= "manager";
+    $_SESSION['LoggedIn']= true;
+    $_SESSION['userID']= $pdo->lastInsertId();
+    $_SESSION['userName']= $name;
     header("Location: ../manager.php");
     exit();
     }
 } catch (PDOException $e) {
-    header("location: form.php?rrr=2");
+    if ($ex->errorInfo[1]==1062) {
+        header("location: form.php?rrr=5");
+        exit();
+    }
+    header("location: form.php?rrr=4");
     exit();
 }
 
+if (isset($_GET['errr'])) {
+    switch ($_GET['errr']) {
+        case 1:
+            echo "Missing Parameters";
+            break;
+        case 2:
+            echo "Invalid Email Format";
+            break;
+        case 3:
+            echo "Password must be at least 8 characters long";
+            break;
+        case 4:
+            echo "talk to admin";
+            break;
+        case 5:
+            echo "Email already exists";    
+            break;
+    }
+}
