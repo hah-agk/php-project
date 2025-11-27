@@ -151,7 +151,7 @@ a.forgot {
     border-bottom: 2px solid #eee;
 }
 
-button {
+input[type="submit"], button {
     border-radius: 20px;
     border: 1px solid var(--grad-clr1);
     background: var(--grad-clr2);
@@ -165,7 +165,7 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.form-container button {
+.form-container input[type="submit"] {
     margin-top: 20px;
     transition: 80ms ease-in;
 }
