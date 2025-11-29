@@ -1,3 +1,16 @@
+<?php
+session_start();
+  if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM'] == "manager") {
+          header("Location: manager.php");
+          exit();
+      }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="users") {
+          header("Location: user.php");
+          exit();
+      }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +40,7 @@
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="text" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -53,7 +66,28 @@
               
                 
             </form>
+                     <?php
+               
+if (isset($_GET['errr'])) {
+    switch ($_GET['errr']) {
+        case 1:
+            echo "Missing Parameters";
+            break;
+        case 2:
+            echo "Invalid Email Format";
+            break;
+        case 3:
+            echo "Password must be at least 8 characters long";
+            break;
+        case 4:
+            echo "Email already exists";    
+            break;
+    }
+}
+
+                ?>
         </div>
+
 
         <div class="form-container sign-in-container">
             <form action="login_action.php" method="post">
@@ -65,7 +99,7 @@
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="text" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email"/>
                     <label></label>
                 </div>
                 <div class="infield">
