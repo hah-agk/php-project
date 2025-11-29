@@ -11,7 +11,11 @@ if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
     header("Location: manager.php");
     exit();
 }
-
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: signup.php ");
+    exit;
+}
 // USER DATA
 $userID   = $_SESSION['userID'];
 $userName = $_SESSION['userName'];
@@ -81,8 +85,8 @@ $userAddress = $_SESSION['address'];
     <div class="info-box"><b>Phone:</b> <?php echo htmlspecialchars($userPhone); ?></div>
     <div class="info-box"><b>Address:</b> <?php echo htmlspecialchars($userAddress); ?></div>
 
-    <form action="logout.php" method="POST">
-        <button class="logout-btn">Logout</button>
+    <form action="user.php" method="post">
+        <button class="logout-btn" name="logout" >Logout</button>
     </form>
 </div>
 

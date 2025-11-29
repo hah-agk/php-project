@@ -77,9 +77,6 @@ if (isset($_GET['errr'])) {
             echo "Password must be at least 8 characters long";
             break;
         case 4:
-            echo "talk to admin";
-            break;
-        case 5:
             echo "Email already exists";    
             break;
     }

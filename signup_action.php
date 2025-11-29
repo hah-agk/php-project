@@ -79,10 +79,6 @@ try {
     exit();
     }
 } catch (PDOException $e) {
-    if ($ex->errorInfo[1]==1062) {
-        header("location: signup.php?errr=5");
-        exit();
-    }
     header("location: signup.php?errr=4");
     exit();
 }
