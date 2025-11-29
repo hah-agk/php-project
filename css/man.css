@@ -54,8 +54,9 @@ body{
 
 .main-content{ 
     margin-left: 250px;
-     padding: 28px;
-      min-height:100vh; }
+    padding: 28px;
+    display: min-flex;
+    min-height:100vh; }
 
 .navbar{  background: transparent;
           padding:0;

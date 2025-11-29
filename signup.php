@@ -125,7 +125,7 @@ if (isset($_GET['errr'])) {
                             echo " Failed to login , Contact admin";
                     }
                 }
-                $_SESSION['email']="";
+                    $_SESSION['email']="";
                 ?>
             </div>
         </div>
