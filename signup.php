@@ -55,12 +55,15 @@ session_start();
                     <input type="text" placeholder="address"  name="address"/>
                     <label></label>
                 </div>
-                <input type="submit" value="signUn" />  
-                <input type="radio" class="radio" name="user_type" value="user" checked>
-                <label for="user">User</label> 
-            
-                <input type="radio" class="radio" name="user_type" value="manager">
-                <label for="manager">Manager</label>    
+                    <div class="radio">
+                <input type="radio" name="user_type" value="user" checked>
+                <label for="user">User</label>user
+
+                <input type="radio" name="user_type" value="manager">
+                <label for="manager">Manager</label>maneger
+                </div>
+                <input type="submit" value="Sign Up"  class="btn"/>
+              
                 
             </form>
                      <?php
