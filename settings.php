@@ -87,305 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Settings</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-
-        :root {
-            --bg: #f8fafc;
-            --sidebar-bg: #0f172a;
-            --accent: #06b6d4;
-            --muted: #64748b;
-            --card-bg: #ffffff;
-            --shadow: 0 10px 25px rgba(0,0,0,0.08);
-            --text-color: #1e293b;
-            --content-bg: #f1f5f9;
-            --border: #e2e8f0;
-            --hover-bg: #f8fafc;
-        }
-
-        html[data-theme="dark"] {
-            --bg: #0f172a;
-            --sidebar-bg: #1e293b;
-            --accent: #06b6d4;
-            --muted: #94a3b8;
-            --card-bg: #1e293b;
-            --shadow: 0 10px 25px rgba(0,0,0,0.3);
-            --text-color: #f1f5f9;
-            --content-bg: #0f172a;
-            --border: #334155;
-            --hover-bg: #334155;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-color);
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        .sidebar {
-            background: linear-gradient(135deg, var(--sidebar-bg) 0%, #1e293b 100%);
-            color: white;
-            height: 100vh;
-            position: fixed;
-            width: 260px;
-            top: 0;
-            left: 0;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
-            overflow-y: auto;
-        }
-
-        .sidebar h4 {
-            text-align: center;
-            padding: 24px 0 16px;
-            font-weight: 700;
-            font-size: 22px;
-            letter-spacing: -0.025em;
-            color: #f1f5f9;
-            margin: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 16px 0;
-            margin: 0;
-        }
-
-        .sidebar .nav-link {
-            color: #cbd5e1;
-            padding: 14px 20px;
-            margin: 4px 12px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .sidebar .nav-link i {
-            width: 20px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .sidebar .nav-link:hover {
-            transform: translateX(4px);
-            background: rgba(255,255,255,0.08);
-            color: #ffffff;
-        }
-
-        .sidebar .nav-link.active {
-            background: rgba(6,182,212,0.15);
-            color: var(--accent);
-            box-shadow: inset 0 0 0 1px rgba(6,182,212,0.3);
-            font-weight: 600;
-        }
-
-        .content {
-            margin-left: 260px;
-            padding: 32px;
-            background: var(--content-bg);
-            min-height: 100vh;
-        }
-
-        .settings-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: transparent;
-        }
-
-        .settings-container h1 {
-            font-weight: 800;
-            font-size: 32px;
-            color: var(--text-color);
-            margin-bottom: 32px;
-            letter-spacing: -0.025em;
-        }
-
-        .message {
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            font-weight: 500;
-            border-left: 4px solid;
-        }
-
-        .message.success {
-            background: linear-gradient(90deg, #dcfce7, #bbf7d0);
-            color: #166534;
-            border-left-color: #16a34a;
-        }
-
-        .message.error {
-            background: linear-gradient(90deg, #fef2f2, #fee2e2);
-            color: #991b1b;
-            border-left-color: #dc2626;
-        }
-
-        .form {
-            width: 100%;
-            background: transparent;
-            padding: 0;
-            box-shadow: none;
-        }
-
-        .section {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .section h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            letter-spacing: -0.025em;
-        }
-
-        .section h2 i {
-            color: var(--accent);
-            font-size: 24px;
-        }
-
-        .field-group {
-            margin-bottom: 24px;
-        }
-
-        .field-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .field-group input[type="text"],
-        .field-group input[type="email"],
-        .field-group input[type="password"],
-        .field-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-size: 16px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .field-group input:focus,
-        .field-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(6,182,212,0.1);
-            background: var(--hover-bg);
-        }
-
-        .inline-field {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-        }
-
-        .inline-field label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 12px 16px;
-            border-radius: 8px;
-            transition: background 0.2s ease;
-        }
-
-        .inline-field label:hover {
-            background: var(--hover-bg);
-        }
-
-        .inline-field input[type="radio"] {
-            margin: 0;
-            width: 18px;
-            height: 18px;
-        }
-
-        .btn-save {
-            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 8px 20px rgba(6,182,212,0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .btn-save:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(6,182,212,0.4);
-        }
-
-        .btn-save:active {
-            transform: translateY(-1px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-                padding: 20px;
-            }
-
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                box-shadow: none;
-            }
-
-            .settings-container h1 {
-                font-size: 28px;
-            }
-
-            .section {
-                padding: 20px;
-            }
-
-            .inline-field {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
-            .btn-save {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/settings.css">
 </head>
 <body>
 <div class="layout">
@@ -511,6 +213,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 document.querySelectorAll('input[name="theme"]').forEach(option => {
     option.addEventListener("change", function () {
         document.documentElement.setAttribute("data-theme", this.value);
+        // Save theme via AJAX
+        fetch('update_theme.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'theme=' + encodeURIComponent(this.value)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Theme updated successfully');
+            } else {
+                console.error('Failed to update theme');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 });
 </script>

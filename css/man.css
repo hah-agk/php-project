@@ -1,4 +1,4 @@
-/* Professional manager/dashboard styles */
+
 :root{
     --bg: #f5f7fb;
     --sidebar-bg: #07112a;
@@ -7,6 +7,7 @@
     --card-bg: #ffffff;
     --shadow: 0 8px 24px rgba(16,24,40,0.06);
     --text-color: #0f172a;
+    --border: #d1d5db;
 }
 
 html[data-theme="dark"] {
@@ -16,8 +17,14 @@ html[data-theme="dark"] {
     --muted: #9ca3af;
     --card-bg: #111827;
     --shadow: 0 8px 24px rgba(0,0,0,0.5);
-    --text-color: #e2e8f0;
+    --text-color: white;
     --content-bg: #0f172a;
+
+
+}
+
+html[data-theme="dark"] .badge {
+    color: white !important;
 }
 
 
@@ -92,13 +99,29 @@ body{
 .stat-card .card-body{ padding: 20px; }
 
 .stat-card p{ margin:0;
-              color:var(--muted);
+              color: white;
              }
 
-.table thead th{ border-bottom: 2px solid #eef2f7;
-                 color: #334155;
+.table thead th{ border-bottom: 2px solid var(--border);
+                 color: var(--text-color);
                  font-weight:600; }
-.table tbody tr td{ vertical-align: middle; }
+.table tbody tr td{ vertical-align: middle;
+                    color: var(--text-color); }
+
+/* Dark mode table styling */
+html[data-theme="dark"] .table tbody tr {
+    background-color: var(--card-bg);
+}
+
+/* Ensure all table rows have white text in dark mode */
+html[data-theme="dark"] .table tbody tr td {
+    color: white !important;
+}
+
+/* Fix Bootstrap striped table text color in dark mode */
+html[data-theme="dark"] .table-striped tbody tr td {
+    color: white !important;
+}
 
 .btn-primary{
     background: linear-gradient(90deg,#0ea5a4,#06b6d4);
