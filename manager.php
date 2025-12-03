@@ -119,7 +119,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['total_users'] ?></h2>
-                                <p style="color: black;">Total Users</p>
+                                <p>Total Users</p>
                             </div>
                             <i class="fas fa-users fa-3x opacity-50"></i>
                         </div>
@@ -132,7 +132,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['active_users'] ?></h2>
-                                <p style="color: black;">Active Users</p>
+                                <p>Active Users</p>
                             </div>
                             <i class="fas fa-user-check fa-3x opacity-50"></i>
                         </div>
@@ -145,7 +145,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['new_today'] ?></h2>
-                                <p style="color: black;">New Today</p>
+                                <p>New Today</p>
                             </div>
                             <i class="fas fa-user-plus fa-3x opacity-50"></i>
                         </div>
@@ -158,7 +158,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h2><?= $stats['revenue'] ?></h2>
-                                <p style="color: black;">Revenue</p>
+                                <p>Revenue</p>
                             </div>
                             <i class="fas fa-dollar-sign fa-3x opacity-50"></i>
                         </div>
@@ -171,7 +171,7 @@ $user_role = $_SESSION['role'] ?? '';
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-users me-2"></i>User Management
+                    <i class="fas fa-users me-2"></i>task Management
                 </h5>
             </div>
             <div class="card-body">
@@ -227,7 +227,7 @@ $user_role = $_SESSION['role'] ?? '';
           <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-users me-2"></i>User Management
+                    <i class="fa-solid fa-list-check"></i></i> task List
                 </h5>
             </div>
             <div class="card-body">
