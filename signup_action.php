@@ -41,7 +41,7 @@ try {
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO users (name, phone, address, email, password)
+    $sql = "INSERT INTO users (name, phone, addres, email, password)
             VALUES (:name, :phone, :address, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
@@ -62,7 +62,7 @@ try {
     else{
          $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO manager (name, phone, address, email, password)
+    $sql = "INSERT INTO manager (name, phone, addres, email, password)
             VALUES (:name, :phone, :address, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
