@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$theme = $_SESSION['theme'] ?? 'light';
+
+
 // Add session check and redirect to login.php if user not logged in
 
 
@@ -54,8 +57,9 @@ $user_role = $_SESSION['role'] ?? '';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
@@ -66,10 +70,13 @@ $user_role = $_SESSION['role'] ?? '';
 <body>
     <!-- Sidebar -->
     <div class="sidebar" style="width: 250px;">
-        <div class="mp">
-            <h4 class="text-center mb-4">
-                <i class="fas fa-tachometer-alt me-2"></i>Maneger Panel
-            </h4>
+        <div class="p-3">
+            <div class="text-center mb-4">
+             
+                <h4 class="text-center mb-4">
+                    <i class="fas fa-tachometer-alt me-2"></i>Manager Panel
+                </h4>
+            </div>
         </div>
         <ul class="nav flex-column">
             <li>
@@ -104,7 +111,7 @@ $user_role = $_SESSION['role'] ?? '';
                 <span >Dashboard</span>
                 <div >
                     <span >
-                        Welcome, <strong><?= htmlspecialchars($current_user) ?></strong>
+                   
                         <span class="badge bg-<?= $user_role === 'admin' ? 'danger' : 'primary' ?> ms-1">
                             <?= ucfirst($user_role) ?>
                         </span>
@@ -218,6 +225,50 @@ $user_role = $_SESSION['role'] ?? '';
                                     <button class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+          <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-users me-2"></i>User Management
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>status</th>
+                                <th>deadline</th>
+                                <th>description</th>
+                                <th>bounty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($sample_users as $user): ?>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                             
+                                </td>
+                                <td>
+                             
+                                </td>
+                                <td>
+                               
                                 </td>
                             </tr>
                             <?php endforeach; ?>
