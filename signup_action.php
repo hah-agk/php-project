@@ -1,6 +1,6 @@
 <?php
 session_start();
-require  "component/opendb.php";
+require 'component/opendb.php';
 
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Wrong Method");
@@ -41,7 +41,7 @@ try {
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO users (name, phone, address, email, password)
+    $sql = "INSERT INTO users (name, phone, addres, email, password)
             VALUES (:name, :phone, :address, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
@@ -62,7 +62,7 @@ try {
     else{
          $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO manager (name, phone, address, email, password)
+    $sql = "INSERT INTO manager (name, phone, addres, email, password)
             VALUES (:name, :phone, :address, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
@@ -80,6 +80,8 @@ try {
     }
 } catch (PDOException $e) {
     header("location: signup.php?errr=4");
+
+//   echo "Error: " . $e->getMessage();
     exit();
 }
 
