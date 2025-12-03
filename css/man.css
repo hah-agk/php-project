@@ -6,18 +6,32 @@
     --muted: #6b7280;
     --card-bg: #ffffff;
     --shadow: 0 8px 24px rgba(16,24,40,0.06);
+    --text-color: #0f172a;
 }
+
+html[data-theme="dark"] {
+    --bg: #0d1117;
+    --sidebar-bg: #0a1628;
+    --accent: #2dd4bf;
+    --muted: #9ca3af;
+    --card-bg: #111827;
+    --shadow: 0 8px 24px rgba(0,0,0,0.5);
+    --text-color: #e2e8f0;
+    --content-bg: #0f172a;
+}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 body{
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     background: var(--bg);
-    color: #0f172a;
+    color: var(--text-color);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     margin: 0;
 }
+
 
 .sidebar{
     background: linear-gradient(180deg, var(--sidebar-bg), #0b1b33);
@@ -54,9 +68,8 @@ body{
 
 .main-content{ 
     margin-left: 250px;
-    padding: 28px;
-    display: min-flex;
-    min-height:100vh; }
+     padding: 28px;
+      min-height:100vh; }
 
 .navbar{  background: transparent;
           padding:0;
@@ -67,6 +80,8 @@ body{
        border: none;
        border-radius: 12px;
        box-shadow: var(--shadow);
+         margin-bottom: 20px;
+         transition: box-shadow .28s ease;
      }
 
 .card .card-header{ background:transparent;
