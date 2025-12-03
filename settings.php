@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" data-theme="<?php echo htmlspecialchars($theme, ENT_QUOTES, 'UTF-8'); ?>">
+<html lang="en" data-theme="<?php echo htmlspecialchars($theme ?? 'light', ENT_QUOTES, 'UTF-8'); ?>">
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
@@ -212,26 +212,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
 document.querySelectorAll('input[name="theme"]').forEach(option => {
     option.addEventListener("change", function () {
+        // Change theme immediately on the page
         document.documentElement.setAttribute("data-theme", this.value);
-        // Save theme via AJAX
+
+        // Save theme via AJAX (POST)
         fetch('update_theme.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: 'theme=' + encodeURIComponent(this.value)
         })
-        .then(response => response.json())
+        .then(r => r.json())
         .then(data => {
-            if (data.success) {
-                console.log('Theme updated successfully');
-            } else {
-                console.error('Failed to update theme');
-            }
+            // optional: handle response
+            console.log('Theme saved:', data);
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        .catch(err => console.error('Error:', err));
     });
 });
 </script>
