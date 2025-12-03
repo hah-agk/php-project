@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php");
+    exit;
+}
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -95,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <ul class="nav-links">
             
                 <li>
-                <a class="nav-link" href="manager.php">
+                <a class="nav-link" <?php if($_SESSION["UorM"] == "manager") { echo 'href="manager.php"'; } else { echo 'href="user.php"'; } ?>>
                    <i class="fas fa-home me-2"></i>Dashboard
                 </a>
             </li>
