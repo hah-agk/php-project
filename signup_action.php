@@ -62,11 +62,7 @@ try {
     else{
          $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-<<<<<<< HEAD
-    $sql = "INSERT INTO manager (name, phone, addres , email, password)
-=======
     $sql = "INSERT INTO manager (name, phone, addres, email, password)
->>>>>>> 2e10e390839f42fcb581d32c1c7553cb343aa17d
             VALUES (:name, :phone, :address, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
