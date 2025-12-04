@@ -256,6 +256,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <th>deadline</th>
                                 <th>description</th>
                                 <th>bounty</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,6 +270,13 @@ $user_role = $_SESSION['role'] ?? '';
                                     <td><?= $task['deadline'] ?></td>
                                     <td><?= $task['description'] ?></td>
                                     <td><?= $task['bounty'] ?></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                 </tr>
                         <?php 
                                     }
