@@ -13,10 +13,10 @@ if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
     exit();
 }
 
-if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
-    header("Location: manager.php");
-    exit();
-}
+// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
+//     header("Location: manager.php");
+//     exit();
+// }
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
     'user' => password_hash('user123', PASSWORD_DEFAULT)
@@ -45,7 +45,7 @@ if (isset($_GET['logout'])) {
     exit;
 }
 if(isset($_GET['Ntask'])){
-    header("Location: add_task.php");
+    header("Location: add_task.php?Ntask=1");
     exit();
 }
 // Check if user is logged in
@@ -293,7 +293,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary" >
-                                    <a href="add_task.php?Ntask=1">
+                                    <a href="manager.php?Ntask=1">
                                 <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">
