@@ -265,6 +265,9 @@ $user_role = $_SESSION['role'] ?? '';
                 </div>
             </div>
         </div>
+
+
+        
         
         <!-- Quick Actions -->
         <div class="row mt-4">
@@ -314,6 +317,9 @@ $user_role = $_SESSION['role'] ?? '';
             </div>
         </div>
     </div>
+
+
+    
  
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
