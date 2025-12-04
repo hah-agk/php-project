@@ -22,9 +22,9 @@ try {
            $stmt =$pdo->prepare($sql);
            $stmt->bindParam(":email", $email);
            $stmt->execute();
-           $user = $stmt->fetch(PDO::FETCH_ASSOC);
+           $manager = $stmt->fetch(PDO::FETCH_ASSOC);
                 
-    if (!$user) {
+    if (!$manager) {
          $sql ="SELECT id  , name , password
            FROM users 
            where email = :email ";
