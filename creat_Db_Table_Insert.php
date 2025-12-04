@@ -102,6 +102,7 @@ try {
 
     echo "<br>🎉 All operations completed successfully.";
 
+    
 } catch (PDOException $e) {
     echo "❌ Error: " . $e->getMessage();
 }
