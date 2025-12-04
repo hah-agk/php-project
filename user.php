@@ -2,15 +2,15 @@
 session_start();
 
 // USER ONLY ACCESS
-if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-    header("Location: signup.php?errr=7");
-    exit();
-}
+// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+//     header("Location: signup.php?errr=7");
+//     exit();
+// }
 
-if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
-    header("Location: user.php");
-    exit();
-}
+// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
+//     header("Location: user.php");
+//     exit();
+// }
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: signup.php ");
