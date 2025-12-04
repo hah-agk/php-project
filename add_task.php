@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
 
             echo "New task added successfully.";
+            header("Location: manager.php");
+            exit();
         }
     }
 }
@@ -62,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea id="description" name="description"></textarea><br>
 
             <label for="bounty">Bounty:</label>
-            <input type="number" step="0.01" id="bounty" name="bounty"><br>
+            <input type="number" step="1" id="bounty" name="bounty"><br>
 
             <input type="submit" value="Add Task">
         </form>

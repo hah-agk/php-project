@@ -1,6 +1,6 @@
 <?php
-session_start();
-
+require 'component/opendb.php';
+require 'component/function.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 
@@ -8,15 +8,18 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 
 // Simple file-based authentication (no database required)
-if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-    header("Location: signup.php?errr=7");
-    exit();
-}
+// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+//     header("Location: signup.php?errr=7");
+//     exit();
+// }
 
 // if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
 //     header("Location: manager.php");
 //     exit();
 // }
+
+ $tasks=show_task($pdo);
+
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
     'user' => password_hash('user123', PASSWORD_DEFAULT)
@@ -29,7 +32,7 @@ $sample_users = [
     ['id' => 3, 'name' => 'Bob Johnson', 'email' => 'bob@example.com', 'role' => 'User', 'status' => 'Inactive'],
     ['id' => 4, 'name' => 'Alice Brown', 'email' => 'alice@example.com', 'role' => 'Moderator', 'status' => 'Active'],
 ];
-
+ 
 $stats = [
     'total_users' => 1542,
     'active_users' => 1247,
@@ -256,22 +259,20 @@ $user_role = $_SESSION['role'] ?? '';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($sample_users as $user): ?>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                             
-                                </td>
-                                <td>
-                             
-                                </td>
-                                <td>
-                               
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                        <?php
+                                 if (!empty($tasks)) { 
+                                    foreach ($tasks as $task) { ?>
+                                <tr>
+                                    <td><?= $task['idm'] ?></td>
+                                    <td><?= $task['namem'] ?></td>
+                                    <td><?= $task['status'] ?></td>
+                                    <td><?= $task['deadline'] ?></td>
+                                    <td><?= $task['description'] ?></td>
+                                    <td><?= $task['bounty'] ?></td>
+                                </tr>
+                        <?php 
+                                    }
+                                } ?>
                         </tbody>
                     </table>
                 </div>
