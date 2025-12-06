@@ -22,9 +22,9 @@ try {
            $stmt =$pdo->prepare($sql);
            $stmt->bindParam(":email", $email);
            $stmt->execute();
-           $user = $stmt->fetch(PDO::FETCH_ASSOC);
+           $manager = $stmt->fetch(PDO::FETCH_ASSOC);
                 
-    if (!$user) {
+    if (!$manager) {
          $sql ="SELECT id  , name , password
            FROM users 
            where email = :email ";
@@ -53,8 +53,8 @@ try {
         }   
     $_SESSION['UorM']= "manager";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['userID']= $user['id'];
-    $_SESSION['userName']= $user['name'];
+    $_SESSION['managerID']= $user['id'];
+    $_SESSION['managerName']= $user['name'];
     header("Location:manager.php");
     exit();
     }

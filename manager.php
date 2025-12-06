@@ -17,8 +17,8 @@ $theme = $_SESSION['theme'] ?? 'light';
 //     header("Location: manager.php");
 //     exit();
 // }
-
- $tasks=show_task($pdo);
+ $mID   =  $_SESSION['managerID'];
+ $tasks=show_task($pdo ,$mID);
 
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
@@ -47,10 +47,10 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php ");
     exit;
 }
-if(isset($_GET['Ntask'])){
-    header("Location: add_task.php?Ntask=1");
-    exit();
-}
+// if(isset($_GET['Ntask'])){
+//     header("Location: add_task.php?Ntask=1");
+//     exit();
+// }
 // Check if user is logged in
 $is_logged_in = isset($_SESSION['user']);
 $current_user = $_SESSION['user'] ?? '';
@@ -280,6 +280,8 @@ $user_role = $_SESSION['role'] ?? '';
                                 </tr>
                         <?php 
                                     }
+                                }else {
+                                    echo "<tr><td colspan='7'>No tasks found.</td></tr>";
                                 } ?>
                         </tbody>
                     </table>
@@ -302,7 +304,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary" >
-                                    <a href="manager.php?Ntask=1">
+                                    <a href="add_task.php?Ntask=1">
                                 <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">

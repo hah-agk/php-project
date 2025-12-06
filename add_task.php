@@ -2,14 +2,14 @@
 require 'component/opendb.php';
 session_start();
 
-if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-    header("Location: signup.php");
-    exit;
-}
-if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'manager') {
-    header("Location: signup.php");
-    exit;
-}
+// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+//     header("Location: signup.php");
+//     exit;
+// }
+// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'manager') {
+//     header("Location: signup.php");
+//     exit;
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $namem       = $_POST['namem'] ?? '';
