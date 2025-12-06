@@ -17,6 +17,7 @@ $theme = $_SESSION['theme'] ?? 'light';
 //     header("Location: manager.php");
 //     exit();
 // }
+
  $mID   =  $_SESSION['managerID'];
  $tasks=show_task($pdo ,$mID);
 
@@ -69,8 +70,10 @@ $user_role = $_SESSION['role'] ?? '';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet"  href="css/man.css">
+
 </head>
 <body>
+
     <!-- Sidebar -->
     <div class="sidebar" style="width: 250px;">
         <div class="p-3">
@@ -249,27 +252,37 @@ $user_role = $_SESSION['role'] ?? '';
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
+                        <div class="t">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>status</th>
-                                <th>deadline</th>
+                                <th>start_time</th>
+                                <th>end_time</th>
                                 <th>description</th>
                                 <th>bounty</th>
+                                <th>user_id</th>
+                                <th>manager_id</th>
                                 <th>Actions</th>
                             </tr>
+                            </div>
                         </thead>
                         <tbody>
                         <?php
                                  if (!empty($tasks)) { 
                                     foreach ($tasks as $task) { ?>
                                 <tr>
-                                    <td><?= $task['idm'] ?></td>
-                                    <td><?= $task['namem'] ?></td>
-                                    <td><?= $task['status'] ?></td>
-                                    <td><?= $task['deadline'] ?></td>
-                                    <td><?= $task['description'] ?></td>
-                                    <td><?= $task['bounty'] ?></td>
+                                    <td><?= htmlspecialchars($task['id_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['Title_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['status']) ?></td>
+                                    <td><?= htmlspecialchars($task['Start_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['End_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['description']) ?></td>
+                                    <td><?= htmlspecialchars($task['bounty']) ?></td>
+                                    <td><?= empty($task['user_id']) ? 'no user accept the task' : htmlspecialchars($task['user_id']) ?></td>
+
+                                    <td><?= htmlspecialchars($task['manager_id']) ?></td>
+                                    <td>
                                     <td>
                                         <button class="btn btn-sm btn-outline-primary">
                                             <i class="fas fa-edit"></i>
