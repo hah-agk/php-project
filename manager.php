@@ -18,7 +18,8 @@ $theme = $_SESSION['theme'] ?? 'light';
 //     exit();
 // }
 
- $tasks=show_task($pdo);
+ $mID   =  $_SESSION['managerID'];
+ $tasks=show_task($pdo ,$mID);
 
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
@@ -47,10 +48,10 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php ");
     exit;
 }
-if(isset($_GET['Ntask'])){
-    header("Location: add_task.php?Ntask=1");
-    exit();
-}
+// if(isset($_GET['Ntask'])){
+//     header("Location: add_task.php?Ntask=1");
+//     exit();
+// }
 // Check if user is logged in
 $is_logged_in = isset($_SESSION['user']);
 $current_user = $_SESSION['user'] ?? '';
@@ -69,8 +70,10 @@ $user_role = $_SESSION['role'] ?? '';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet"  href="css/man.css">
+
 </head>
 <body>
+
     <!-- Sidebar -->
     <div class="sidebar" style="width: 250px;">
         <div class="p-3">
@@ -249,29 +252,49 @@ $user_role = $_SESSION['role'] ?? '';
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
+                        <div class="t">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>status</th>
-                                <th>deadline</th>
+                                <th>start_time</th>
+                                <th>end_time</th>
                                 <th>description</th>
                                 <th>bounty</th>
+                                <th>user_id</th>
+                                <th>manager_id</th>
+                                <th>Actions</th>
                             </tr>
+                            </div>
                         </thead>
                         <tbody>
                         <?php
                                  if (!empty($tasks)) { 
                                     foreach ($tasks as $task) { ?>
                                 <tr>
-                                    <td><?= $task['idm'] ?></td>
-                                    <td><?= $task['namem'] ?></td>
-                                    <td><?= $task['status'] ?></td>
-                                    <td><?= $task['deadline'] ?></td>
-                                    <td><?= $task['description'] ?></td>
-                                    <td><?= $task['bounty'] ?></td>
+                                    <td><?= htmlspecialchars($task['id_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['Title_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['status']) ?></td>
+                                    <td><?= htmlspecialchars($task['Start_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['End_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['description']) ?></td>
+                                    <td><?= htmlspecialchars($task['bounty']) ?></td>
+                                    <td><?= empty($task['user_id']) ? 'no user accept the task' : htmlspecialchars($task['user_id']) ?></td>
+
+                                    <td><?= htmlspecialchars($task['manager_id']) ?></td>
+                                    <td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                 </tr>
                         <?php 
                                     }
+                                }else {
+                                    echo "<tr><td colspan='7'>No tasks found.</td></tr>";
                                 } ?>
                         </tbody>
                     </table>
@@ -297,7 +320,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary" >
-                                    <a href="manager.php?Ntask=1">
+                                    <a href="add_task.php?Ntask=1">
                                 <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">
