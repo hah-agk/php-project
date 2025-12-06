@@ -16,7 +16,7 @@ if (!isset($email) || empty(trim($email))
 }
 $_SESSION['email']=$email;
 try {
-    $sql ="SELECT id ,name , password
+    $sql ="SELECT id_m ,name , password
            FROM manager 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
@@ -25,7 +25,7 @@ try {
            $manager = $stmt->fetch(PDO::FETCH_ASSOC);
                 
     if (!$manager) {
-         $sql ="SELECT id  , name , password
+         $sql ="SELECT id_u  , FullName , password
            FROM users 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
@@ -42,19 +42,19 @@ try {
     }   
     $_SESSION['UorM']= "users";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['userID']= $user['id'];
+    $_SESSION['userID']= $user['id_u'];
     $_SESSION['userName']= $user['name'];
     header("Location:user.php");
     exit();
     }else{
-     if (!password_verify($password , $user['password'])) {
+     if (!password_verify($password , $manager['password'])) {
              header("location:signup.php?err=2");
         exit();
         }   
     $_SESSION['UorM']= "manager";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['managerID']= $user['id'];
-    $_SESSION['managerName']= $user['name'];
+    $_SESSION['managerID']= $manager['id_m'];
+    $_SESSION['managerName']= $manager['name'];
     header("Location:manager.php");
     exit();
     }

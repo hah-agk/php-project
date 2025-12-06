@@ -12,199 +12,180 @@ session_start();
 // }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $namem       = $_POST['namem'] ?? '';
-    $status      = $_POST['status'] ?? '';
-    $deadline    = $_POST['deadline'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $bounty      = $_POST['bounty'] ?? '';
+ $title_T= trim($_POST['title']);
+ $description= trim($_POST['description']);
+ $bounty= trim($_POST['bounty']);
+ $end_time= trim($_POST['end_time']);
+ $skill = ($_POST['required_skill'] === "Other") 
+         ? $_POST['other_skill'] 
+         : $_POST['required_skill'];
 
-    if (!isset($namem) || empty(trim($namem))
-        || !isset($status) || empty(trim($status))
-        || !isset($deadline) || empty(trim($deadline))
+
+    if (!isset($title_T) || empty(trim($title_T))
         || !isset($description) || empty(trim($description))
-        || $bounty === '' || $bounty < 0
+        || !isset($end_time) || empty(trim($end_time))
+        || !isset($skill) || empty(trim($skill))
+        ||  !isset($bounty) || empty(trim($bounty)) 
     ) {
         header("location: add_task.php?error=1");
         exit();
     }
+    if ($bounty < 0) {
+        header("location: add_task.php?error=2");
+        exit();
+    }
 
-    $sql = "INSERT INTO task (namem, status, deadline, description, bounty) 
-            VALUES (:namem, :status, :deadline, :description, :bounty)";
+    if (isset($_SESSION['managerID'])) {
+        $mid = $_SESSION['managerID'];
+    } else {
+        
+        header("Location: signup.php");
+        exit();
+    }
+    $sql = "INSERT INTO task (Title_T , description, bounty , End_Time, required_skill, manager_id) 
+            VALUES (:title_T,:description,:bounty,:end_time,:skill,:mid)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':namem', $namem);
-    $stmt->bindParam(':status', $status);
-    $stmt->bindParam(':deadline', $deadline);
+    $stmt->bindParam(':title_T', $title_T);
     $stmt->bindParam(':description', $description);
     $stmt->bindParam(':bounty', $bounty, PDO::PARAM_INT);
+    $stmt->bindParam(':end_time', $end_time);
+    $stmt->bindParam(':skill', $skill);
+    $stmt->bindParam(':mid', $mid, PDO::PARAM_INT);
+    
     $stmt->execute();
 
     header("Location: manager.php");
     exit();
 }
-if (isset($_GET['Ntask'])) {
-    if ($_GET['Ntask'] == 1) {}}
+
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add Task</title>
+    
 
-        <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Task</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f3f4f6;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        padding: 30px;
+    }
 
-        .page-wrapper {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .form-container {
+        width: 420px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin: auto;
+    }
 
-        .task-form-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 500px;
-            padding: 24px 28px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
-        }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        .task-form-card h2 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 24px;
-            color: #111827;
-            text-align: center;
-        }
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
 
-        .task-form-card p.subtitle {
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #6b7280;
-            font-size: 14px;
-        }
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+    }
 
-        .form-group {
-            margin-bottom: 14px;
-        }
+    textarea {
+        height: 120px;
+        resize: none;
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 14px;
-            color: #374151;
-        }
+    .btn {
+        width: 100%;
+        background: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 17px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
 
-        .form-group input[type="text"],
-        .form-group input[type="date"],
-        .form-group input[type="number"],
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 6px;
-            border: 1px solid #d1d5db;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
+    .btn:hover {
+        background: #45a049;
+    }
+</style>
 
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
-        }
-
-        .error-msg {
-            margin-top: 8px;
-            margin-bottom: 0;
-            color: #b91c1c;
-            background: #fee2e2;
-            border: 1px solid #fecaca;
-            padding: 8px 10px;
-            border-radius: 6px;
-            font-size: 13px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            background: #3b82f6;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 6px;
-        }
-
-        .btn-submit:hover {
-            background: #2563eb;
-        }
-    </style>
 </head>
 <body>
-<div class="page-wrapper">
-    <div class="task-form-card">
-        <h2>Add New Task</h2>
-        <p class="subtitle">Fill in the details below to create a new task.</p>
 
-        <form method="POST" action="">
-            <div class="form-group">
-                <label for="namem">Task Name</label>
-                <input type="text" id="namem" name="namem" required>
-            </div>
+<div class="form-container">
+    <h2>Create New Task</h2>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status" required>
-                    <option value="">Select status</option>
-                    <option value="pending">Pending</option>
-                    <option value="in_progress">In progress</option>
-                    <option value="done">Done</option>
-                </select>
-            </div>
+    <form action="add_task.php" method="POST">
 
-            <div class="form-group">
-                <label for="deadline">Deadline</label>
-                <input type="date" id="deadline" name="deadline" required>
-            </div>
+        <label>Title</label>
+        <input type="text" name="title" required>
 
-            <div class="form-group">
-                <label for="bounty">Bounty</label>
-                <input type="number" step="1" id="bounty" name="bounty" min="0" required>
-            </div>
+     
 
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" required></textarea>
-            </div>
+        <label>Description</label>
+        <textarea name="description" required></textarea>
 
-            <button type="submit" class="btn-submit">Add Task</button>
-        </form>
+        <label>Bounty</label>
+        <input type="number" step="5" name="bounty" min="0">
 
+        <label>End Time</label>
+        <input type="date" name="end_time">
+
+              <label>Required Skill</label>
+        <select name="required_skill" id="skillSelect" onchange="toggleOtherSkill()">
+            <option value="Java">Java</option>
+            <option value="PHP">PHP</option>
+            <option value="Laravel">Laravel</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="C#">C#</option>
+            <option value="Other">Other</option>
+        </select>
+
+        
+        <input type="text" name="other_skill" id="otherSkillBox" placeholder="Enter custom skill..." style="display:none;"
+>
+
+        <button class="btn" type="submit">Create Task</button>
+
+    </form>
         <?php
         if (isset($_GET['error']) && $_GET['error'] == 1) {
             echo "<p class='error-msg'>Please fill in all required fields (bounty must be ≥ 0).</p>";
         }
+        if (isset($_GET['error']) && $_GET['error'] == 2) {
+            echo "<p class='error-msg'>Bounty must be a non-negative value.</p>";
+        }
         ?>
     </div>
-</div>
+
+    <script>
+function toggleOtherSkill() {
+    var select = document.getElementById("skillSelect");
+    var otherBox = document.getElementById("otherSkillBox");
+
+    if (select.value === "Other") {
+        otherBox.style.display = "block";
+    } else {
+        otherBox.style.display = "none";
+        otherBox.value = "";
+    }
+}
+</script>
+
 </body>
 </html>
