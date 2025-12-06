@@ -1,6 +1,6 @@
 <?php
 session_start();
-require  "component/opendb.php";
+require 'component/opendb.php';
 
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
     die("Wrong Method");
@@ -80,6 +80,8 @@ try {
     }
 } catch (PDOException $e) {
     header("location: signup.php?errr=4");
+
+//   echo "Error: " . $e->getMessage();
     exit();
 }
 

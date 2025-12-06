@@ -1,6 +1,6 @@
 <?php
-session_start();
-
+require 'component/opendb.php';
+require 'component/function.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 
@@ -8,6 +8,18 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 
 // Simple file-based authentication (no database required)
+// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+//     header("Location: signup.php?errr=7");
+//     exit();
+// }
+
+// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
+//     header("Location: manager.php");
+//     exit();
+// }
+
+ $tasks=show_task($pdo);
+
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
     'user' => password_hash('user123', PASSWORD_DEFAULT)
@@ -20,7 +32,7 @@ $sample_users = [
     ['id' => 3, 'name' => 'Bob Johnson', 'email' => 'bob@example.com', 'role' => 'User', 'status' => 'Inactive'],
     ['id' => 4, 'name' => 'Alice Brown', 'email' => 'alice@example.com', 'role' => 'Moderator', 'status' => 'Active'],
 ];
-
+ 
 $stats = [
     'total_users' => 1542,
     'active_users' => 1247,
@@ -35,7 +47,10 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php ");
     exit;
 }
-
+if(isset($_GET['Ntask'])){
+    header("Location: add_task.php?Ntask=1");
+    exit();
+}
 // Check if user is logged in
 $is_logged_in = isset($_SESSION['user']);
 $current_user = $_SESSION['user'] ?? '';
@@ -244,22 +259,20 @@ $user_role = $_SESSION['role'] ?? '';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($sample_users as $user): ?>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                             
-                                </td>
-                                <td>
-                             
-                                </td>
-                                <td>
-                               
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                        <?php
+                                 if (!empty($tasks)) { 
+                                    foreach ($tasks as $task) { ?>
+                                <tr>
+                                    <td><?= $task['idm'] ?></td>
+                                    <td><?= $task['namem'] ?></td>
+                                    <td><?= $task['status'] ?></td>
+                                    <td><?= $task['deadline'] ?></td>
+                                    <td><?= $task['description'] ?></td>
+                                    <td><?= $task['bounty'] ?></td>
+                                </tr>
+                        <?php 
+                                    }
+                                } ?>
                         </tbody>
                     </table>
                 </div>
@@ -284,6 +297,7 @@ $user_role = $_SESSION['role'] ?? '';
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary" >
+                                    <a href="manager.php?Ntask=1">
                                 <i class="fas fa-plus me-2"></i>Add New task
                             </button>
                             <button class="btn btn-outline-success">
@@ -296,27 +310,7 @@ $user_role = $_SESSION['role'] ?? '';
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="card-title mb-0">System Info</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <small class="text-muted">Server Time</small>
-                                <p><?= date('Y-m-d H:i:s') ?></p>
-                            </div>
-                            <div class="col-6">
-                                <small class="text-muted">PHP Version</small>
-                                <p><?= PHP_VERSION ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      
 
 
     
