@@ -5,7 +5,7 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$db="project";
+$db="task_management_db";
 
 //PDO
 try {

@@ -40,13 +40,15 @@ try {
     if(isset($_POST['user_type']) && $_POST['user_type'] === 'user'){
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    $sql = "INSERT INTO users (name, phone, addres, email, password)
-            VALUES (:name, :phone, :addres, :email, :password)";
+$salary = 0;
+ 
+    $sql = "INSERT INTO users (FullName, phone, address, salary ,  email, password)
+            VALUES (:name, :phone, :address,::salary , email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":phone", $phone);
-    $stmt->bindParam(":addres", $address);
+    $stmt->bindParam(":address", $address);
+    $stmt->bindParam(":salary", $salary);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
@@ -61,27 +63,28 @@ try {
     }
     else{
          $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    $sql = "INSERT INTO manager (name, phone, addres , email, password)
-            VALUES (:name, :phone, :addres, :email, :password)";
+$salary = 0;
+    $sql = "INSERT INTO manager (name, phone, address, salary , email, password)
+            VALUES (:name, :phone, :address , :salary, :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":phone", $phone);
-    $stmt->bindParam(":addres", $address);
+    $stmt->bindParam(":address", $address);
+    $stmt->bindParam(":salary", $salary);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
     $_SESSION['UorM']= "manager";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['userID']= $pdo->lastInsertId();
-    $_SESSION['userName']= $name;
+    $_SESSION['managerID']= $pdo->lastInsertId();
+    $_SESSION['managerName']= $name;
     header("Location: manager.php");
     exit();
     }
 } catch (PDOException $e) {
-    header("location: signup.php?errr=4");
+//    header("location: signup.php?errr=4");
 
-//   echo "Error: " . $e->getMessage();
+   echo "Error: " . $e->getMessage();
     exit();
 }
 

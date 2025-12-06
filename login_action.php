@@ -53,8 +53,8 @@ try {
         }   
     $_SESSION['UorM']= "manager";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['userID']= $user['id'];
-    $_SESSION['userName']= $user['name'];
+    $_SESSION['managerID']= $user['id'];
+    $_SESSION['managerName']= $user['name'];
     header("Location:manager.php");
     exit();
     }

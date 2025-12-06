@@ -17,8 +17,8 @@ $theme = $_SESSION['theme'] ?? 'light';
 //     header("Location: manager.php");
 //     exit();
 // }
-
- $tasks=show_task($pdo);
+ $mID   =  $_SESSION['managerID'];
+ $tasks=show_task($pdo ,$mID);
 
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
@@ -280,6 +280,8 @@ $user_role = $_SESSION['role'] ?? '';
                                 </tr>
                         <?php 
                                     }
+                                }else {
+                                    echo "<tr><td colspan='7'>No tasks found.</td></tr>";
                                 } ?>
                         </tbody>
                     </table>

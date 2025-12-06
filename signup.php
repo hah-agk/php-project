@@ -36,23 +36,23 @@ session_start();
                 </div>
                 <span>or use your email for registration</span>
                 <div class="infield">
-                    <input type="text" placeholder="Name" name="name" />
+                    <input type="text" placeholder="Name" name="name" value="<?= $_SESSION['name'] ?? '' ?>" />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email" value="<?= $_SESSION['email'] ?? '' ?>" />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="password" placeholder="Password"  name="password"/>
+                    <input type="password" placeholder="Password"  name="password" />
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="text" placeholder="phone"  name="phone"/>
+                    <input type="text" placeholder="phone"  name="phone"  value="<?= $_SESSION['phone'] ?? '' ?>"/>
                     <label></label>
                 </div>
                 <div class="infield">
-                    <input type="text" placeholder="address"  name="address"/>
+                    <input type="text" placeholder="address"  name="address" value="<?= $_SESSION['address'] ?? '' ?>"/>
                     <label></label>
                 </div>
                     <div class="radio">
@@ -99,7 +99,7 @@ if (isset($_GET['errr'])) {
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="email" placeholder="Email" name="email" value="<?= $_SESSION['emails'] ?? '' ?>"/>
                     <label></label>
                 </div>
                 <div class="infield">
