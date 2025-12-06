@@ -301,6 +301,9 @@ $user_role = $_SESSION['role'] ?? '';
                 </div>
             </div>
         </div>
+
+
+        
         
         <!-- Quick Actions -->
         <div class="row mt-4">
@@ -330,27 +333,10 @@ $user_role = $_SESSION['role'] ?? '';
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="card-title mb-0">System Info</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <small class="text-muted">Server Time</small>
-                                <p><?= date('Y-m-d H:i:s') ?></p>
-                            </div>
-                            <div class="col-6">
-                                <small class="text-muted">PHP Version</small>
-                                <p><?= PHP_VERSION ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      
+
+
+    
  
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
