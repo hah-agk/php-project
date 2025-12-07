@@ -154,7 +154,7 @@ if (isset($_GET['logout'])) {
                 </button>
                 <button class="action-btn secondary">
                      <i class="fas fa-tasks"></i>
-                    show tasks
+                    show skills
                 </button>
                 <button class="action-btn secondary">
                     <i class="fas fa-chart-line"></i>
