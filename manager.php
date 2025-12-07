@@ -317,6 +317,7 @@ $user_role = $_SESSION['role'] ?? '';
                         
                         <div class="d-grid gap-2">
                             <button class="btn btn-outline-primary">
+                                <a href="add_user.php?Nuser=1">
                                 <i class="fas fa-plus me-2"></i>Add New User
                             </button>
                                  <button class="btn btn-outline-primary" >

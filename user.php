@@ -23,6 +23,17 @@ if (isset($_POST['logout'])) {
 // $userPhone = $_SESSION['phone'];
 // $userAddress = $_SESSION['address'];
 
+$userName =$_SESSION['userName'] ?? "User";
+$welcomeText = "Welcome, $userName! 👋";
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
+    $h1 = "Welcome back, $userName! 👋";
+    $p= "Here's what's happening with your tasks today.";
+}
+if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
+        $h1 = "Welcome, $userName! 👋";
+        $p= "Your account has been created successfully.";
+}
+
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -74,8 +85,8 @@ if (isset($_GET['logout'])) {
     <div class="main-content">
         <!-- Welcome Header -->
         <div class="welcome-header">
-            <h1>Welcome Back, User! 👋</h1>
-            <p>Here's what's happening with your tasks today.</p>
+            <h1><?php echo $h1; ?> </h1>
+            <p><?php echo $p; ?></p>
         </div>
 
 

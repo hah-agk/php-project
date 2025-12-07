@@ -84,6 +84,10 @@ if (isset($_GET['errr'])) {
             break;
     }
 }
+$_SESSION['name']="";
+$_SESSION['email']="";
+$_SESSION['phone']="";
+$_SESSION['address']="";
 
                 ?>
         </div>
@@ -99,7 +103,7 @@ if (isset($_GET['errr'])) {
                 </div>
                 <span>or use your account</span>
                 <div class="infield">
-                    <input type="email" placeholder="Email" name="email" value="<?= $_SESSION['emails'] ?? '' ?>"/>
+                    <input type="email" placeholder="Email" name="email" value="<?= $_SESSION['Lemail'] ?? '' ?>"/>
                     <label></label>
                 </div>
                 <div class="infield">
@@ -125,7 +129,7 @@ if (isset($_GET['errr'])) {
                             echo " Failed to login , Contact admin";
                     }
                 }
-                    $_SESSION['email']="";
+                    $_SESSION['Lemail']="";
                 ?>
             </div>
         </div>
