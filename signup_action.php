@@ -43,7 +43,7 @@ try {
 $salary = 0;
  
     $sql = "INSERT INTO users (FullName, phone, address, salary ,  email, password)
-            VALUES (:name, :phone, :address,::salary , email, :password)";
+            VALUES (:name, :phone, :address,:salary , :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":phone", $phone);
@@ -57,7 +57,8 @@ $salary = 0;
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $pdo->lastInsertId();
     $_SESSION['userName']= $name;
-    
+    $signup = true;
+    setcookie("signup", $signup,);
     header("Location: user.php");
     exit();
     }

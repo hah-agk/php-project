@@ -14,7 +14,7 @@ if (!isset($email) || empty(trim($email))
     header("location: signup.php?err=1");
     exit();
 }
-$_SESSION['email']=$email;
+$_SESSION['Lemail']=$email;
 try {
     $sql ="SELECT id_m ,name , password
            FROM manager 
@@ -43,7 +43,10 @@ try {
     $_SESSION['UorM']= "users";
     $_SESSION['LoggedIn']= true;
     $_SESSION['userID']= $user['id_u'];
-    $_SESSION['userName']= $user['name'];
+    $_SESSION['userName']= $user['FullName'];
+    $login = true;
+    setcookie("login", $login,);
+
     header("Location:user.php");
     exit();
     }else{
