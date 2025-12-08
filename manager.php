@@ -25,7 +25,6 @@ $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
     'user' => password_hash('user123', PASSWORD_DEFAULT)
 ];
-
 // Sample data
 $sample_users = [
     ['id' => 1, 'name' => 'John Doe', 'email' => 'john@example.com', 'role' => 'Admin', 'status' => 'Active'],
@@ -284,12 +283,14 @@ $user_role = $_SESSION['role'] ?? '';
                                     <td><?= htmlspecialchars($task['manager_id']) ?></td>
                                     <td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                          <a class="btn btn-sm btn-outline-primary" 
+                                           href ="edit_delete_task.php?edit=1&id=<?= $task['id_T'] ?>">
+                                          <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-outline-danger" 
+                                            href="edit_delete_task.php?delete=1&id=<?= $task['id_T'] ?>">
+                                          <i class="fas fa-trash"></i>
+                                            </a>
                                 </tr>
                         <?php 
                                     }
