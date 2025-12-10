@@ -89,22 +89,22 @@ $salary = 0;
     exit();
 }
 
-// if (isset($_GET['errr'])) {
-//     switch ($_GET['errr']) {
-//         case 1:
-//             echo "Missing Parameters";
-//             break;
-//         case 2:
-//             echo "Invalid Email Format";
-//             break;
-//         case 3:
-//             echo "Password must be at least 8 characters long";
-//             break;
-//         case 4:
-//             echo "talk to admin";
-//             break;
-//         case 5:
-//             echo "Email already exists";    
-//             break;
-//     }
-// }
+if (isset($_GET['errr'])) {
+    switch ($_GET['errr']) {
+        case 1:
+            echo "Missing Parameters";
+            break;
+        case 2:
+            echo "Invalid Email Format";
+            break;
+        case 3:
+            echo "Password must be at least 8 characters long";
+            break;
+        case 4:
+            echo "talk to admin";
+            break;
+        case 5:
+            echo "Email already exists";    
+            break;
+    }
+}

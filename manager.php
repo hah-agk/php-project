@@ -8,10 +8,10 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 
 // Simple file-based authentication (no database required)
-// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php?errr=7");
-//     exit();
-// }
+if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php?errr=7");
+    exit();
+}
 
 // if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
 //     header("Location: manager.php");

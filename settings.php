@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php");
-//     exit;
-// }
+if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php");
+    exit;
+}
 // // Handle logout
-// if (isset($_GET['logout'])) {
-//     session_destroy();
-//     header("Location: signup.php");
-//     exit;
-// }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit;
+}
 
 // ---- Mock "logged in user" data (replace with real DB logic) ----
 if (!isset($_SESSION['user'])) {
