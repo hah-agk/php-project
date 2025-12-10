@@ -58,134 +58,178 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
+$theme = $_SESSION['theme'] ?? 'light';
 ?>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Add Task</title>
-    
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f3f3f3;
-        padding: 30px;
-    }
-
-    .form-container {
-        width: 420px;
-        background: #fff;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        margin: auto;
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-    }
-
-    input, select, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 15px;
-    }
-
-    textarea {
-        height: 120px;
-        resize: none;
-    }
-
-    .btn {
-        width: 100%;
-        background: #4CAF50;
-        color: #fff;
-        border: none;
-        padding: 12px;
-        border-radius: 6px;
-        font-size: 17px;
-        cursor: pointer;
-        margin-top: 15px;
-    }
-
-    .btn:hover {
-        background: #45a049;
-    }
-</style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Task - Manager Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/add_task.css">
 </head>
 <body>
 
-<div class="form-container">
-    <h2>Create New Task</h2>
 
-    <form action="add_task.php" method="POST">
+    <!-- Main Content -->
+    <div class="main-content">
 
-        <label>Title</label>
-        <input type="text" name="title" required>
 
-     
+       <!-- Back Button -->
+        <a href="manager.php" class="back-btn">
+            <i class="fas fa-arrow-left"></i>Back to Dashboard
+        </a>
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-tasks"></i> Create New Task</h1>
+            <p>Fill in the details below to create a new task for your team</p>
+        </div>
 
-        <label>Description</label>
-        <textarea name="description" required></textarea>
+      
+        <!-- Form Container -->
+        <div class="form-container">
+            <h2>
+                <i class="fas fa-clipboard-list"></i>Task Details
+            </h2>
 
-        <label>Bounty</label>
-        <input type="number" step="5" name="bounty" min="0">
+            <form action="add_task.php" method="POST">
+                
+                <!-- Title -->
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-heading"></i>
+                        Task Title
+                        <span class="required"></span>
+                    </label>
+                    <input type="text" 
+                           name="title" 
+                           class="form-control" 
+                           placeholder="Enter task title..."
+                           required>
+                </div>
 
-        <label>End Time</label>
-        <input type="date" name="end_time">
+                <!-- Description -->
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-align-left"></i>
+                        Description
+                        <span class="required"></span>
+                    </label>
+                    <textarea name="description" 
+                              class="form-control" 
+                              placeholder="Provide a detailed description of the task..."
+                              required></textarea>
+                </div>
 
-              <label>Required Skill</label>
-        <select name="required_skill" id="skillSelect" onchange="toggleOtherSkill()">
-            <option value="Java">Java</option>
-            <option value="PHP">PHP</option>
-            <option value="Laravel">Laravel</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="Python">Python</option>
-            <option value="C#">C#</option>
-            <option value="Other">Other</option>
-        </select>
+                <!-- Bounty -->
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-dollar-sign"></i>
+                        Bounty Amount
+                        <span class="required"></span>
+                    </label>
+                    <input type="number" 
+                           step="5" 
+                           name="bounty" 
+                           class="form-control" 
+                           placeholder="Enter bounty amount..."
+                           min="0"
+                           required>
+                </div>
 
-        
-        <input type="text" name="other_skill" id="otherSkillBox" placeholder="Enter custom skill..." style="display:none;"
->
+                <!-- End Time -->
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-calendar-alt"></i>
+                        End Date
+                        <span class="required"></span>
+                    </label>
+                    <input type="date" 
+                           name="end_time" 
+                           class="form-control"
+                           required>
+                </div>
 
-        <button class="btn" type="submit">Create Task</button>
+                <!-- Required Skill -->
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-code"></i>
+                        Required Skill
+                        <span class="required"></span>
+                    </label>
+                    <select name="required_skill" 
+                            id="skillSelect" 
+                            class="form-select" 
+                            onchange="toggleOtherSkill()"
+                            required>
+                        <option value="">Select a skill...</option>
+                        <option value="Java">Java</option>
+                        <option value="PHP">PHP</option>
+                        <option value="Laravel">Laravel</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="C#">C#</option>
+                        <option value="React">React</option>
+                        <option value="Node.js">Node.js</option>
+                        <option value="Other">Other (Custom)</option>
+                    </select>
+                    
+                    <input type="text" 
+                           name="other_skill" 
+                           id="otherSkillBox" 
+                           class="form-control"
+                           placeholder="Enter custom skill..." 
+                           style="display:none;">
+                </div>
 
-    </form>
-        <?php
-        if (isset($_GET['error']) && $_GET['error'] == 1) {
-            echo "<p class='error-msg'>Please fill in all required fields (bounty must be ≥ 0).</p>";
-        }
-        if (isset($_GET['error']) && $_GET['error'] == 2) {
-            echo "<p class='error-msg'>Bounty must be a non-negative value.</p>";
-        }
-        ?>
+                <!-- Submit Button -->
+                <button class="btn-submit" type="submit">
+                    <i class="fas fa-check-circle"></i>
+                    Create Task
+                </button>
+
+            </form>
+
+            <!-- Error Messages -->
+            <?php
+            if (isset($_GET['error']) && $_GET['error'] == 1) {
+                echo "<div class='error-msg'>
+                        <i class='fas fa-exclamation-circle'></i>
+                        Please fill in all required fields. Bounty must be ≥ 0.
+                      </div>";
+            }
+            if (isset($_GET['error']) && $_GET['error'] == 2) {
+                echo "<div class='error-msg'>
+                        <i class='fas fa-exclamation-circle'></i>
+                        Bounty must be a non-negative value.
+                      </div>";
+            }
+            ?>
+        </div>
     </div>
 
     <script>
-function toggleOtherSkill() {
-    var select = document.getElementById("skillSelect");
-    var otherBox = document.getElementById("otherSkillBox");
+        function toggleOtherSkill() {
+            var select = document.getElementById("skillSelect");
+            var otherBox = document.getElementById("otherSkillBox");
 
-    if (select.value === "Other") {
-        otherBox.style.display = "block";
-    } else {
-        otherBox.style.display = "none";
-        otherBox.value = "";
-    }
-}
-</script>
+            if (select.value === "Other") {
+                otherBox.style.display = "block";
+                otherBox.required = true;
+            } else {
+                otherBox.style.display = "none";
+                otherBox.required = false;
+                otherBox.value = "";
+            }
+        }
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date().toISOString().split('T')[0];
+            document.querySelector('input[type="date"]').setAttribute('min', today);
+        });
+    </script>
 
 </body>
 </html>
