@@ -119,6 +119,7 @@ $user_role = $_SESSION['role'] ?? '';
 
     <!-- Main Content -->
     <div class="main-content">
+        
         <!-- Navbar -->
         <nav class="navbar ">
             <div class="container-fluid">
