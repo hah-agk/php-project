@@ -99,6 +99,11 @@ $user_role = $_SESSION['role'] ?? '';
                     <i class="fas fa-chart-bar me-2"></i>Analytics
                 </a>
             </li>
+           <li>
+                <a class="nav-link" href="balance.php">
+                  <i class="fa-solid fa-wallet me-2"></i>Balance
+                 </a>
+            </li>
             <li>
                 <a class="nav-link" href="settings.php">
                     <i class="fas fa-cog me-2"></i>Settings
