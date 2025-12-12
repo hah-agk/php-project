@@ -33,8 +33,28 @@ try {
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
    if (!$user) {
+        $sql ="SELECT name , email , password
+           FROM admin 
+           where email = :email ";
+           $stmt =$pdo->prepare($sql);
+           $stmt->bindParam(":email", $email);
+           $stmt->execute();
+           $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$admin) {
         header("location:signup.php?err=2");
         exit();
+    }
+        if (!password_verify($password , $admin['password'])) {
+                header("location:signup.php?err=2");
+            exit();
+        }
+    $_SESSION['UorM']= "admin";
+    $_SESSION['LoggedIn']= true;
+    $_SESSION['adminName']= $admin['name'];
+    $login = true;
+    setcookie("login", $login,);
+    header("Location:admin.php");
+    exit();
     }
     if (!password_verify($password , $user['password'])) {
              header("location:signup.php?err=2");
