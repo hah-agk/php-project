@@ -72,6 +72,19 @@ try {
         PRIMARY KEY (id_a)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
+    
+$pdo->exec("
+CREATE TABLE manager_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    address VARCHAR(255),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
 
 
     echo "✔ All tables created successfully!";
