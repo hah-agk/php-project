@@ -162,28 +162,32 @@ body{
         <div class="tab-btn active" onclick="showTab(1)">Add Money</div>
         <div class="tab-btn" onclick="showTab(2)">Withdraw</div>
     </div>
-
-    <!-- ADD MONEY PANEL -->
-    <div class="panel active" id="panel1">
+<!-- ADD MONEY PANEL -->
+<div class="panel active" id="panel1">
+    <form action="balance_action.php" method="post">
         <div class="buttons">
-            <button class="action-btn">+$5</button>
-            <button class="action-btn">+$10</button>
-            <button class="action-btn">+$20</button>
-            <button class="action-btn">+$50</button>
-            <button class="action-btn">+$100</button>
+            <button type="submit" name="amount" value="5" class="action-btn">+$5</button>
+            <button type="submit" name="amount" value="10" class="action-btn">+$10</button>
+            <button type="submit" name="amount" value="20" class="action-btn">+$20</button>
+            <button type="submit" name="amount" value="50" class="action-btn">+$50</button>
+            <button type="submit" name="amount" value="100" class="action-btn">+$100</button>
         </div>
-    </div>
+    </form>
+</div>
 
-    <!-- WITHDRAW PANEL -->
-    <div class="panel" id="panel2">
+<!-- WITHDRAW PANEL -->
+<div class="panel" id="panel2">
+    <form action="balance_action.php" method="post">
         <div class="buttons">
-            <button class="action-btn">-$5</button>
-            <button class="action-btn">-$10</button>
-            <button class="action-btn">-$20</button>
-            <button class="action-btn">-$50</button>
-            <button class="action-btn">-$100</button>
+            <button type="submit" name="amount" value="-5" class="action-btn">-$5</button>
+            <button type="submit" name="amount" value="-10" class="action-btn">-$10</button>
+            <button type="submit" name="amount" value="-20" class="action-btn">-$20</button>
+            <button type="submit" name="amount" value="-50" class="action-btn">-$50</button>
+            <button type="submit" name="amount" value="-100" class="action-btn">-$100</button>
         </div>
-    </div>
+    </form>
+</div>
+
 
     <a href="manager.php" class="back-btn">← Back to Dashboard</a>
 </div>
