@@ -72,18 +72,31 @@ try {
         PRIMARY KEY (id_a)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
+    
+$pdo->exec("
+CREATE TABLE IF NOT EXISTS manager_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    address VARCHAR(255),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
 
 
     echo "✔ All tables created successfully!";
 
-   $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
-$stmt = $pdo->prepare($sql);
+//    $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
+// $stmt = $pdo->prepare($sql);
 
-$stmt->execute([
-    'admin',
-    'admin@gmail.com',
-    password_hash('admin123', PASSWORD_BCRYPT)
-]);
+// $stmt->execute([
+//     'admin',
+//     'admin@gmail.com',
+//     password_hash('admin123', PASSWORD_BCRYPT)
+// ]);
 echo "\n✔ Default admin user created successfully!";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
