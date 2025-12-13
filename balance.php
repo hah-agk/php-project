@@ -9,146 +9,23 @@ $salary = $stmt->fetchColumn();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
 <meta charset="UTF-8">
 <title>Wallet</title>
-
-<style>
-/* ---------------- GLOBAL ---------------- */
-body{
-    margin:0;
-    padding:0;
-    font-family:'Inter',sans-serif;
-    background:#14161B;
-    color:#E5E7EB;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-}
-
-.page{
-    width:100%;
-    max-width:750px;
-    padding:50px 20px;
-}
-
-/* ---------------- TITLE ---------------- */
-.title{
-    font-size:32px;
-    font-weight:700;
-    margin-bottom:6px;
-}
-.subtitle{
-    font-size:14px;
-    color:#9CA3AF;
-    margin-bottom:35px;
-}
-
-/* ---------------- BALANCE BOX ---------------- */
-.balance-box{
-    background:#1B1E24;
-    padding:25px;
-    border-radius:16px;
-    border:1px solid #2C2F36;
-    margin-bottom:40px;
-    text-align:center;
-}
-.balance-label{
-    font-size:14px;
-    color:#9CA3AF;
-}
-.balance-value{
-    font-size:42px;
-    font-weight:700;
-    margin-top:5px;
-    color:#7FFFE2;
-}
-
-/* ---------------- TABS ---------------- */
-.tabs{
-    display:flex;
-    justify-content:center;
-    margin-bottom:25px;
-}
-.tab-btn{
-    padding:12px 26px;
-    margin:0 8px;
-    border-radius:10px;
-    cursor:pointer;
-    border:1px solid #2C2F36;
-    background:#1F2329;
-    color:#D1D5DB;
-    transition:0.25s;
-}
-.tab-btn.active{
-    background:#273038;
-    color:#7FFFE2;
-    border-color:#7FFFE2;
-}
-
-/* ---------------- PANELS ---------------- */
-.panel{
-    display:none;
-}
-.panel.active{
-    display:block;
-    animation:fade 0.35s ease;
-}
-
-@keyframes fade{
-    from{opacity:0; transform:translateY(6px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-/* ---------------- BUTTONS ---------------- */
-.buttons{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
-
-.action-btn{
-    padding:15px 26px;
-    font-size:18px;
-    border-radius:12px;
-    border:1px solid #2A2F36;
-    background:#1F2329;
-    color:#D1D5DB;
-    cursor:pointer;
-    transition:0.25s;
-}
-.action-btn:hover{
-    background:#273038;
-    color:#7FFFE2;
-    transform:translateY(-3px);
-}
-
-/* ---------------- BACK BUTTON ---------------- */
-.back-btn{
-    margin-top:45px;
-    display:inline-block;
-    padding:14px 32px;
-    font-size:17px;
-    border-radius:12px;
-    background:linear-gradient(90deg,#4DD7E6,#7B88FF);
-    text-decoration:none;
-    color:white;
-    transition:0.25s;
-}
-.back-btn:hover{
-    transform:translateY(-2px);
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="css/balnce.css" rel="stylesheet">
 
 </head>
 <body>
 
 <div class="page">
 
-    <div class="title">Wallet</div>
+    <div class="title">
+        <h2>
+        <i class="fa-solid fa-wallet"></i>wallet</h2>
+         </div>
     <div class="subtitle">Add or withdraw money from your account</div>
 
     <!-- BALANCE -->
@@ -189,13 +66,15 @@ body{
 </div>
 
 
+
     <a href="manager.php" class="back-btn">← Back to Dashboard</a>
 </div>
 
 <script>
-function showTab(tab){
-    document.querySelectorAll(".tab-btn").forEach(btn=>btn.classList.remove("active"));
-    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+function showTab(tab) {
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+
     document.querySelector(`.tab-btn:nth-child(${tab})`).classList.add("active");
     document.getElementById(`panel${tab}`).classList.add("active");
 }

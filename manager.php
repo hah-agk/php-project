@@ -72,7 +72,7 @@ $user_role = $_SESSION['role'] ?? '';
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet"  href="css/man.css">
+  <link href="css/man.css" rel="stylesheet">
 
 </head>
 <body>
@@ -120,79 +120,58 @@ $user_role = $_SESSION['role'] ?? '';
     <!-- Main Content -->
     <div class="main-content">
         
-        <!-- Navbar -->
-        <nav class="navbar ">
-            <div class="container-fluid">
-                <span >Dashboard</span>
-                <div >
-                    <span >
-                   
-                        <span class="badge bg-<?= $user_role === 'admin' ? 'danger' : 'primary' ?> ms-1">
-                            <?= ucfirst($user_role) ?>
-                        </span>
-                    </span>
-                    <a href="?logout=1">
-                        <i class="fas fa-sign-out-alt me-1"></i>Logout
-                    </a>
+       
+             <div class="welcome-header">
+            <h1>welcom back maneger 👋</h1>
+            <p>nfo5o</p>
+        </div>
+          <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Total Tasks</span>
+                    <div class="stat-card-icon primary">
+                        <i class="fas fa-tasks"></i>
+                    </div>
                 </div>
+                <div class="stat-card-value">24</div>
+                <div class="stat-card-label">Active tasks</div>
             </div>
-        </nav>
 
-        <!-- Stats Cards -->
-        <div class="row mb-4">
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card bg-primary text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h2><?= $stats['total_users'] ?></h2>
-                                <p>Total Users</p>
-                            </div>
-                            <i class="fas fa-users fa-3x opacity-50"></i>
-                        </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">balance</span>
+                    <div class="stat-card-icon success">
+                      <i class="fa-solid fa-magnifying-glass-dollar"></i>
                     </div>
                 </div>
+                <div class="stat-card-value">0</div>
+                <div class="stat-card-label">In progress</div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card bg-success text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h2><?= $stats['active_users'] ?></h2>
-                                <p>Active Users</p>
-                            </div>
-                            <i class="fas fa-user-check fa-3x opacity-50"></i>
-                        </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Completed</span>
+                    <div class="stat-card-icon info">
+                        <i class="fas fa-check-circle"></i>
                     </div>
                 </div>
+                <div class="stat-card-value">0</div>
+                <div class="stat-card-label">This month</div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card bg-warning text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h2><?= $stats['new_today'] ?></h2>
-                                <p>New Today</p>
-                            </div>
-                            <i class="fas fa-user-plus fa-3x opacity-50"></i>
-                        </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Notifications</span>
+                    <div class="stat-card-icon warning">
+                        <i class="fas fa-bell"></i>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card bg-info text-white">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h2><?= $stats['revenue'] ?></h2>
-                                <p>Revenue</p>
-                            </div>
-                            <i class="fas fa-dollar-sign fa-3x opacity-50"></i>
-                        </div>
-                    </div>
-                </div>
+                <div class="stat-card-value">12</div>
+                <div class="stat-card-label">Unread messages</div>
             </div>
         </div>
+
 
         <!-- Users Table -->
         <div class="card">
