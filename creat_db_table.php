@@ -74,7 +74,7 @@ try {
     ");
     
 $pdo->exec("
-CREATE TABLE manager_requests (
+CREATE TABLE IF NOT EXISTS manager_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     phone VARCHAR(20),
@@ -89,14 +89,14 @@ CREATE TABLE manager_requests (
 
     echo "✔ All tables created successfully!";
 
-   $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
-$stmt = $pdo->prepare($sql);
+//    $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
+// $stmt = $pdo->prepare($sql);
 
-$stmt->execute([
-    'admin',
-    'admin@gmail.com',
-    password_hash('admin123', PASSWORD_BCRYPT)
-]);
+// $stmt->execute([
+//     'admin',
+//     'admin@gmail.com',
+//     password_hash('admin123', PASSWORD_BCRYPT)
+// ]);
 echo "\n✔ Default admin user created successfully!";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

@@ -76,13 +76,12 @@ $salary = 0;
         exit();
     } else {
 
-    $sql = "INSERT INTO users (name, phone, address, salary ,  email, password)
-            VALUES (:name, :phone, :address,:salary , :email, :password)";
+    $sql = "INSERT INTO manager_requests (name, phone, address,email, password)
+            VALUES (:name, :phone, :address , :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":phone", $phone);
     $stmt->bindParam(":address", $address);
-    $stmt->bindParam(":salary", $salary);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
