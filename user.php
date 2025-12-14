@@ -23,7 +23,11 @@ $userID   = $_SESSION['userID'];
 // $userPhone = $_SESSION['phone'];
 // $userAddress = $_SESSION['address'];
 
-$userName =$_SESSION['userName'] ?? "User";
+// Fetch user name from database
+$sql = "SELECT FullName FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$userName = $stmt->fetchColumn();
 $welcomeText = "Welcome, $userName! 👋";
 if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
     $h1 = "Welcome back, $userName! 👋";
