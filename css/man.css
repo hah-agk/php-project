@@ -206,6 +206,7 @@ body {
     transition: transform 0.3s ease;
 }
 
+
 .stat-card:hover .stat-card-icon {
     transform: scale(1.1) rotate(5deg);
 }
@@ -275,4 +276,27 @@ body {
     .welcome-header p {
         font-size: 14px;
     }
+}
+
+
+html[data-theme="dark"] body .table > :not(caption) > * > * {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .table,
+html[data-theme="dark"] .table th,
+html[data-theme="dark"] .table td,
+html[data-theme="dark"] .table a,
+html[data-theme="dark"] .table .badge,
+html[data-theme="dark"] .table button {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .table.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255,255,255,0.02) !important;
+}
+
+html[data-theme="dark"] .table {
+    border-color: rgba(255,255,255,0.06) !important;
 }
