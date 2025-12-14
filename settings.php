@@ -1,85 +1,182 @@
 <?php
 session_start();
+require 'component/opendb.php';
 
-// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php");
-//     exit;
-// }
-// // Handle logout
-// if (isset($_GET['logout'])) {
-//     session_destroy();
-//     header("Location: signup.php");
-//     exit;
-// }
-
-// ---- Mock "logged in user" data (replace with real DB logic) ----
-if (!isset($_SESSION['user'])) {
-    $_SESSION['user'] = [
-        'name'        => 'John Doe',
-        'email'       => 'john@example.com',
-        'language'    => 'en',
-        'notifications' => true,
-        // Normally you NEVER store plain passwords in session or DB
-        'password_hash' => password_hash('password123', PASSWORD_DEFAULT),
-    ];
+/* =========================
+   CHECK ROLE
+   ========================= */
+if (!isset($_SESSION['UorM'])) {
+    header("Location: signup.php");
+    exit;
 }
 
-// Theme: light (default) or dark
+$role = $_SESSION['UorM']; // manager | users | admin
+$settingsKey = '';
+
+/* =========================
+   LOAD SETTINGS INTO SESSION
+   ========================= */
+
+if ($role === 'manager') {
+
+    $stmt = $pdo->prepare("SELECT name, email FROM manager WHERE id_m = ?");
+    $stmt->execute([$_SESSION['managerID']]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!isset($_SESSION['managerSettings'])) {
+        $_SESSION['managerSettings'] = [
+            'name'          => $data['name'] ?? 'Manager',
+            'email'         => $data['email'] ?? 'manager@gmail.com',
+            'language'      => 'en',
+            'notifications' => true,
+        ];
+    }
+    $settingsKey = 'managerSettings';
+
+} elseif ($role === 'users') {
+
+    $stmt = $pdo->prepare("SELECT FullName AS name, email FROM users WHERE id_u = ?");
+    $stmt->execute([$_SESSION['userID']]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!isset($_SESSION['userSettings'])) {
+        $_SESSION['userSettings'] = [
+            'name'          => $data['name'] ?? 'User',
+            'email'         => $data['email'] ?? 'user@gmail.com',
+            'language'      => 'en',
+            'notifications' => true,
+        ];
+    }
+    $settingsKey = 'userSettings';
+
+} elseif ($role === 'admin') {
+
+    $stmt = $pdo->query("SELECT name, email FROM admin LIMIT 1");
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!isset($_SESSION['adminSettings'])) {
+        $_SESSION['adminSettings'] = [
+            'name'          => $data['name'] ?? 'Admin',
+            'email'         => $data['email'] ?? 'admin@gmail.com',
+            'language'      => 'en',
+            'notifications' => true,
+        ];
+    }
+    $settingsKey = 'adminSettings';
+}
+
+/* =========================
+   FINAL USER OBJECT
+   ========================= */
+$user = $_SESSION[$settingsKey];
+
+/* =========================
+   THEME
+   ========================= */
 if (!isset($_SESSION['theme'])) {
     $_SESSION['theme'] = 'light';
 }
-
-$user  = $_SESSION['user'];
 $theme = $_SESSION['theme'];
 
 $success_msg = '';
 $error_msg   = '';
 
-// ---- Handle form submission ----
+/* =========================
+   HANDLE FORM SUBMIT
+   ========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Theme
-    $theme = ($_POST['theme'] ?? 'light') === 'dark' ? 'dark' : 'light';
+
+    /* Theme */
+    $theme = ($_POST['theme'] === 'dark') ? 'dark' : 'light';
     $_SESSION['theme'] = $theme;
 
-    // Profile
-    $name  = trim($_POST['name'] ?? $user['name']);
-    $email = trim($_POST['email'] ?? $user['email']);
-    $language = $_POST['language'] ?? $user['language'];
-    $notifications = isset($_POST['notifications']);
+    /* Profile */
+    $name  = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $language = $_POST['language'] ?? 'en';
+    $notifications = isset($_POST['notifications']) ? 1 : 0;
 
     if ($name === '' || $email === '') {
         $error_msg = 'Name and email are required.';
-    } else {
-        $user['name']          = $name;
-        $user['email']         = $email;
-        $user['language']      = $language;
-        $user['notifications'] = $notifications;
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_msg = 'Invalid email format.';
     }
 
-    // Password change (optional)
-    $current_password = $_POST['current_password'] ?? '';
-    $new_password     = $_POST['new_password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
+    /* Update profile */
+    if ($error_msg === '') {
 
-    if ($current_password !== '' || $new_password !== '' || $confirm_password !== '') {
-        // User wants to change password
-        if (!password_verify($current_password, $user['password_hash'])) {
-            $error_msg = 'Current password is incorrect.';
-        } elseif ($new_password === '' || strlen($new_password) < 6) {
-            $error_msg = 'New password must be at least 6 characters.';
-        } elseif ($new_password !== $confirm_password) {
-            $error_msg = 'New password and confirmation do not match.';
+        if ($role === 'manager') {
+            $pdo->prepare(
+                "UPDATE manager SET name=?, email=? WHERE id_m=?"
+            )->execute([$name, $email, $_SESSION['managerID']]);
+
+        } elseif ($role === 'users') {
+            $pdo->prepare(
+                "UPDATE users SET FullName=?, email=? WHERE id_u=?"
+            )->execute([$name, $email, $_SESSION['userID']]);
+
+        } elseif ($role === 'admin') {
+            $pdo->prepare(
+                "UPDATE admin SET name=? LIMIT 1"
+            )->execute([$name]);
+        }
+
+        $_SESSION[$settingsKey]['name'] = $name;
+        $_SESSION[$settingsKey]['email'] = $email;
+        $_SESSION[$settingsKey]['language'] = $language;
+        $_SESSION[$settingsKey]['notifications'] = $notifications;
+    }
+
+    /* Change password */
+    $current = $_POST['current_password'] ?? '';
+    $new     = $_POST['new_password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
+
+    if ($current || $new || $confirm) {
+
+        if ($new !== $confirm) {
+            $error_msg = 'Passwords do not match.';
+        } elseif (strlen($new) < 6) {
+            $error_msg = 'Password must be at least 6 characters.';
         } else {
-            $user['password_hash'] = password_hash($new_password, PASSWORD_DEFAULT);
+
+            if ($role === 'manager') {
+                $stmt = $pdo->prepare("SELECT password FROM manager WHERE id_m=?");
+                $stmt->execute([$_SESSION['managerID']]);
+            } elseif ($role === 'users') {
+                $stmt = $pdo->prepare("SELECT password FROM users WHERE id_u=?");
+                $stmt->execute([$_SESSION['userID']]);
+            } else {
+                $stmt = $pdo->query("SELECT password FROM admin LIMIT 1");
+            }
+
+            $hashed = $stmt->fetchColumn();
+
+            if (!password_verify($current, $hashed)) {
+                $error_msg = 'Current password is incorrect.';
+            } else {
+                $newHashed = password_hash($new, PASSWORD_BCRYPT);
+
+                if ($role === 'manager') {
+                    $pdo->prepare("UPDATE manager SET password=? WHERE id_m=?")
+                        ->execute([$newHashed, $_SESSION['managerID']]);
+                } elseif ($role === 'users') {
+                    $pdo->prepare("UPDATE users SET password=? WHERE id_u=?")
+                        ->execute([$newHashed, $_SESSION['userID']]);
+                } else {
+                    $pdo->prepare("UPDATE admin SET password=? LIMIT 1")
+                        ->execute([$newHashed]);
+                }
+            }
         }
     }
 
     if ($error_msg === '') {
-        $_SESSION['user'] = $user;
         $success_msg = 'Settings updated successfully.';
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="<?php echo htmlspecialchars($theme ?? 'light', ENT_QUOTES, 'UTF-8'); ?>">
 <head>
@@ -97,12 +194,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h4>
             <i class="fas fa-list me-2"></i> Menu</h4>
         <ul class="nav-links">
-            
-                <li>
-                <a class="nav-link" <?php if($_SESSION["UorM"] == "manager") { echo 'href="manager.php"'; } else { echo 'href="user.php"'; } ?>>
-                   <i class="fas fa-home me-2"></i>Dashboard
-                </a>
-            </li>
+            <?php
+ $dashboard = 'signup.php';
+
+if (isset($_SESSION['UorM'])) {
+    if ($_SESSION['UorM'] === 'manager') {
+        $dashboard = 'manager.php';
+    } elseif ($_SESSION['UorM'] === 'user') {
+        $dashboard = 'user.php';
+    } elseif ($_SESSION['UorM'] === 'admin') {
+        $dashboard = 'admin.php';
+    }
+}
+?>
+
+<li>
+    <a class="nav-link" href="<?= $dashboard ?>">
+        <i class="fas fa-home me-2"></i> Dashboard
+    </a>
+</li>
+
        
            <li>
                 <a class="nav-link active" href="settings.php">
