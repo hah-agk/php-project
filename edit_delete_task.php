@@ -1,6 +1,7 @@
 <?php 
 session_start(); 
 require 'component/opendb.php';
+$theme = $_SESSION['theme'] ?? 'light';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Task ID is missing!");
