@@ -6,6 +6,9 @@ $managerID = $_SESSION['managerID'];
 $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_m = ?");
 $stmt->execute([$managerID]);
 $salary = $stmt->fetchColumn();
+
+
+$theme = $_SESSION['theme'] ?? 'light';
 ?>
 
 <!DOCTYPE html>
