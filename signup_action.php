@@ -63,24 +63,35 @@ $salary = 0;
     exit();
     }
     else{
-         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-$salary = 0;
-    $sql = "INSERT INTO manager (name, phone, address, salary , email, password)
-            VALUES (:name, :phone, :address , :salary, :email, :password)";
+     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+     $salary = 0;
+    // check if the email is already exists in the manager table
+    $sql = "SELECT COUNT(*) FROM manager WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    if ($count > 0) {
+        header("location: signup.php?errr=4");
+        exit();
+    } else {
+
+    $sql = "INSERT INTO manager_requests (name, phone, address,email, password)
+            VALUES (:name, :phone, :address , :email, :password)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":name", $name);
     $stmt->bindParam(":phone", $phone);
     $stmt->bindParam(":address", $address);
-    $stmt->bindParam(":salary", $salary);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":password", $hashed_password);
     $stmt->execute();
-    $_SESSION['UorM']= "manager";
-    $_SESSION['LoggedIn']= true;
-    $_SESSION['managerID']= $pdo->lastInsertId();
-    $_SESSION['managerName']= $name;
-    header("Location: manager.php");
-    exit();
+
+        $_SESSION['wait_email'] = $email;
+
+        header("Location: waiting.php");
+        exit();
+    }
+   
     }
 } catch (PDOException $e) {
 //    header("location: signup.php?errr=4");

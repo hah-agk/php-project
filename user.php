@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require 'component/opendb.php';
 // USER ONLY ACCESS
 // if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
 //     header("Location: signup.php?errr=7");
@@ -17,7 +17,7 @@ if (isset($_POST['logout'])) {
     exit;
 }
 // USER DATA
-// $userID   = $_SESSION['userID'];
+$userID   = $_SESSION['userID'];
 // $userName = $_SESSION['userName'];
 // $userMail = $_SESSION['email'];
 // $userPhone = $_SESSION['phone'];
@@ -40,6 +40,24 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php");
     exit;
 }
+// Fetch total tasks for the user
+$sql = "SELECT COUNT(*) FROM task WHERE user_id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);   
+$totalTasks = $stmt->fetchColumn();
+
+// Fetch completed tasks for the user
+$sql = "SELECT COUNT(*) FROM task 
+        WHERE user_id = ? AND status = 'completed'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$completedTasks = $stmt->fetchColumn();
+
+// Fetch available tasks (not assigned to any user)
+$sql = "SELECT COUNT(*) FROM task WHERE user_id IS NULL";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$availableTasks = $stmt->fetchColumn();
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +117,7 @@ if (isset($_GET['logout'])) {
                         <i class="fas fa-tasks"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">24</div>
+                <div class="stat-card-value"><?= $totalTasks ?></div>
                 <div class="stat-card-label">Active tasks</div>
             </div>
 
@@ -121,20 +139,28 @@ if (isset($_GET['logout'])) {
                         <i class="fas fa-check-circle"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $completedTasks ?></div>
                 <div class="stat-card-label">This month</div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <span class="stat-card-title">Notifications</span>
-                    <div class="stat-card-icon warning">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                </div>
-                <div class="stat-card-value">12</div>
-                <div class="stat-card-label">Unread messages</div>
+           <a href="user/show_task.php" style="text-decoration: none; color: inherit;">
+    <div class="stat-card">
+        <div class="stat-card-header">
+            <span class="stat-card-title">Available Tasks</span>
+            <div class="stat-card-icon warning">
+                <i class="fas fa-briefcase"></i>
             </div>
+        </div>
+
+        <div class="stat-card-value">
+            <?= $availableTasks ?? 0 ?>
+        </div>
+
+        <div class="stat-card-label">
+            Browse tasks from managers
+        </div>
+    </div>
+</a>
         </div>
 
         <!-- Quick Actions -->
