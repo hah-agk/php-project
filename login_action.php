@@ -51,6 +51,7 @@ try {
     $_SESSION['UorM']= "admin";
     $_SESSION['LoggedIn']= true;
     $_SESSION['adminName']= $admin['name'];
+    
     $login = true;
     setcookie("login", $login,);
     header("Location:admin.php");
