@@ -10,3 +10,18 @@ function show_task($pdo ,$Mid ) {
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $tasks;
 }
+function show_task_user($pdo ,$Uid ) {
+    $sql = "SELECT * FROM task WHERE user_id = :Uid";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':Uid', $Uid, PDO::PARAM_INT);
+    $stmt->execute();
+    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $tasks;
+}   
+function show_all_tasks($pdo ) {
+    $sql = "SELECT * FROM task";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $tasks;
+}
