@@ -4,7 +4,6 @@ require 'component/function.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 
-// Add session check and redirect to login.php if user not logged in
 
 
 // Simple file-based authentication (no database required)
@@ -21,11 +20,15 @@ if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
  $mID   =  $_SESSION['managerID'];
  $tasks=show_task($pdo ,$mID);
 
+ if($mID){
+    $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_M = ?");
+    $stmt->execute([$mID]);
+    $Msalary = $stmt->fetch(PDO::FETCH_ASSOC);
+ }
 $users = [
     'admin' => password_hash('admin123', PASSWORD_DEFAULT),
     'user' => password_hash('user123', PASSWORD_DEFAULT)
 ];
-
 // Sample data
 $sample_users = [
     ['id' => 1, 'name' => 'John Doe', 'email' => 'john@example.com', 'role' => 'Admin', 'status' => 'Active'],
@@ -38,7 +41,7 @@ $stats = [
     'total_users' => 1542,
     'active_users' => 1247,
     'new_today' => 23,
-    'revenue' => '$12,847'
+    'revenue' => $Msalary ? $Msalary['salary'] : 0,
 ];
 
 
@@ -284,12 +287,14 @@ $user_role = $_SESSION['role'] ?? '';
                                     <td><?= htmlspecialchars($task['manager_id']) ?></td>
                                     <td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                          <a class="btn btn-sm btn-outline-primary" 
+                                           href ="edit_delete_task.php?edit=1&id=<?= $task['id_T'] ?>">
+                                          <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-outline-danger" 
+                                            href="edit_delete_task.php?delete=1&id=<?= $task['id_T'] ?>">
+                                          <i class="fas fa-trash"></i>
+                                            </a>
                                 </tr>
                         <?php 
                                     }
@@ -316,14 +321,14 @@ $user_role = $_SESSION['role'] ?? '';
                     <div class="card-body">
                         
                         <div class="d-grid gap-2">
-                            <button class="btn btn-outline-primary">
-                                <a href="add_user.php">
-                                <i class="fas fa-plus me-2"></i>Add New User
-                            </button>
-                                 <button class="btn btn-outline-primary" >
-                                    <a href="add_task.php?Ntask=1">
-                                <i class="fas fa-plus me-2"></i>Add New task
-                            </button>
+                                 
+                         <a href="add_user.php" class="btn btn-outline-primary">
+                            <i class="fas fa-plus me-2"></i> Add New User
+                        </a>
+
+                        <a href="add_task.php?Ntask=1" class="btn btn-outline-primary">
+                           <i class="fas fa-plus me-2"></i> Add New Task
+                        </a>
                             <button class="btn btn-outline-success">
                                 <i class="fas fa-download me-2"></i>Export Data
                             </button>

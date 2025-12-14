@@ -1,26 +1,25 @@
 
 <?php
+$server   = "sql7.freesqldatabase.com";
+$username = "sql7811320";
+$password = "VvgdRAgste";
+$db       = "sql7811320";
+$port     = 3306;
 
-
-$server = "localhost";
-$username = "root";
-$password = "";
-$db="task_management_db";
-
-//PDO
 try {
-    $pdo= new PDO("mysql: host=$server;dbname=$db", $username, $password);
+    $dsn = "mysql:host=$server;port=$port;dbname=$db;charset=utf8mb4";
+    $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $exception) {
-    echo "Connection to database faild! Error : ". $exception->getMessage();
-    die();
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
-?>
- 
+
+
+ ?>
+
+
+
  <!-- eza fih meshkle b db
- 
-
-
 echo "<pre>";
 echo "CHECKING USERS...\n";
 var_dump($email);
