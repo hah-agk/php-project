@@ -13,7 +13,7 @@ require 'component/opendb.php';
 // }
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: signup.php ");
+    header("Location: {$base}/signup.php ");
     exit;
 }
 // USER DATA
@@ -37,7 +37,7 @@ if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: signup.php");
+    header("Location: {$base}/signup.php");
     exit;
 }
 // Fetch total tasks for the user
@@ -68,32 +68,35 @@ $availableTasks = $stmt->fetchColumn();
     <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="css/user.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $base ?>/css/admin.css">
+    <link rel="stylesheet" href="<?= $base ?>/css/user.css">
 </head>
 <body>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h4>
-            <i class="fas fa-th-large"></i> Dashboard
-        </h4>
-        <ul class="nav-links">
-            <li>
-                <a class="nav-link active" href="user.php">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
+        <div class="p-3">
+            <h4>
+                <i class="fas fa-th-large"></i> Dashboard
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="<?= $base ?>/user.php">
+                    <i class="fas fa-home me-2"></i>
+                    Dashboard
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="settings.php">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $base ?>/settings.php">
+                    <i class="fas fa-cog me-2"></i>
+                    Settings
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="?logout=1">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $base ?>/user.php?logout=1">
+                    <i class="fas fa-sign-out-alt me-2"></i>
+                    Logout
                 </a>
             </li>
         </ul>
