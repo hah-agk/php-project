@@ -40,6 +40,12 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php");
     exit;
 }
+// balance of user
+$sql = "SELECT salary FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$balance = $stmt->fetchColumn();
+
 // Fetch total tasks for the user
 $sql = "SELECT COUNT(*) FROM task WHERE user_id = ?";
 $stmt = $pdo->prepare($sql);
@@ -128,7 +134,7 @@ $availableTasks = $stmt->fetchColumn();
                       <i class="fa-solid fa-magnifying-glass-dollar"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $balance ?></div>
                 <div class="stat-card-label">In progress</div>
             </div>
 
@@ -182,10 +188,10 @@ $availableTasks = $stmt->fetchColumn();
                      <i class="fas fa-tasks"></i>
                     show skills
                 </button>
-                <button class="action-btn secondary">
-                    <i class="fas fa-chart-line"></i>
-                    Reports
-                </button>
+                <a href="user/my_task.php" class="action-btn secondary">
+                <i class="fas fa-clipboard-list"></i>
+                 My Tasks
+                </a>
             </div>
         </div>
 
