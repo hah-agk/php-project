@@ -2,6 +2,8 @@
 session_start();
 require 'component/opendb.php';
 
+
+
 // if (!isset($_SESSION['UorMorA']) || $_SESSION['UorMorA'] !== 'admin' || !isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
 //     header("Location: signup.php");
 //     exit();
@@ -41,51 +43,43 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
 <meta charset="UTF-8">
 <title>Manager Requests</title>
-<style>
-body{
-    background:#0f172a;
-    color:#e5e7eb;
-    font-family:Arial;
-    padding:40px;
-}
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:#111827;
-    border-radius:10px;
-    overflow:hidden;
-}
-th, td{
-    padding:14px;
-    text-align:center;
-}
-th{
-    background:#1f2933;
-}
-tr:nth-child(even){
-    background:#0b1220;
-}
-.status-pending{ color:#facc15; }
-.status-approved{ color:#22c55e; }
-.status-rejected{ color:#ef4444; }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
 
-.btn{
-    padding:6px 10px;
-    border-radius:6px;
-    text-decoration:none;
-    font-weight:bold;
-    margin:0 3px;
-}
-.approve{ background:#22c55e; color:#000; }
-.reject{ background:#ef4444; color:#fff; }
-.disabled{
-    opacity:0.4;
-    pointer-events:none;
-}
-</style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
 
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="p-3">
+            <h4>
+                <i class="fas fa-th-large"></i> Admin Panel
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="<?= $base ?>/admin.php">
+                    <i class="fas fa-home me-2"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $base ?>/settings.php">
+                    <i class="fas fa-cog me-2"></i>
+                    Settings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $base ?>/admin.php?logout=1">
+                    <i class="fas fa-sign-out-alt me-2"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+<div class="main-content">
 <h2>Manager Requests</h2>
 
 <table>
@@ -134,6 +128,7 @@ tr:nth-child(even){
 
 </tbody>
 </table>
+</div>
 
 </body>
 </html>
