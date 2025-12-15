@@ -105,6 +105,38 @@ body{
     color:red;
     margin-top:15px
 }
+
+
+
+.search-box {
+    width: 320px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.search-box i {
+    color: #64748b;
+    font-size: 18px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
 </style>
 </head>
 
@@ -112,7 +144,12 @@ body{
 
 <h2>Available Tasks</h2>
 
-<!-- زر الرجوع -->
+<div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" placeholder="Search...">
+</div>
+
+
 <a href="../user.php" class="btn-back">← Back to Dashboard</a>
 
 <p>Choose a task posted by managers and start working 🚀</p>
