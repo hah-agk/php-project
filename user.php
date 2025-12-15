@@ -12,6 +12,7 @@ require 'component/opendb.php';
 //     exit();
 // }
 $theme = $_SESSION['theme'] ?? 'light';
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: signup.php ");
@@ -24,7 +25,12 @@ $userID   = $_SESSION['userID'];
 // $userPhone = $_SESSION['phone'];
 // $userAddress = $_SESSION['address'];
 
-$userName =$_SESSION['userName'] ?? "User";
+// Fetch user name from database
+$sql = "SELECT FullName FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$userName = $stmt->fetchColumn();
+
 $welcomeText = "Welcome, $userName! 👋";
 if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
     $h1 = "Welcome back, $userName! 👋";
@@ -41,6 +47,12 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php");
     exit;
 }
+// balance of user
+$sql = "SELECT salary FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$balance = $stmt->fetchColumn();
+
 // Fetch total tasks for the user
 $sql = "SELECT COUNT(*) FROM task WHERE user_id = ?";
 $stmt = $pdo->prepare($sql);
@@ -132,7 +144,7 @@ $availableTasks = $stmt->fetchColumn();
                       <i class="fa-solid fa-magnifying-glass-dollar"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $balance ?></div>
                 <div class="stat-card-label">In progress</div>
             </div>
 
@@ -186,10 +198,10 @@ $availableTasks = $stmt->fetchColumn();
                      <i class="fas fa-tasks"></i>
                     show skills
                 </button>
-                <button class="action-btn secondary">
-                    <i class="fas fa-chart-line"></i>
-                    Reports
-                </button>
+                <a href="user/my_task.php" class="action-btn secondary">
+                <i class="fas fa-clipboard-list"></i>
+                 My Tasks
+                </a>
             </div>
         </div>
 
