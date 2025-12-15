@@ -1,5 +1,6 @@
 <?php
 session_start();
+$theme = $_SESSION['theme'] ?? 'light';
 
 
 $current_user = $_SESSION['user'] ?? '';

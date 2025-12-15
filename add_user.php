@@ -1,6 +1,7 @@
 <?php
 require 'component/opendb.php';
 session_start();
+$theme = $_SESSION['theme'] ?? 'light';
 
 // if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
 //     header("Location: signup.php");

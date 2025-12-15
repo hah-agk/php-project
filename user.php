@@ -11,6 +11,7 @@ require 'component/opendb.php';
 //     header("Location: user.php");
 //     exit();
 // }
+$theme = $_SESSION['theme'] ?? 'light';
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: signup.php ");
@@ -42,7 +43,7 @@ if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: {$base}/signup.php");
+    header("Location: signup.php");
     exit;
 }
 // balance of user
@@ -72,15 +73,15 @@ $availableTasks = $stmt->fetchColumn();
 
 ?>
 <!DOCTYPE html>
-<html lang="en" data-theme="<?php echo htmlspecialchars($theme ?? 'light', ENT_QUOTES, 'UTF-8'); ?>">
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= $base ?>/css/admin.css">
-    <link rel="stylesheet" href="<?= $base ?>/css/user.css">
+    
+    <link rel="stylesheet" href="css/user.css">
 </head>
 <body>
 
@@ -99,7 +100,7 @@ $availableTasks = $stmt->fetchColumn();
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="settings.php">
+                <a class="nav-link" href= "settings.php">
                     <i class="fas fa-cog me-2"></i>
                     Settings
                 </a>

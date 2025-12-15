@@ -36,10 +36,11 @@ $stmt = $pdo->query("
     ORDER BY request_date DESC
 ");
 $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$theme = $_SESSION['theme'] ?? 'light';
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
 <meta charset="UTF-8">
 <title>Manager Requests</title>
@@ -51,6 +52,11 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+
+
+
+
+     
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="p-3">
@@ -60,26 +66,32 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="<?= $base ?>/admin.php">
+                <a class="nav-link active" href="admin.php">
                     <i class="fas fa-home me-2"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= $base ?>/settings.php">
+                <a class="nav-link" href="settings.php">
                     <i class="fas fa-cog me-2"></i>
                     Settings
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= $base ?>/admin.php?logout=1">
+                <a class="nav-link" href="admin.php?logout=1">
                     <i class="fas fa-sign-out-alt me-2"></i>
                     Logout
                 </a>
             </li>
         </ul>
     </div>
+
 <div class="main-content">
+
+<div class="welcome-header">
+            <h1>welcom back admin 👋</h1>
+            <p>nfo5o</p>
+        </div>
 <h2>Manager Requests</h2>
 
 <table>
