@@ -88,7 +88,20 @@ CREATE TABLE IF NOT EXISTS manager_requests (
 
 
     echo "✔ All tables created successfully!";
+    
+//     $pdo->exec("
+// ALTER TABLE task
+// MODIFY status 
+// ENUM('pending','in_progress','waiting_review','completed','rejected')
+// DEFAULT 'pending';
+//     ");
 
+//     $pdo->exec("
+// ALTER TABLE task
+// MODIFY Start_Time DATETIME NOT NULL;
+//     ");
+
+    // Create a default admin user
 //    $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
 // $stmt = $pdo->prepare($sql);
 

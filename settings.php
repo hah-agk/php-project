@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->prepare(
                 "UPDATE manager SET name=?, email=? WHERE id_m=?"
             )->execute([$name, $email, $_SESSION['managerID']]);
-
+                
         } elseif ($role === 'users') {
             $pdo->prepare(
                 "UPDATE users SET FullName=?, email=? WHERE id_u=?"
