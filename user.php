@@ -12,6 +12,7 @@ require 'component/opendb.php';
 //     exit();
 // }
 $theme = $_SESSION['theme'] ?? 'light';
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: signup.php ");
