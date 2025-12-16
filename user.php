@@ -11,6 +11,8 @@ require 'component/opendb.php';
 //     header("Location: user.php");
 //     exit();
 // }
+$theme = $_SESSION['theme'] ?? 'light';
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: signup.php ");
@@ -23,7 +25,12 @@ $userID   = $_SESSION['userID'];
 // $userPhone = $_SESSION['phone'];
 // $userAddress = $_SESSION['address'];
 
-$userName =$_SESSION['userName'] ?? "User";
+// Fetch user name from database
+$sql = "SELECT FullName FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$userName = $stmt->fetchColumn();
+
 $welcomeText = "Welcome, $userName! 👋";
 if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
     $h1 = "Welcome back, $userName! 👋";
@@ -40,6 +47,12 @@ if (isset($_GET['logout'])) {
     header("Location: signup.php");
     exit;
 }
+// balance of user
+$sql = "SELECT salary FROM users WHERE id_u = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$balance = $stmt->fetchColumn();
+
 // Fetch total tasks for the user
 $sql = "SELECT COUNT(*) FROM task WHERE user_id = ?";
 $stmt = $pdo->prepare($sql);
@@ -59,41 +72,51 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $availableTasks = $stmt->fetchColumn();
 
+// Fetch total skills for the user
+$sql = "SELECT COUNT(*) FROM skills WHERE user_id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$totalSkills = $stmt->fetchColumn();
+
+
 ?>
 <!DOCTYPE html>
-<html lang="en" data-theme="<?php echo htmlspecialchars($theme ?? 'light', ENT_QUOTES, 'UTF-8'); ?>">
+<html lang="en" data-theme="<?= $theme ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="css/user.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/user.css">
 </head>
 <body>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h4>
-            <i class="fas fa-th-large"></i> Dashboard
-        </h4>
-        <ul class="nav-links">
-            <li>
+        <div class="p-3">
+            <h4>
+                <i class="fas fa-th-large"></i> Dashboard
+            </h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
                 <a class="nav-link active" href="user.php">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
+                    <i class="fas fa-home me-2"></i>
+                    Dashboard
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="settings.php">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
+            <li class="nav-item">
+                <a class="nav-link" href= "settings.php">
+                    <i class="fas fa-cog me-2"></i>
+                    Settings
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="?logout=1">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
+            <li class="nav-item">
+                <a class="nav-link" href="user.php?logout=1">
+                    <i class="fas fa-sign-out-alt me-2"></i>
+                    Logout
                 </a>
             </li>
         </ul>
@@ -128,7 +151,7 @@ $availableTasks = $stmt->fetchColumn();
                       <i class="fa-solid fa-magnifying-glass-dollar"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $balance ?></div>
                 <div class="stat-card-label">In progress</div>
             </div>
 
@@ -170,22 +193,23 @@ $availableTasks = $stmt->fetchColumn();
                 Quick Actions
             </h2>
             <div class="action-buttons">
-                <button class="action-btn">
+           
+                <a href="user/add_skill.php" class="action-btn ">
                     <i class="fas fa-plus"></i>
-                   add skills
-                </button>
+                    add skills 
+                </a>
                 <button class="action-btn secondary">
                     <i class="fa-solid fa-pen-to-square"></i>
-                    Edit skills
+                    number of skills: <?= $totalSkills ?>
                 </button>
-                <button class="action-btn secondary">
+                <a href="user/show_skill.php" class="action-btn secondary">
                      <i class="fas fa-tasks"></i>
-                    show skills
-                </button>
-                <button class="action-btn secondary">
-                    <i class="fas fa-chart-line"></i>
-                    Reports
-                </button>
+                    Show Skills
+                </a>
+                <a href="user/my_task.php" class="action-btn secondary">
+                <i class="fas fa-clipboard-list"></i>
+                 My Tasks
+                </a>
             </div>
         </div>
 

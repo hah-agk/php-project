@@ -79,6 +79,9 @@ try {
     $_SESSION['LoggedIn']= true;
     $_SESSION['managerID']= $manager['id_m'];
     $_SESSION['managerName']= $manager['name'];
+      $login = true;
+    setcookie("login", $login,);
+        
     header("Location:manager.php");
     exit();
     }

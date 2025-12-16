@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  $title_T= trim($_POST['title']);
  $description= trim($_POST['description']);
  $bounty= trim($_POST['bounty']);
+ $start_time= trim($_POST['start_time']);
  $end_time= trim($_POST['end_time']);
  $skill = ($_POST['required_skill'] === "Other") 
          ? $_POST['other_skill'] 
@@ -23,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!isset($title_T) || empty(trim($title_T))
         || !isset($description) || empty(trim($description))
+        || !isset($start_time) || empty(trim($start_time))
         || !isset($end_time) || empty(trim($end_time))
         || !isset($skill) || empty(trim($skill))
         ||  !isset($bounty) || empty(trim($bounty)) 
@@ -42,11 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: signup.php");
         exit();
     }
-    $sql = "INSERT INTO task (Title_T , description, bounty , End_Time, required_skill, manager_id) 
-            VALUES (:title_T,:description,:bounty,:end_time,:skill,:mid)";
+    $sql = "INSERT INTO task (Title_T , description, bounty ,Start_Time, End_Time, required_skill, manager_id) 
+            VALUES (:title_T,:description,:bounty,:start_time ,:end_time,:skill,:mid)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':title_T', $title_T);
     $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':start_time', $start_time);
     $stmt->bindParam(':bounty', $bounty, PDO::PARAM_INT);
     $stmt->bindParam(':end_time', $end_time);
     $stmt->bindParam(':skill', $skill);
@@ -135,6 +138,18 @@ $theme = $_SESSION['theme'] ?? 'light';
                            class="form-control" 
                            placeholder="Enter bounty amount..."
                            min="0"
+                           required>
+                </div>
+                <!--start Time -->
+                 <div class="form-group">
+                    <label>
+                        <i class="fas fa-calendar-alt"></i>
+                        Start Date
+                        <span class="required"></span>
+                    </label>
+                    <input type="date" 
+                           name="start_time" 
+                           class="form-control"
                            required>
                 </div>
 
