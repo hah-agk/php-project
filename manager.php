@@ -60,6 +60,47 @@ $is_logged_in = isset($_SESSION['user']);
 $current_user = $_SESSION['user'] ?? '';
 $user_role = $_SESSION['role'] ?? '';
 
+// Fetch user name from database
+$sql = "SELECT name FROM manager WHERE id_m = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mID]);
+$managerName = $stmt->fetchColumn();
+
+$welcomeText = "Welcome, $managerName! 👋";
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
+    $h1 = "Welcome back, $managerName! 👋";
+    $p= "Here's what's happening with your tasks today.";
+}
+if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
+        $h1 = "Welcome, $managerName! 👋";
+        $p= "Your account has been created successfully.";
+}
+
+// Handle logout
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit;
+}
+// balance of manager
+$sql = "SELECT salary FROM manager WHERE id_m = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mID]);
+$balance = $stmt->fetchColumn();
+
+// Fetch total tasks for the manager
+$sql = "SELECT COUNT(*) FROM task WHERE manager_id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mID]);
+$totalTasks = $stmt->fetchColumn();
+
+// Fetch completed tasks for the manager
+$sql = "SELECT COUNT(*) FROM task 
+        WHERE manager_id = ? AND status = 'completed'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mID]);
+$completedTasks = $stmt->fetchColumn();
+
 
 ?>
 
@@ -122,8 +163,8 @@ $user_role = $_SESSION['role'] ?? '';
         
        
              <div class="welcome-header">
-            <h1>welcom back maneger 👋</h1>
-            <p>nfo5o</p>
+            <h1><?= $h1 ?></h1>
+            <p><?= $p ?></p>
         </div>
           <!-- Stats Row -->
         <div class="stats-row">
@@ -134,8 +175,8 @@ $user_role = $_SESSION['role'] ?? '';
                         <i class="fas fa-tasks"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">24</div>
-                <div class="stat-card-label">Active tasks</div>
+                <div class="stat-card-value"><?= $totalTasks ?></div>
+                <div class="stat-card-label">your task</div>
             </div>
 
             <div class="stat-card">
@@ -145,7 +186,7 @@ $user_role = $_SESSION['role'] ?? '';
                       <i class="fa-solid fa-magnifying-glass-dollar"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $balance?></div>
                 <div class="stat-card-label">In progress</div>
             </div>
 
@@ -156,7 +197,7 @@ $user_role = $_SESSION['role'] ?? '';
                         <i class="fas fa-check-circle"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">0</div>
+                <div class="stat-card-value"><?= $completedTasks ?></div>
                 <div class="stat-card-label">This month</div>
             </div>
 
@@ -171,64 +212,6 @@ $user_role = $_SESSION['role'] ?? '';
                 <div class="stat-card-label">Unread messages</div>
             </div>
         </div>
-
-
-        <!-- Users Table -->
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-users me-2"></i>task Management
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($sample_users as $user): ?>
-                            <tr>
-                                <td><?= $user['id'] ?></td>
-                                <td><?= htmlspecialchars($user['name']) ?></td>
-                                <td><?= htmlspecialchars($user['email']) ?></td>
-                                <td>
-                                    <span class="badge bg-<?= 
-                                        $user['role'] === 'Admin' ? 'danger' : 
-                                        ($user['role'] === 'Moderator' ? 'warning' : 'secondary')
-                                    ?>">
-                                        <?= $user['role'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-<?= $user['status'] === 'Active' ? 'success' : 'secondary' ?>">
-                                        <?= $user['status'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
 
           <div class="card">
             <div class="card-header">
@@ -291,6 +274,67 @@ $user_role = $_SESSION['role'] ?? '';
                 </div>
             </div>
         </div>
+
+
+
+        <!-- Users Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-users me-2"></i>task Management
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($sample_users as $user): ?>
+                            <tr>
+                                <td><?= $user['id'] ?></td>
+                                <td><?= htmlspecialchars($user['name']) ?></td>
+                                <td><?= htmlspecialchars($user['email']) ?></td>
+                                <td>
+                                    <span class="badge bg-<?= 
+                                        $user['role'] === 'Admin' ? 'danger' : 
+                                        ($user['role'] === 'Moderator' ? 'warning' : 'secondary')
+                                    ?>">
+                                        <?= $user['role'] ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-<?= $user['status'] === 'Active' ? 'success' : 'secondary' ?>">
+                                        <?= $user['status'] ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        
 
 
         

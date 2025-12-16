@@ -39,12 +39,15 @@ if (isset($_GET['task_id'])) {
     }
 }
 
+/* Badge helper */
 function badge($s){
     return match($s){
-        'pending' => 'badge pending',
-        'in_progress' => 'badge progress',
-        'completed' => 'badge done',
-        default => 'badge'
+        'pending'        => 'badge pending',
+        'in_progress'    => 'badge progress',
+        'waiting_review' => 'badge review',
+        'completed'      => 'badge done',
+        'rejected'       => 'badge rejected',
+        default          => 'badge'
     };
 }
 ?>
@@ -75,30 +78,63 @@ body{font-family:Inter,Arial;background:#f4f6f9;margin:0}
 
 h2{margin-bottom:14px}
 
-table{width:100%;background:#fff;border-radius:16px;
-box-shadow:0 12px 30px rgba(0,0,0,.08);border-collapse:collapse}
+table{
+    width:100%;
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    border-collapse:collapse
+}
 
 th,td{padding:14px 16px;text-align:left}
 th{background:#f1f5f9;font-weight:800}
 tr:not(:last-child) td{border-bottom:1px solid #e5e7eb}
 
-.badge{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:800;color:#fff}
+.badge{
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+    color:#fff
+}
 .pending{background:#f59e0b}
 .progress{background:#0ea5e9}
+.review{background:#f97316}
 .done{background:#22c55e}
+.rejected{background:#ef4444}
 
 .view-btn{
-background:#334155;color:#fff;padding:8px 12px;
-border-radius:10px;text-decoration:none;font-weight:700
+    background:#334155;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700
 }
 
 .details{
-margin-top:22px;background:#fff;padding:20px;
-border-radius:16px;border:1px solid rgba(0,0,0,.06);
-box-shadow:0 12px 30px rgba(0,0,0,.08)
+    margin-top:22px;
+    background:#fff;
+    padding:20px;
+    border-radius:16px;
+    border:1px solid rgba(0,0,0,.06);
+    box-shadow:0 12px 30px rgba(0,0,0,.08)
 }
 
 .label{font-weight:800;color:#334155}
+
+.submit-btn{
+    margin-top:16px;
+    background:#10b981;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(16,185,129,.35);
+}
+.submit-btn:hover{background:#059669}
 </style>
 </head>
 
@@ -133,7 +169,11 @@ box-shadow:0 12px 30px rgba(0,0,0,.08)
     <td><?= htmlspecialchars($t['manager_name']) ?></td>
     <td><?= htmlspecialchars($t['required_skill']) ?></td>
     <td>$<?= number_format($t['bounty'],2) ?></td>
-    <td><span class="<?= badge($t['status']) ?>"><?= htmlspecialchars($t['status']) ?></span></td>
+    <td>
+        <span class="<?= badge($t['status']) ?>">
+            <?= htmlspecialchars($t['status']) ?>
+        </span>
+    </td>
     <td>
         <a class="view-btn" href="?task_id=<?= $t['id_T'] ?>">
             <i class="fas fa-eye"></i> View
@@ -149,29 +189,41 @@ box-shadow:0 12px 30px rgba(0,0,0,.08)
     <h3>Task Details</h3>
 
     <p><span class="label">Title:</span>
-       <?= htmlspecialchars($selectedTask['Title_T']) ?></p>
+        <?= htmlspecialchars($selectedTask['Title_T']) ?></p>
 
     <p><span class="label">Manager:</span>
-       <?= htmlspecialchars($selectedTask['manager_name']) ?></p>
+        <?= htmlspecialchars($selectedTask['manager_name']) ?></p>
 
     <p><span class="label">Skill:</span>
-       <?= htmlspecialchars($selectedTask['required_skill']) ?></p>
+        <?= htmlspecialchars($selectedTask['required_skill']) ?></p>
 
     <p><span class="label">Bounty:</span>
-       $<?= number_format($selectedTask['bounty'],2) ?></p>
+        $<?= number_format($selectedTask['bounty'],2) ?></p>
 
     <p><span class="label">Status:</span>
-       <span class="<?= badge($selectedTask['status']) ?>">
-           <?= htmlspecialchars($selectedTask['status']) ?>
-       </span>
+        <span class="<?= badge($selectedTask['status']) ?>">
+            <?= htmlspecialchars($selectedTask['status']) ?>
+        </span>
     </p>
+
     <p><span class="label">Start Time:</span>
-       <?= htmlspecialchars($selectedTask['Start_Time'] ?? '-') ?></p>
+        <?= htmlspecialchars($selectedTask['Start_Time'] ?? '-') ?></p>
+
     <p><span class="label">Deadline:</span>
-       <?= htmlspecialchars($selectedTask['End_Time'] ?? '-') ?></p>
+        <?= htmlspecialchars($selectedTask['End_Time'] ?? '-') ?></p>
 
     <p><span class="label">Description:</span><br>
-       <?= nl2br(htmlspecialchars($selectedTask['description'])) ?></p>
+        <?= nl2br(htmlspecialchars($selectedTask['description'])) ?></p>
+
+    <?php if ($selectedTask['status'] === 'in_progress'): ?>
+        <form method="POST" action="submit_task.php">
+            <input type="hidden" name="task_id" value="<?= $selectedTask['id_T'] ?>">
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Task
+            </button>
+        </form>
+    <?php endif; ?>
+
 </div>
 <?php endif; ?>
 

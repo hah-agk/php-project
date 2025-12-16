@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS manager_requests (
 // MODIFY Start_Time DATETIME NOT NULL;
 //     ");
 
-    // Create a default admin user
+//     // Create a default admin user
 //    $sql = "INSERT INTO admin (name, email, password) VALUES (?, ?, ?)";
 // $stmt = $pdo->prepare($sql);
 
