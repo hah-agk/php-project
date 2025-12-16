@@ -48,7 +48,8 @@ if ($request['status'] === 'approved') {
     $_SESSION['LoggedIn'] = true;
     $_SESSION['managerName'] = $request['name'];
     $_SESSION['managerEmail'] = $request['email'];
-    
+     $signup = true;
+    setcookie("signup", $signup,);
     
     unset($_SESSION['wait_email']);
 

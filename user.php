@@ -72,6 +72,13 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $availableTasks = $stmt->fetchColumn();
 
+// Fetch total skills for the user
+$sql = "SELECT COUNT(*) FROM skills WHERE user_id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$userID]);
+$totalSkills = $stmt->fetchColumn();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" data-theme="<?= $theme ?>">
@@ -186,18 +193,19 @@ $availableTasks = $stmt->fetchColumn();
                 Quick Actions
             </h2>
             <div class="action-buttons">
-                <button class="action-btn">
+           
+                <a href="user/add_skill.php" class="action-btn ">
                     <i class="fas fa-plus"></i>
-                   add skills
-                </button>
+                    add skills 
+                </a>
                 <button class="action-btn secondary">
                     <i class="fa-solid fa-pen-to-square"></i>
-                    Edit skills
+                    number of skills: <?= $totalSkills ?>
                 </button>
-                <button class="action-btn secondary">
+                <a href="user/show_skill.php" class="action-btn secondary">
                      <i class="fas fa-tasks"></i>
-                    show skills
-                </button>
+                    Show Skills
+                </a>
                 <a href="user/my_task.php" class="action-btn secondary">
                 <i class="fas fa-clipboard-list"></i>
                  My Tasks
