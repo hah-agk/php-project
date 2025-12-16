@@ -227,8 +227,12 @@ body {
     box-shadow: var(--shadow);
     color: white;
     position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
 }
+.welcome-header:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);}
 
 
 .welcome-header h1 {
