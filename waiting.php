@@ -29,14 +29,14 @@ if ($request['status'] === 'approved') {
             INSERT INTO manager (name, phone, address, email, password, salary)
             VALUES (?, ?, ?, ?, ?, 0)
         ");
-        $hashedPassword = password_hash($request['password'], PASSWORD_BCRYPT);
+        
 
         $stmt->execute([
             $request['name'],
             $request['phone'],
             $request['address'],
             $request['email'],
-            $hashedPassword,
+            $request['password'],
         ]);
     }
 
