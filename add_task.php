@@ -36,29 +36,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location: add_task.php?error=2");
         exit();
     }
+   if (!isset($_SESSION['managerID'])) {
+    header("Location: signup.php");
+    exit();
+}
 
-    if (isset($_SESSION['managerID'])) {
-        $mid = $_SESSION['managerID'];
-    } else {
-        
-        header("Location: signup.php");
-        exit();
+$mid = $_SESSION['managerID'];
+
+try {
+    $pdo->beginTransaction();
+
+// check manager balance
+    $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_m = ?");
+    $stmt->execute([$mid]);
+    $salary = $stmt->fetchColumn();
+
+    if ($salary === false || $bounty > $salary) {
+        throw new Exception("Not enough balance");
     }
-    $sql = "INSERT INTO task (Title_T , description, bounty ,Start_Time, End_Time, required_skill, manager_id) 
-            VALUES (:title_T,:description,:bounty,:start_time ,:end_time,:skill,:mid)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':title_T', $title_T);
-    $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':start_time', $start_time);
-    $stmt->bindParam(':bounty', $bounty, PDO::PARAM_INT);
-    $stmt->bindParam(':end_time', $end_time);
-    $stmt->bindParam(':skill', $skill);
-    $stmt->bindParam(':mid', $mid, PDO::PARAM_INT);
-    
-    $stmt->execute();
+
+// transfer salary from manager
+    $stmt = $pdo->prepare("
+        UPDATE manager 
+        SET salary = salary - ?
+        WHERE id_m = ?
+    ");
+    $stmt->execute([$bounty, $mid]);
+
+// insert task
+    $stmt = $pdo->prepare("
+        INSERT INTO task 
+        (Title_T, description, bounty, Start_Time, End_Time, required_skill, manager_id, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')
+    ");
+    $stmt->execute([
+        $title_T,
+        $description,
+        $bounty,
+        $start_time,
+        $end_time,
+        $skill,
+        $mid
+    ]);
+
+    $pdo->commit();
 
     header("Location: manager.php");
     exit();
+
+} catch (Exception $e) {
+    $pdo->rollBack();
+    header("Location: add_task.php?error=3");
+    exit();
+}
 }
 
 $theme = $_SESSION['theme'] ?? 'light';
@@ -218,6 +248,12 @@ $theme = $_SESSION['theme'] ?? 'light';
                 echo "<div class='error-msg'>
                         <i class='fas fa-exclamation-circle'></i>
                         Bounty must be a non-negative value.
+                      </div>";
+            }
+            if (isset($_GET['error']) && $_GET['error'] == 3) {
+                echo "<div class='error-msg'>
+                        <i class='fas fa-exclamation-circle'></i>
+                        Bounty cannot exceed your current salary of $$salary.
                       </div>";
             }
             ?>

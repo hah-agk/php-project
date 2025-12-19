@@ -110,6 +110,22 @@ CREATE TABLE IF NOT EXISTS manager_requests (
 //     'admin@gmail.com',
 //     password_hash('admin123', PASSWORD_BCRYPT)
 // ]);
+
+// $sql = "ALTER TABLE manager 
+// MODIFY salary DECIMAL(10,2) NOT NULL DEFAULT 0;
+// ";
+// $pdo->exec($sql);
+// $sql = "ALTER TABLE users 
+// MODIFY salary DECIMAL(10,2) NOT NULL DEFAULT 0;
+// ";
+// $pdo->exec($sql);
+
+// $sql= "UPdate manager set salary=0 where salary is null;";
+// $pdo->exec($sql);
+// $sql = "UPdate users set salary=0 where salary is null;";
+// $pdo->exec($sql);
+
+
 echo "\n✔ Default admin user created successfully!";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
