@@ -38,6 +38,15 @@ $stmt = $pdo->query("
 $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $theme = $_SESSION['theme'] ?? 'light';
 
+
+// fetch name admin from database
+$sql="SELECT name from admin";
+$sql= $pdo->prepare($sql);
+$stmt->execute();
+$adminName=$stmt->fetchColumn();
+    $h1 = "Welcome back, $adminName! 👋";
+    $p= "Here's what's happening with your tasks today.";
+
 ?>
 <!DOCTYPE html>
 <html lang="en" data-theme="<?= $theme ?>">
@@ -90,7 +99,7 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 <div class="welcome-header">
             <h1>welcom back admin 👋</h1>
-            <p>nfo5o</p>
+            
         </div>
 <h2>Manager Requests</h2>
 
