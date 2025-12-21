@@ -72,50 +72,54 @@ html[data-theme="dark"] {
 }
 body{
     font-family:Inter,Arial;
-    background:#f4f6f9;
+    background:var(--bg);
+    color:var(--text-color);
     margin:0;
     padding:20px
-}
+} 
 .btn-back{
     display:inline-block;
     margin:10px 0 20px;
     padding:10px 18px;
-    background:#e5e7eb;
-    color:#111;
+    background:var(--card-bg);
+    color:var(--text-color);
     text-decoration:none;
     border-radius:10px;
     font-weight:500;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
 }
 .btn-back:hover{
-    background:#d1d5db;
-}
+    background:linear-gradient(90deg,var(--accent),var(--accent-hover));
+    color:#fff;
+} 
 .tasks-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
     gap:20px
 }
 .task-card{
-    background:#fff;
+    background:var(--card-bg);
     border-radius:14px;
     padding:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08)
- 
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
 }
 .task-card h3{
     margin:0 0 10px
-}
+} 
 .task-meta{
     font-size:14px;
-    color:#555;
+    color:var(--text-secondary);
     margin-bottom:10px
 }
 .task-bounty{
     font-weight:bold;
-    color:#0aa;
+    color:var(--accent);
     margin-top:10px
 }
 .btn-apply{
-    background:#0aa;
+    background: linear-gradient(90deg,var(--accent),var(--accent-hover));
     color:#fff;
     border:none;
     padding:10px 16px;
@@ -125,20 +129,21 @@ body{
     margin-top:10px
 }
 .btn-apply:hover{
-    opacity:.9
-}
+    opacity:.95
+} 
 .empty{
-    background:#fff;
+    background:var(--card-bg);
     padding:30px;
     border-radius:14px;
-    text-align:center
+    text-align:center;
+    border:1px solid var(--border);
 }
 .message-success{
-    color:green;
+    color:var(--success);
     margin-top:15px
 }
 .message-error{
-    color:red;
+    color:var(--danger);
     margin-top:15px
 }
 
@@ -154,43 +159,42 @@ body{
     width: 100%;
     padding: 12px 45px 12px 15px;
     border-radius: 25px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     font-size: 14px;
     outline: none;
     transition: all 0.3s ease;
-    background-color: #fff;
+    background-color: var(--card-bg);
+    color:var(--text-color);
 }
 
 .search-s::placeholder {
-    color: #9ca3af;
- 
+    color: var(--text-secondary);
 }
 
 .search-s:focus {
-    border-color: #06b6d4;
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.25);
-}
+    border-color: var(--accent);
+    box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.06);
+} 
 
 .search-icon {
     position: absolute;
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
-    color: #6b7280;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .search:hover .search-icon {
-    color: #06b6d4;
+    color: var(--accent);
 }
 .task-card{
 transition: transform 0.25s ease;
 }
 .task-card:hover{
     transform: translateY(-5px);
-  width: 500px;
-  height: 300px;
+    box-shadow: var(--shadow-hover);
 }
 .header {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);

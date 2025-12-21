@@ -135,11 +135,7 @@ $completedTasks = $stmt->fetchColumn();
                 </a>
             </li>
             
-            <li >
-                <a class="nav-link" href="analyticspage.php">
-                    <i class="fas fa-chart-bar me-2"></i>Analytics
-                </a>
-            </li>
+     
            <li>
                 <a class="nav-link" href="balance.php">
                   <i class="fa-solid fa-wallet me-2"></i>Balance
@@ -219,6 +215,10 @@ $completedTasks = $stmt->fetchColumn();
                     <i class="fa-solid fa-list-check"></i></i> task List
                 </h5>
             </div>
+
+
+
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
