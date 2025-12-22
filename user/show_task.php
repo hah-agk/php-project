@@ -11,7 +11,7 @@ if (!isset($_SESSION['userID'])) {
 $userID = $_SESSION['userID'];
 
 $sql = "
-SELECT 
+SELECT DISTINCT
     t.id_T,
     t.Title_T,
     t.description,
@@ -19,14 +19,21 @@ SELECT
     t.required_skill,
     m.name AS manager_name
 FROM task t
-JOIN manager m ON t.manager_id = m.id_m
-WHERE t.status = 'pending' AND t.user_id IS NULL
+JOIN manager m 
+    ON t.manager_id = m.id_m
+JOIN skills s
+    ON s.skill_name = t.required_skill
+WHERE 
+    t.status = 'pending'
+    AND t.user_id IS NULL
+    AND s.user_id = ?
 ORDER BY t.id_T DESC
 ";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute([$userID]);
 $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en" data-theme="<?= $theme ?>">
