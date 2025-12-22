@@ -29,6 +29,11 @@ if (isset($_GET['action'], $_GET['id'])) {
     header("Location: admin.php");
     exit();
 }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit();
+}
 $stmt = $pdo->query("
     SELECT *
     FROM manager_requests
@@ -101,6 +106,22 @@ $adminName=$stmt->fetchColumn();
             <h1>welcom back admin 👋</h1>
             
         </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="add_user.php" class="action-btn add-user">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add User</span>
+                </a>
+                <a href="add_manager.php" class="action-btn add-manager">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Add Manager</span>
+                </a>
+            </div>
+        </div>
+
 <h2>Manager Requests</h2>
 
 <table>

@@ -83,7 +83,7 @@ $theme = $_SESSION['theme'] ?? 'light';
         </a>
         <!-- Page Header -->
         <div class="page-header">
-            <h1><i class="fas fa-tasks"></i> Create New user</h1>
+            <h1><i class="fas fa-tasks"></i> Create New Maneger</h1>
             <p>Fill in the details below to create a new user for your team</p>
         </div>
 
@@ -91,7 +91,7 @@ $theme = $_SESSION['theme'] ?? 'light';
         <!-- Form Container -->
         <div class="form-container">
             <h2>
-                <i class="fas fa-clipboard-list"></i>user Details
+                <i class="fas fa-clipboard-list"></i>Manager Details
             </h2>
 
             <form action="add_task.php" method="POST">
@@ -100,7 +100,7 @@ $theme = $_SESSION['theme'] ?? 'light';
                 <div class="form-group">
                     <label>
                        <i class="fa-solid fa-user"></i>
-                        user name
+                        Maneger name
                         <span class="required"></span>
                     </label>
                     <input type="text" 
