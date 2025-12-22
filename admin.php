@@ -29,6 +29,11 @@ if (isset($_GET['action'], $_GET['id'])) {
     header("Location: admin.php");
     exit();
 }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit();
+}
 $stmt = $pdo->query("
     SELECT *
     FROM manager_requests
