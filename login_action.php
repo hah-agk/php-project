@@ -33,7 +33,7 @@ try {
            $stmt->execute();
            $user = $stmt->fetch(PDO::FETCH_ASSOC);
    if (!$user) {
-        $sql ="SELECT name , email , password
+        $sql ="SELECT  email , password
            FROM admin 
            where email = :email ";
            $stmt =$pdo->prepare($sql);
@@ -50,7 +50,6 @@ try {
         }
     $_SESSION['UorM']= "admin";
     $_SESSION['LoggedIn']= true;
-    $_SESSION['adminName']= $admin['name'];
     
     $login = true;
     setcookie("login", $login,);

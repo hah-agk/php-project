@@ -4,10 +4,11 @@ require 'component/opendb.php';
 
 
 
-// if (!isset($_SESSION['UorMorA']) || $_SESSION['UorMorA'] !== 'admin' || !isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php");
-//     exit();
-// }'
+if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'admin' || !isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php");
+    exit();
+}
+
 if (isset($_GET['action'], $_GET['id'])) {
     $id = intval($_GET['id']);
     $action = $_GET['action'];

@@ -74,7 +74,7 @@ $theme = $_SESSION['theme'] ?? 'light';
   <form id="customForm" action="balance_action.php" method="post" onsubmit="return handleCustomSubmit(event)">
     <div class="custom-container">
       <span class="currency">$</span>
-      <input type="number" name="custom_amount" class="custom-input" step="0.01" min="0.01" placeholder="0.00" inputmode="decimal" />
+      <input type="number" name="custom_amount" class="custom-input" step="5" min="0.01" placeholder="0.00" inputmode="decimal" />
       <button type="submit" class="custom-btn">Submit</button>
     </div>
     <div class="custom-note">Enter an amount and press Submit. Use the tabs to select Add or Withdraw.</div>
