@@ -41,6 +41,15 @@ html[data-theme="dark"] {
     --danger: #f87171;
     --info: #60a5fa;
 }
+
+body {
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    transition: background 0.3s ease;
+}
 .sidebar {
     background: linear-gradient(135deg, var(--sidebar-bg) 0%, #1e293b 100%);
     color: white;
@@ -189,7 +198,7 @@ html[data-theme="dark"] {
     z-index: 1;
 }
 .main-content {
-    margin-left: 300px;
+    margin-left: 280px;
     padding: 40px;
     background: var(--content-bg);
     min-height: 100vh;

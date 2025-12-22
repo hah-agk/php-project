@@ -29,6 +29,11 @@ if (isset($_GET['action'], $_GET['id'])) {
     header("Location: admin.php");
     exit();
 }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit();
+}
 $stmt = $pdo->query("
     SELECT *
     FROM manager_requests
@@ -37,6 +42,15 @@ $stmt = $pdo->query("
 ");
 $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $theme = $_SESSION['theme'] ?? 'light';
+
+
+// fetch name admin from database
+$sql="SELECT name from admin";
+$sql= $pdo->prepare($sql);
+$stmt->execute();
+$adminName=$stmt->fetchColumn();
+    $h1 = "Welcome back, $adminName! 👋";
+    $p= "Here's what's happening with your tasks today.";
 
 ?>
 <!DOCTYPE html>
@@ -90,7 +104,7 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 <div class="welcome-header">
             <h1>welcom back admin 👋</h1>
-            <p>nfo5o</p>
+            
         </div>
 
         <!-- Quick Actions -->

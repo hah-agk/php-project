@@ -19,6 +19,7 @@ $theme = $_SESSION['theme'] ?? 'light';
 
  $mID   =  $_SESSION['managerID'];
  $tasks=show_task($pdo ,$mID);
+ $Ctasks=show_task_completed($pdo ,$mID);
 
  if($mID){
     $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_M = ?");
@@ -101,7 +102,11 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$mID]);
 $completedTasks = $stmt->fetchColumn();
 
-
+// ftch the number of tasks the user send him to manager
+$sql = "SELECT COUNT(*) FROM task WHERE manager_id = ? and status = 'waiting_review'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mID]);
+$inReviewTasks = $stmt->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -196,23 +201,25 @@ $completedTasks = $stmt->fetchColumn();
                 <div class="stat-card-value"><?= $completedTasks ?></div>
                 <div class="stat-card-label">This month</div>
             </div>
-
+    <a href="review_tasks.php" style="text-decoration: none; color: inherit;">
             <div class="stat-card">
                 <div class="stat-card-header">
-                    <span class="stat-card-title">Notifications</span>
+                    <span class="stat-card-title">Review tasks</span>
                     <div class="stat-card-icon warning">
                         <i class="fas fa-bell"></i>
                     </div>
                 </div>
-                <div class="stat-card-value">12</div>
+                <div class="stat-card-value"><?= $inReviewTasks ?></div>
                 <div class="stat-card-label">Unread messages</div>
             </div>
         </div>
+        </a>
+    
 
           <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fa-solid fa-list-check"></i></i> task List
+                    <i class="fa-solid fa-list-check"></i></i> task List not completed
                 </h5>
             </div>
 
@@ -277,61 +284,56 @@ $completedTasks = $stmt->fetchColumn();
 
 
 
-        <!-- Users Table -->
-        <div class="card">
+       <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-users me-2"></i>task Management
+                    <i class="fa-solid fa-list-check"></i></i> task List Completed
                 </h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
+                        <div class="t">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Title</th>
+                                <th>status</th>
+                                <th>start_time</th>
+                                <th>end_time</th>
+                                <th>description</th>
+                                <th>bounty</th>
+                                <th>user_id</th>
+                                <th>manager_id</th>
                             </tr>
+                            </div>
                         </thead>
                         <tbody>
-                            <?php foreach ($sample_users as $user): ?>
-                            <tr>
-                                <td><?= $user['id'] ?></td>
-                                <td><?= htmlspecialchars($user['name']) ?></td>
-                                <td><?= htmlspecialchars($user['email']) ?></td>
-                                <td>
-                                    <span class="badge bg-<?= 
-                                        $user['role'] === 'Admin' ? 'danger' : 
-                                        ($user['role'] === 'Moderator' ? 'warning' : 'secondary')
-                                    ?>">
-                                        <?= $user['role'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-<?= $user['status'] === 'Active' ? 'success' : 'secondary' ?>">
-                                        <?= $user['status'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                        <?php
+                                 if (!empty($Ctasks)) { 
+                                    foreach ($Ctasks as $task) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($task['id_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['Title_T']) ?></td>
+                                    <td><?= htmlspecialchars($task['status']) ?></td>
+                                    <td><?= htmlspecialchars($task['Start_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['End_Time']) ?></td>
+                                    <td><?= htmlspecialchars($task['description']) ?></td>
+                                    <td><?= htmlspecialchars($task['bounty']) ?></td>
+                                    <td><?= empty($task['user_id']) ? 'no user accept the task' : htmlspecialchars($task['user_id']) ?></td>
+
+                                    <td><?= htmlspecialchars($task['manager_id']) ?></td>
+                                </tr>
+                        <?php 
+                                    }
+                                }else {
+                                    echo "<tr><td colspan='7'>No tasks found.</td></tr>";
+                                } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
 
 
         
@@ -351,9 +353,7 @@ $completedTasks = $stmt->fetchColumn();
                         
                         <div class="d-grid gap-2">
                                  
-                         <a href="add_user.php" class="btn btn-outline-primary">
-                            <i class="fas fa-plus me-2"></i> Add New User
-                        </a>
+                    
 
                         <a href="add_task.php?Ntask=1" class="btn btn-outline-primary">
                            <i class="fas fa-plus me-2"></i> Add New Task

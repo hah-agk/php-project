@@ -78,7 +78,7 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 
        <!-- Back Button -->
-        <a href="manager.php" class="back-btn">
+        <a href="admin.php" class="back-btn">
             <i class="fas fa-arrow-left"></i>Back to Dashboard
         </a>
         <!-- Page Header -->
