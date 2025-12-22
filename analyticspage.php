@@ -2,7 +2,6 @@
 session_start();
 $theme = $_SESSION['theme'] ?? 'light';
 
-
 $current_user = $_SESSION['user'] ?? '';
 $user_role = $_SESSION['role'] ?? '';
 
