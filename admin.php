@@ -4,10 +4,11 @@ require 'component/opendb.php';
 
 
 
-// if (!isset($_SESSION['UorMorA']) || $_SESSION['UorMorA'] !== 'admin' || !isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php");
-//     exit();
-// }'
+if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'admin' || !isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php");
+    exit();
+}
+
 if (isset($_GET['action'], $_GET['id'])) {
     $id = intval($_GET['id']);
     $action = $_GET['action'];
@@ -29,6 +30,11 @@ if (isset($_GET['action'], $_GET['id'])) {
     header("Location: admin.php");
     exit();
 }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: signup.php");
+    exit();
+}
 $stmt = $pdo->query("
     SELECT *
     FROM manager_requests
@@ -37,6 +43,15 @@ $stmt = $pdo->query("
 ");
 $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $theme = $_SESSION['theme'] ?? 'light';
+
+
+// fetch name admin from database
+$sql="SELECT name from admin";
+$sql= $pdo->prepare($sql);
+$stmt->execute();
+$adminName=$stmt->fetchColumn();
+    $h1 = "Welcome back, $adminName! 👋";
+    $p= "Here's what's happening with your tasks today.";
 
 ?>
 <!DOCTYPE html>
@@ -90,8 +105,24 @@ $theme = $_SESSION['theme'] ?? 'light';
 
 <div class="welcome-header">
             <h1>welcom back admin 👋</h1>
-            <p>nfo5o</p>
+            
         </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="actions-grid">
+                <a href="add_user.php" class="action-btn add-user">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add User</span>
+                </a>
+                <a href="add_manager.php" class="action-btn add-manager">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Add Manager</span>
+                </a>
+            </div>
+        </div>
+
 <h2>Manager Requests</h2>
 
 <table>

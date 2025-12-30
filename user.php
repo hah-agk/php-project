@@ -67,9 +67,18 @@ $stmt->execute([$userID]);
 $completedTasks = $stmt->fetchColumn();
 
 // Fetch available tasks (not assigned to any user)
-$sql = "SELECT COUNT(*) FROM task WHERE user_id IS NULL";
+$sql = "
+SELECT COUNT(DISTINCT t.id_T)
+FROM task t
+JOIN skills s 
+    ON s.skill_name = t.required_skill
+WHERE 
+    t.user_id IS NULL
+    AND t.status = 'pending'
+    AND s.user_id = ?
+";
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute([$userID]);
 $availableTasks = $stmt->fetchColumn();
 
 // Fetch total skills for the user

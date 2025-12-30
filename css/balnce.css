@@ -217,4 +217,61 @@ body {
 .back-btn:hover i {
     transform: translateX(-4px);
 }
+.custom-wrapper{
+    text-align: center;
+    margin-top: 30px;
+}
+.custom-container{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--input-bg);
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+}
+.currency{
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+.custom-input{
+    width: 160px;
+    padding: 10px 12px;
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+}
+.custom-input:focus{
+    box-shadow: 0 0 0 4px var(--input-focus);
+    border-radius: 8px;
+}
+.custom-input::-webkit-outer-spin-button,
+.custom-input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom-btn{
+    font-size: 16px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--card-bg);
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+.custom-btn:hover{
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+.custom-note{
+    margin-top: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
 

@@ -251,6 +251,7 @@ body {
     border-radius: 16px;
     padding: 16px;
     height: auto;
+    margin-bottom: 20px;
 
 }
 .card:hover{
