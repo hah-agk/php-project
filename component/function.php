@@ -1,35 +1,32 @@
 <?php
-session_start();
-require 'opendb.php';
 
-function show_task($pdo ,$Mid ) {
-    $sql = "SELECT * FROM task WHERE manager_id = :Mid AND status != 'completed'"; 
+session_start();
+require_once 'opendb.php';
+
+function showTask($pdo ,$mid ) {
+    $sql = "SELECT * FROM task WHERE manager_id = :Mid AND status != 'completed'";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':Mid', $Mid, PDO::PARAM_INT);
+    $stmt->bindParam(':Mid', $mid, PDO::PARAM_INT);
     $stmt->execute();
-    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $tasks;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function show_task_completed($pdo ,$Mid ) {
-    $sql = "SELECT * FROM task WHERE manager_id = :Mid AND status = 'completed'"; 
+function showTaskCompleted($pdo ,$mid) {
+    $sql = "SELECT * FROM task WHERE manager_id = :Mid AND status = 'completed'";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':Mid', $Mid, PDO::PARAM_INT);
+    $stmt->bindParam(':Mid', $mid, PDO::PARAM_INT);
     $stmt->execute();
-    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $tasks;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function show_task_user($pdo ,$Uid ) {
+function showTaskUser($pdo ,$uid ) {
     $sql = "SELECT * FROM task WHERE user_id = :Uid";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':Uid', $Uid, PDO::PARAM_INT);
+    $stmt->bindParam(':Uid', $uid, PDO::PARAM_INT);
     $stmt->execute();
-    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $tasks;
-}   
-function show_all_tasks($pdo ) {
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function showAllTasks($pdo ) {
     $sql = "SELECT * FROM task";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $tasks;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 
 if (!isset($_SESSION['managerID'])) {
     header("Location: login.php");
@@ -8,6 +8,9 @@ if (!isset($_SESSION['managerID'])) {
 }
 
 $managerID = (int)$_SESSION['managerID'];
+
+class InvalidTaskException extends RuntimeException {}
+class InvalidActionException extends RuntimeException {}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'
     && isset($_POST['action'], $_POST['task_id'])) {
@@ -33,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
             $task = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$task || !$task['user_id']) {
-                throw new Exception("Invalid task");
+                throw new InvalidTaskException("Invalid task");
             }
 
             $bounty = (float)$task['bounty'];
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
         }
 
 // reject
-        else if ($action === 'reject') {
+        elseif ($action === 'reject') {
 
             $stmt = $pdo->prepare("
                 UPDATE task
@@ -71,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
 
 // INVALID ACTION
         else {
-            throw new Exception("Invalid action");
+            throw new InvalidActionException("Invalid action");
         }
 
         $pdo->commit();

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../component/opendb.php';
+require_once '../component/opendb.php';
 
 if (!isset($_SESSION['userID'])) {
     header("Location: ../signup.php");
@@ -12,7 +12,7 @@ $skillID = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($skillID > 0) {
     $stmt = $pdo->prepare("
-        DELETE FROM skills 
+        DELETE FROM skills
         WHERE id_S = ? AND user_id = ?
     ");
     $stmt->execute([$skillID, $userID]);

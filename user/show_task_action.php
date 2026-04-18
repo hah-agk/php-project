@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../component/opendb.php';
+require_once '../component/opendb.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 if (!isset($_SESSION['userID'])) {

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $theme = $_SESSION['theme'] ?? 'light';
-require '../component/opendb.php';
+require_once '../component/opendb.php';
 
 if (!isset($_SESSION['userID'])) {
     header("Location: ../signup.php");
@@ -71,7 +71,7 @@ body{
     font-family:Inter, Arial, sans-serif;
     background:var(--bg);
     color:var(--text-color);
-} 
+}
 .container{
     max-width:1000px;
     margin:50px auto;
@@ -85,7 +85,7 @@ body{
 .container:hover{
     transform: translateY(-5px);
     box-shadow:var(--shadow-hover);
-} 
+}
 
 .top-actions{
     margin-bottom:20px;
@@ -140,16 +140,16 @@ th,td{
 }
 tbody tr{
     border-bottom:1px solid var(--border);
-} 
+}
 
 .badge{
  position: relative;
  left:66px
    
-} 
+}
 .beginner{ background: rgba(59,130,246,0.08); color: var(--accent); }
 .intermediate{ background: rgba(245,158,11,0.08); color: var(--warning); }
-.expert{ background: rgba(16,185,129,0.08); color: var(--success); } 
+.expert{ background: rgba(16,185,129,0.08); color: var(--success); }
 
 .actions{
   position: relative;

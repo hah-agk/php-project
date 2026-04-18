@@ -1,6 +1,6 @@
 <?php
-require 'component/opendb.php';
-require 'component/function.php';
+require_once 'component/opendb.php';
+require_once 'component/function.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 
@@ -18,8 +18,8 @@ if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
 // }
 
  $mID   =  $_SESSION['managerID'];
- $tasks=show_task($pdo ,$mID);
- $Ctasks=show_task_completed($pdo ,$mID);
+ $tasks=showTask($pdo ,$mID);
+ $Ctasks=showTaskCompleted($pdo ,$mID);
 
  if($mID){
     $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_M = ?");
@@ -68,11 +68,11 @@ $stmt->execute([$mID]);
 $managerName = $stmt->fetchColumn();
 
 $welcomeText = "Welcome, $managerName! 👋";
-if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == 1) {
     $h1 = "Welcome back, $managerName! 👋";
     $p= "Here's what's happening with your tasks today.";
 }
-if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
+if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == 1) {
         $h1 = "Welcome, $managerName! 👋";
         $p= "Your account has been created successfully.";
 }
@@ -96,7 +96,7 @@ $stmt->execute([$mID]);
 $totalTasks = $stmt->fetchColumn();
 
 // Fetch completed tasks for the manager
-$sql = "SELECT COUNT(*) FROM task 
+$sql = "SELECT COUNT(*) FROM task
         WHERE manager_id = ? AND status = 'completed'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$mID]);
@@ -247,7 +247,7 @@ $inReviewTasks = $stmt->fetchColumn();
                         </thead>
                         <tbody>
                         <?php
-                                 if (!empty($tasks)) { 
+                                 if (!empty($tasks)) {
                                     foreach ($tasks as $task) { ?>
                                 <tr>
                                     <td><?= htmlspecialchars($task['id_T']) ?></td>
@@ -262,16 +262,16 @@ $inReviewTasks = $stmt->fetchColumn();
                                     <td><?= htmlspecialchars($task['manager_id']) ?></td>
                                     <td>
                                     <td>
-                                          <a class="btn btn-sm btn-outline-primary" 
+                                          <a class="btn btn-sm btn-outline-primary"
                                            href ="edit_delete_task.php?edit=1&id=<?= $task['id_T'] ?>">
                                           <i class="fas fa-edit"></i>
                                             </a>
-                                            <a class="btn btn-sm btn-outline-danger" 
+                                            <a class="btn btn-sm btn-outline-danger"
                                             href="edit_delete_task.php?delete=1&id=<?= $task['id_T'] ?>">
                                           <i class="fas fa-trash"></i>
                                             </a>
                                 </tr>
-                        <?php 
+                        <?php
                                     }
                                 }else {
                                     echo "<tr><td colspan='7'>No tasks found.</td></tr>";
@@ -310,7 +310,7 @@ $inReviewTasks = $stmt->fetchColumn();
                         </thead>
                         <tbody>
                         <?php
-                                 if (!empty($Ctasks)) { 
+                                 if (!empty($Ctasks)) {
                                     foreach ($Ctasks as $task) { ?>
                                 <tr>
                                     <td><?= htmlspecialchars($task['id_T']) ?></td>
@@ -324,7 +324,7 @@ $inReviewTasks = $stmt->fetchColumn();
 
                                     <td><?= htmlspecialchars($task['manager_id']) ?></td>
                                 </tr>
-                        <?php 
+                        <?php
                                     }
                                 }else {
                                     echo "<tr><td colspan='7'>No tasks found.</td></tr>";

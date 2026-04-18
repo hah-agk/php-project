@@ -1,7 +1,7 @@
 <?php
 session_start();
 $theme = $_SESSION['theme'] ?? 'light';
-require '../component/opendb.php';
+require_once '../component/opendb.php';
 
 if (!isset($_SESSION['userID'])) {
     header("Location: signup.php");
@@ -11,7 +11,7 @@ if (!isset($_SESSION['userID'])) {
 $userID = (int)$_SESSION['userID'];
 
 $stmt = $pdo->prepare("
-SELECT 
+SELECT
     t.id_T,
     t.Title_T,
     t.status,
@@ -113,7 +113,7 @@ html[data-theme="dark"] {
     --badge-rejected: #f87171;
     --success-hover: #059669;
 }
-body{font-family:Inter,Arial;background:var(--bg); color:var(--text-color); margin:0} 
+body{font-family:Inter,Arial;background:var(--bg); color:var(--text-color); margin:0}
 .wrap{max-width:1200px;
     margin:28px auto;
     padding:0 18px;}
@@ -166,7 +166,7 @@ table{
     border-collapse:collapse;
     border:1px solid var(--border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-} 
+}
 table:hover{
 transform: translateY(-8px);
 }
@@ -211,7 +211,7 @@ tr:not(:last-child) td{border-bottom:1px solid var(--border)}
     border-radius:16px;
     border:1px solid var(--border);
     box-shadow:var(--shadow);
-} 
+}
 
 .label{font-weight:800;color:var(--text-color)}
 

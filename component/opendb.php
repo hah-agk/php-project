@@ -1,13 +1,9 @@
 <?php
-$databaseUrl = "mysql://root:oNJAWOcqGcPkTNNtLQFbbBKzHWCWWgXS@yamabiko.proxy.rlwy.net:19029/railway";
-
-$db = parse_url($databaseUrl);
-
-$host = $db['host'];      // yamabiko.proxy.rlwy.net
-$port = $db['port'];      // 19029
-$user = $db['user'];      // root
-$pass = $db['pass'];      // كلمة المرور
-$name = ltrim($db['path'], '/'); // railway
+$host = 'localhost';
+$port = 3306;
+$user = 'root';
+$pass = '';
+$name = 'project';
 
 try {
     $pdo = new PDO(
@@ -20,5 +16,5 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    die("❌ Database connection failed: " . $e->getMessage());
+    die('Database connection failed: ' . $e->getMessage());
 }

@@ -1,16 +1,16 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 // USER ONLY ACCESS
-// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php?errr=7");
-//     exit();
-// }
+if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header("Location: signup.php?errr=7");
+    exit();
+}
 
-// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
-//     header("Location: user.php");
-//     exit();
-// }
+if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== "users") {
+    header("Location: user.php");
+    exit();
+}
 $theme = $_SESSION['theme'] ?? 'light';
 
 if (isset($_POST['logout'])) {
@@ -32,11 +32,11 @@ $stmt->execute([$userID]);
 $userName = $stmt->fetchColumn();
 
 $welcomeText = "Welcome, $userName! 👋";
-if (isset($_COOKIE['login']) && $_COOKIE['login'] == true) {
+if (isset($_COOKIE['login']) && $_COOKIE['login'] == 1) {
     $h1 = "Welcome back, $userName! 👋";
     $p= "Here's what's happening with your tasks today.";
 }
-if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == true) {
+if (isset($_COOKIE['signup']) && $_COOKIE['signup'] == 1) {
         $h1 = "Welcome, $userName! 👋";
         $p= "Your account has been created successfully.";
 }
@@ -56,11 +56,11 @@ $balance = $stmt->fetchColumn();
 // Fetch total tasks for the user
 $sql = "SELECT COUNT(*) FROM task WHERE user_id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$userID]);   
+$stmt->execute([$userID]);
 $totalTasks = $stmt->fetchColumn();
 
 // Fetch completed tasks for the user
-$sql = "SELECT COUNT(*) FROM task 
+$sql = "SELECT COUNT(*) FROM task
         WHERE user_id = ? AND status = 'completed'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$userID]);
@@ -70,9 +70,9 @@ $completedTasks = $stmt->fetchColumn();
 $sql = "
 SELECT COUNT(DISTINCT t.id_T)
 FROM task t
-JOIN skills s 
+JOIN skills s
     ON s.skill_name = t.required_skill
-WHERE 
+WHERE
     t.user_id IS NULL
     AND t.status = 'pending'
     AND s.user_id = ?
@@ -205,7 +205,7 @@ $totalSkills = $stmt->fetchColumn();
            
                 <a href="user/add_skill.php" class="action-btn ">
                     <i class="fas fa-plus"></i>
-                    add skills 
+                    add skills
                 </a>
                 <button class="action-btn secondary">
                     <i class="fa-solid fa-pen-to-square"></i>

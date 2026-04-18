@@ -1,6 +1,6 @@
-<?php 
-session_start(); 
-require 'component/opendb.php';
+<?php
+session_start();
+require_once 'component/opendb.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description']);
     $bounty = trim($_POST['bounty']);
     $end_time = trim($_POST['end_time']);
-    $skill = ($_POST['required_skill'] === "Other") 
+    $skill = ($_POST['required_skill'] === "Other")
              ? $_POST['other_skill']
              : $_POST['required_skill'];
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $sql = "UPDATE task 
+    $sql = "UPDATE task
             SET Title_T = ?, description = ?, bounty = ?, End_Time = ?, required_skill = ?
             WHERE id_T = ?";
 
@@ -102,9 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Task Title
                         <span class="required"></span>
                     </label>
-                    <input type="text" 
-                           name="title" 
-                           class="form-control" 
+                    <input type="text"
+                           name="title"
+                           class="form-control"
                            placeholder="Enter task title..."
                            required>
                 </div>
@@ -116,8 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Description
                         <span class="required"></span>
                     </label>
-                    <textarea name="description" 
-                              class="form-control" 
+                    <textarea name="description"
+                              class="form-control"
                               placeholder="Provide a detailed description of the task..."
                               required></textarea>
                 </div>
@@ -129,10 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Bounty Amount
                         <span class="required"></span>
                     </label>
-                    <input type="number" 
-                           step="5" 
-                           name="bounty" 
-                           class="form-control" 
+                    <input type="number"
+                           step="5"
+                           name="bounty"
+                           class="form-control"
                            placeholder="Enter bounty amount..."
                            min="0"
                            required>
@@ -145,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         End Date
                         <span class="required"></span>
                     </label>
-                    <input type="date" 
-                           name="end_time" 
+                    <input type="date"
+                           name="end_time"
                            class="form-control"
                            required>
                 </div>
@@ -158,9 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Required Skill
                         <span class="required"></span>
                     </label>
-                    <select name="required_skill" 
-                            id="skillSelect" 
-                            class="form-select" 
+                    <select name="required_skill"
+                            id="skillSelect"
+                            class="form-select"
                             onchange="toggleOtherSkill()"
                             required>
                         <option value="">Select a skill...</option>
@@ -175,11 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="Other">Other (Custom)</option>
                     </select>
                     
-                    <input type="text" 
-                           name="other_skill" 
-                           id="otherSkillBox" 
+                    <input type="text"
+                           name="other_skill"
+                           id="otherSkillBox"
                            class="form-control"
-                           placeholder="Enter custom skill..." 
+                           placeholder="Enter custom skill..."
                            style="display:none;">
                 </div>
 
