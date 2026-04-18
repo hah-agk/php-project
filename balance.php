@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 
 $managerID = $_SESSION['managerID'];
 $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_m = ?");

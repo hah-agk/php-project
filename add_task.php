@@ -1,71 +1,76 @@
 <?php
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 session_start();
 
-// if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
-//     header("Location: signup.php");
-//     exit;
-// }
-// if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'manager') {
-//     header("Location: signup.php");
-//     exit;
-// }
+class InsufficientBalanceException extends Exception {}
+const SIGNUP_REDIRECT = 'Location: signup.php';
+
+if (!isset($_SESSION['LoggedIn']) || $_SESSION['LoggedIn'] !== true) {
+    header(SIGNUP_REDIRECT);
+    exit;
+}
+
+if (!isset($_SESSION['UorM']) || $_SESSION['UorM'] !== 'manager') {
+    header(SIGNUP_REDIRECT);
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
- $title_T= trim($_POST['title']);
- $description= trim($_POST['description']);
- $bounty= trim($_POST['bounty']);
- $start_time= trim($_POST['start_time']);
- $end_time= trim($_POST['end_time']);
- $skill = ($_POST['required_skill'] === "Other") 
-         ? $_POST['other_skill'] 
-         : $_POST['required_skill'];
-
+    $title_T = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    $bounty = trim($_POST['bounty']);
+    $start_time = trim($_POST['start_time']);
+    $end_time = trim($_POST['end_time']);
+    $skill = ($_POST['required_skill'] === "Other")
+        ? $_POST['other_skill']
+        : $_POST['required_skill'];
 
     if (!isset($title_T) || empty(trim($title_T))
         || !isset($description) || empty(trim($description))
         || !isset($start_time) || empty(trim($start_time))
         || !isset($end_time) || empty(trim($end_time))
         || !isset($skill) || empty(trim($skill))
-        ||  !isset($bounty) || empty(trim($bounty)) 
+        || !isset($bounty) || empty(trim($bounty))
     ) {
         header("location: add_task.php?error=1");
         exit();
     }
+
     if ($bounty < 0) {
         header("location: add_task.php?error=2");
         exit();
     }
-   if (!isset($_SESSION['managerID'])) {
-    header("Location: signup.php");
-    exit();
-}
+
+    if (!isset($_SESSION['managerID'])) {
+        header(SIGNUP_REDIRECT);
+        exit();
+    }
 
 $mid = $_SESSION['managerID'];
 
 try {
     $pdo->beginTransaction();
 
-// check manager balance
+    // check manager balance
     $stmt = $pdo->prepare("SELECT salary FROM manager WHERE id_m = ?");
     $stmt->execute([$mid]);
     $salary = $stmt->fetchColumn();
 
     if ($salary === false || $bounty > $salary) {
-        throw new Exception("Not enough balance");
+        throw new InsufficientBalanceException("Not enough balance");
     }
 
-// transfer salary from manager
+    // transfer salary from manager
     $stmt = $pdo->prepare("
-        UPDATE manager 
+        UPDATE manager
         SET salary = salary - ?
         WHERE id_m = ?
     ");
     $stmt->execute([$bounty, $mid]);
 
-// insert task
+    // insert task
     $stmt = $pdo->prepare("
-        INSERT INTO task 
+        INSERT INTO task
         (Title_T, description, bounty, Start_Time, End_Time, required_skill, manager_id, status)
         VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')
     ");
@@ -84,10 +89,14 @@ try {
     header("Location: manager.php");
     exit();
 
+} catch (InsufficientBalanceException $e) {
+    $pdo->rollBack();
+    header("Location: add_task.php?error=2");
+    exit();
+
 } catch (Exception $e) {
     $pdo->rollBack();
-    header("Location: add_task.php?error=3");
-    exit();
+    throw $e;
 }
 }
 
@@ -135,9 +144,9 @@ $theme = $_SESSION['theme'] ?? 'light';
                         Task Title
                         <span class="required"></span>
                     </label>
-                    <input type="text" 
-                           name="title" 
-                           class="form-control" 
+                    <input type="text"
+                           name="title"
+                           class="form-control"
                            placeholder="Enter task title..."
                            required>
                 </div>
@@ -149,8 +158,8 @@ $theme = $_SESSION['theme'] ?? 'light';
                         Description
                         <span class="required"></span>
                     </label>
-                    <textarea name="description" 
-                              class="form-control" 
+                    <textarea name="description"
+                              class="form-control"
                               placeholder="Provide a detailed description of the task..."
                               required></textarea>
                 </div>
@@ -162,10 +171,10 @@ $theme = $_SESSION['theme'] ?? 'light';
                         Bounty Amount
                         <span class="required"></span>
                     </label>
-                    <input type="number" 
-                           step="5" 
-                           name="bounty" 
-                           class="form-control" 
+                    <input type="number"
+                           step="5"
+                           name="bounty"
+                           class="form-control"
                            placeholder="Enter bounty amount..."
                            min="0"
                            required>
@@ -177,8 +186,8 @@ $theme = $_SESSION['theme'] ?? 'light';
                         Start Date
                         <span class="required"></span>
                     </label>
-                    <input type="date" 
-                           name="start_time" 
+                    <input type="date"
+                           name="start_time"
                            class="form-control"
                            required>
                 </div>
@@ -190,8 +199,8 @@ $theme = $_SESSION['theme'] ?? 'light';
                         End Date
                         <span class="required"></span>
                     </label>
-                    <input type="date" 
-                           name="end_time" 
+                    <input type="date"
+                           name="end_time"
                            class="form-control"
                            required>
                 </div>
@@ -203,9 +212,9 @@ $theme = $_SESSION['theme'] ?? 'light';
                         Required Skill
                         <span class="required"></span>
                     </label>
-                    <select name="required_skill" 
-                            id="skillSelect" 
-                            class="form-select" 
+                    <select name="required_skill"
+                            id="skillSelect"
+                            class="form-select"
                             onchange="toggleOtherSkill()"
                             required>
                         <option value="">Select a skill...</option>
@@ -220,11 +229,11 @@ $theme = $_SESSION['theme'] ?? 'light';
                         <option value="Other">Other (Custom)</option>
                     </select>
                     
-                    <input type="text" 
-                           name="other_skill" 
-                           id="otherSkillBox" 
+                    <input type="text"
+                           name="other_skill"
+                           id="otherSkillBox"
                            class="form-control"
-                           placeholder="Enter custom skill..." 
+                           placeholder="Enter custom skill..."
                            style="display:none;">
                 </div>
 

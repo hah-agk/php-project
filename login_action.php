@@ -1,9 +1,10 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
-    die("Wrong Method");
+    header("Location: signup.php");
+    exit();
 }
 
 $email=htmlspecialchars($_POST['email']);

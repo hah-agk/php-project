@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 
 if (!isset($_SESSION['managerID'])) {
     die("Not authorized.");
@@ -33,8 +33,8 @@ try {
 
     // Update balance
     $stmt = $pdo->prepare(
-        "UPDATE manager 
-         SET salary = salary + ? 
+        "UPDATE manager
+         SET salary = salary + ?
          WHERE id_m = ?"
     );
     $stmt->execute([$amount, $managerID]);

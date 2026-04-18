@@ -1,10 +1,10 @@
 <?php
 session_start();
-  if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+  if (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == 1
       &&  isset($_SESSION['UorM']) && $_SESSION['UorM'] == "manager") {
           header("Location: manager.php");
           exit();
-      }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == true 
+      }elseif (isset($_SESSION['LoggedIn']) && $_SESSION['LoggedIn'] == 1
       &&  isset($_SESSION['UorM']) && $_SESSION['UorM']=="users") {
           header("Location: user.php");
           exit();
@@ -80,7 +80,10 @@ if (isset($_GET['errr'])) {
             echo "Password must be at least 8 characters long";
             break;
         case 4:
-            echo "Email already exists";    
+            echo "Email already exists";
+            break;
+        default:
+            echo "Unknown error";
             break;
     }
 }
@@ -111,7 +114,7 @@ $_SESSION['address']="";
                     <label></label>
                 </div>
                 <a href="#" class="forgot">Forgot your password?</a>
-                <input type="submit" value="signIn"  class="btn"/>  
+                <input type="submit" value="signIn"  class="btn"/>
             </form>
 
             <div style="color: red;" class="error">
@@ -127,6 +130,10 @@ $_SESSION['address']="";
                             break;
                         case 3:
                             echo " Failed to login , Contact admin";
+                            break;
+                        default:
+                            echo "Unknown error";
+                            break;
                     }
                 }
                     $_SESSION['Lemail']="";

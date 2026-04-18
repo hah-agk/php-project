@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../component/opendb.php';
+require_once '../component/opendb.php';
 $theme = $_SESSION['theme'] ?? 'light';
 
 if (!isset($_SESSION['userID'])) {
@@ -19,11 +19,11 @@ SELECT DISTINCT
     t.required_skill,
     m.name AS manager_name
 FROM task t
-JOIN manager m 
+JOIN manager m
     ON t.manager_id = m.id_m
 JOIN skills s
     ON s.skill_name = t.required_skill
-WHERE 
+WHERE
     t.status = 'pending'
     AND t.user_id IS NULL
     AND s.user_id = ?
@@ -83,7 +83,7 @@ body{
     color:var(--text-color);
     margin:0;
     padding:20px
-} 
+}
 .btn-back{
     display:inline-block;
     margin:10px 0 20px;
@@ -99,7 +99,7 @@ body{
 .btn-back:hover{
     background:linear-gradient(90deg,var(--accent),var(--accent-hover));
     color:#fff;
-} 
+}
 .tasks-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
@@ -114,7 +114,7 @@ body{
 }
 .task-card h3{
     margin:0 0 10px
-} 
+}
 .task-meta{
     font-size:14px;
     color:var(--text-secondary);
@@ -137,7 +137,7 @@ body{
 }
 .btn-apply:hover{
     opacity:.95
-} 
+}
 .empty{
     background:var(--card-bg);
     padding:30px;
@@ -181,7 +181,7 @@ body{
 .search-s:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.06);
-} 
+}
 
 .search-icon {
     position: absolute;

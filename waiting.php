@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 
 if (!isset($_SESSION['wait_email'])) {
     header("Location: signup.php");
@@ -58,7 +58,6 @@ if ($request['status'] === 'approved') {
 }
 ?>
 <!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 <title>Waiting Approval</title>

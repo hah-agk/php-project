@@ -1,5 +1,5 @@
 <?php
-require 'component/opendb.php';
+require_once'component/opendb.php';
 session_start();
 $theme = $_SESSION['theme'] ?? 'light';
 

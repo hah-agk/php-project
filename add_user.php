@@ -1,5 +1,5 @@
 <?php
-require 'component/opendb.php';
+require_once 'component/opendb.php';
 session_start();
 $theme = $_SESSION['theme'] ?? 'light';
 
@@ -44,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     try {
-        $sql = "INSERT INTO users 
+        $sql = "INSERT INTO users
                 (FullName, phone, address, salary, email, password)
-                VALUES 
+                VALUES
                 (:name, :phone, :address, :salary, :email, :password)";
 
         $stmt = $pdo->prepare($sql);
